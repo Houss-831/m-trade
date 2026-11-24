@@ -3,6 +3,9 @@ name: M-TRADE - bot autonome (paper)
 on:
   schedule:
     - cron: "17 */2 * * *"     # toutes les 2 heures, 7j/7 (heure UTC)
+  push:                         # se lance tout seul quand le code du bot est mis à jour
+    branches: [main]
+    paths-ignore: ["data/**", "docs/**", "README.md"]
   workflow_dispatch:            # bouton "Run workflow" pour le lancer à la main
     inputs:
       rejouer:
@@ -33,9 +36,13 @@ jobs:
       - name: Installer les dépendances
         run: pip install -r requirements.txt
 
-      - name: Rejouer l'historique (premier lancement)
-        if: ${{ github.event.inputs.rejouer != '' && github.event.inputs.rejouer != '0' }}
-        run: python main.py replay --days ${{ github.event.inputs.rejouer }}
+      - name: Rejouer l'historique (premier lancement automatique, ou à la demande)
+        run: |
+          N="${{ github.event.inputs.rejouer }}"
+          if [ -z "$N" ] || [ "$N" = "0" ]; then
+            if [ ! -f data/portfolio.json ]; then N=120; else N=0; fi
+          fi
+          if [ "$N" != "0" ]; then python main.py replay --days "$N"; fi
 
       - name: Backtest sur les vrais cours
         if: ${{ github.event.inputs.backtest == 'oui' }}
