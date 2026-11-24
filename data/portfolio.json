@@ -1,0 +1,2369 @@
+{
+  "cash": 9742.746525916014,
+  "positions": {},
+  "start_value": 10000.0,
+  "created": "2026-11-24T14:06:10",
+  "history": [
+    {
+      "date": "2026-07-28T18:00:00",
+      "value": 9994.02
+    },
+    {
+      "date": "2026-07-29T18:00:00",
+      "value": 9922.91
+    },
+    {
+      "date": "2026-07-30T18:00:00",
+      "value": 9973.42
+    },
+    {
+      "date": "2026-07-31T18:00:00",
+      "value": 10056.76
+    },
+    {
+      "date": "2026-08-01T18:00:00",
+      "value": 10056.76
+    },
+    {
+      "date": "2026-08-02T18:00:00",
+      "value": 10056.76
+    },
+    {
+      "date": "2026-08-03T18:00:00",
+      "value": 10122.59
+    },
+    {
+      "date": "2026-08-04T18:00:00",
+      "value": 10196.31
+    },
+    {
+      "date": "2026-08-05T18:00:00",
+      "value": 10208.86
+    },
+    {
+      "date": "2026-08-06T18:00:00",
+      "value": 10198.18
+    },
+    {
+      "date": "2026-08-07T18:00:00",
+      "value": 10226.67
+    },
+    {
+      "date": "2026-08-08T18:00:00",
+      "value": 10226.67
+    },
+    {
+      "date": "2026-08-09T18:00:00",
+      "value": 10226.22
+    },
+    {
+      "date": "2026-08-10T18:00:00",
+      "value": 10224.39
+    },
+    {
+      "date": "2026-08-11T18:00:00",
+      "value": 10219.12
+    },
+    {
+      "date": "2026-08-12T18:00:00",
+      "value": 10224.33
+    },
+    {
+      "date": "2026-08-13T18:00:00",
+      "value": 10236.88
+    },
+    {
+      "date": "2026-08-14T18:00:00",
+      "value": 10233.75
+    },
+    {
+      "date": "2026-08-15T18:00:00",
+      "value": 10233.75
+    },
+    {
+      "date": "2026-08-16T18:00:00",
+      "value": 10233.75
+    },
+    {
+      "date": "2026-08-17T18:00:00",
+      "value": 10206.8
+    },
+    {
+      "date": "2026-08-18T18:00:00",
+      "value": 10163.4
+    },
+    {
+      "date": "2026-08-19T18:00:00",
+      "value": 10118.48
+    },
+    {
+      "date": "2026-08-20T18:00:00",
+      "value": 10136.49
+    },
+    {
+      "date": "2026-08-21T18:00:00",
+      "value": 10125.66
+    },
+    {
+      "date": "2026-08-22T18:00:00",
+      "value": 10125.32
+    },
+    {
+      "date": "2026-08-23T18:00:00",
+      "value": 10122.57
+    },
+    {
+      "date": "2026-08-24T18:00:00",
+      "value": 10098.04
+    },
+    {
+      "date": "2026-08-25T18:00:00",
+      "value": 10122.22
+    },
+    {
+      "date": "2026-08-26T18:00:00",
+      "value": 10127.8
+    },
+    {
+      "date": "2026-08-27T18:00:00",
+      "value": 10161.68
+    },
+    {
+      "date": "2026-08-28T18:00:00",
+      "value": 10129.4
+    },
+    {
+      "date": "2026-08-29T18:00:00",
+      "value": 10137.12
+    },
+    {
+      "date": "2026-08-30T18:00:00",
+      "value": 10114.15
+    },
+    {
+      "date": "2026-08-31T18:00:00",
+      "value": 10105.89
+    },
+    {
+      "date": "2026-09-01T18:00:00",
+      "value": 10074.71
+    },
+    {
+      "date": "2026-09-02T18:00:00",
+      "value": 10052.71
+    },
+    {
+      "date": "2026-09-03T18:00:00",
+      "value": 10104.08
+    },
+    {
+      "date": "2026-09-04T18:00:00",
+      "value": 10074.04
+    },
+    {
+      "date": "2026-09-05T18:00:00",
+      "value": 10081.32
+    },
+    {
+      "date": "2026-09-06T18:00:00",
+      "value": 10100.12
+    },
+    {
+      "date": "2026-09-07T18:00:00",
+      "value": 10082.51
+    },
+    {
+      "date": "2026-09-08T18:00:00",
+      "value": 10058.17
+    },
+    {
+      "date": "2026-09-09T18:00:00",
+      "value": 10013.29
+    },
+    {
+      "date": "2026-09-10T18:00:00",
+      "value": 10064.42
+    },
+    {
+      "date": "2026-09-11T18:00:00",
+      "value": 10009.82
+    },
+    {
+      "date": "2026-09-12T18:00:00",
+      "value": 10013.5
+    },
+    {
+      "date": "2026-09-13T18:00:00",
+      "value": 9995.43
+    },
+    {
+      "date": "2026-09-14T18:00:00",
+      "value": 10036.75
+    },
+    {
+      "date": "2026-09-15T18:00:00",
+      "value": 10075.17
+    },
+    {
+      "date": "2026-09-16T18:00:00",
+      "value": 10031.2
+    },
+    {
+      "date": "2026-09-17T18:00:00",
+      "value": 10091.4
+    },
+    {
+      "date": "2026-09-18T18:00:00",
+      "value": 10116.83
+    },
+    {
+      "date": "2026-09-19T18:00:00",
+      "value": 10111.37
+    },
+    {
+      "date": "2026-09-20T18:00:00",
+      "value": 10114.13
+    },
+    {
+      "date": "2026-09-21T18:00:00",
+      "value": 10273.94
+    },
+    {
+      "date": "2026-09-22T18:00:00",
+      "value": 10271.87
+    },
+    {
+      "date": "2026-09-23T18:00:00",
+      "value": 10204.27
+    },
+    {
+      "date": "2026-09-24T18:00:00",
+      "value": 10259.08
+    },
+    {
+      "date": "2026-09-25T18:00:00",
+      "value": 10319.46
+    },
+    {
+      "date": "2026-09-26T18:00:00",
+      "value": 10320.19
+    },
+    {
+      "date": "2026-09-27T18:00:00",
+      "value": 10322.54
+    },
+    {
+      "date": "2026-09-28T18:00:00",
+      "value": 10276.04
+    },
+    {
+      "date": "2026-09-29T18:00:00",
+      "value": 10266.25
+    },
+    {
+      "date": "2026-09-30T18:00:00",
+      "value": 10310.56
+    },
+    {
+      "date": "2026-10-01T18:00:00",
+      "value": 10394.71
+    },
+    {
+      "date": "2026-10-02T18:00:00",
+      "value": 10415.92
+    },
+    {
+      "date": "2026-10-03T18:00:00",
+      "value": 10429.84
+    },
+    {
+      "date": "2026-10-04T18:00:00",
+      "value": 10467.2
+    },
+    {
+      "date": "2026-10-05T18:00:00",
+      "value": 10484.84
+    },
+    {
+      "date": "2026-10-06T18:00:00",
+      "value": 10525.39
+    },
+    {
+      "date": "2026-10-07T18:00:00",
+      "value": 10402.74
+    },
+    {
+      "date": "2026-10-08T18:00:00",
+      "value": 10341.39
+    },
+    {
+      "date": "2026-10-09T18:00:00",
+      "value": 10349.68
+    },
+    {
+      "date": "2026-10-10T18:00:00",
+      "value": 10349.68
+    },
+    {
+      "date": "2026-10-11T18:00:00",
+      "value": 10349.68
+    },
+    {
+      "date": "2026-10-12T18:00:00",
+      "value": 10343.29
+    },
+    {
+      "date": "2026-10-13T18:00:00",
+      "value": 10383.33
+    },
+    {
+      "date": "2026-10-14T18:00:00",
+      "value": 10284.68
+    },
+    {
+      "date": "2026-10-15T18:00:00",
+      "value": 10267.48
+    },
+    {
+      "date": "2026-10-16T18:00:00",
+      "value": 10306.6
+    },
+    {
+      "date": "2026-10-17T18:00:00",
+      "value": 10299.24
+    },
+    {
+      "date": "2026-10-18T18:00:00",
+      "value": 10312.6
+    },
+    {
+      "date": "2026-10-19T18:00:00",
+      "value": 10351.33
+    },
+    {
+      "date": "2026-10-20T18:00:00",
+      "value": 10356.62
+    },
+    {
+      "date": "2026-10-21T18:00:00",
+      "value": 10322.24
+    },
+    {
+      "date": "2026-10-22T18:00:00",
+      "value": 10196.19
+    },
+    {
+      "date": "2026-10-23T18:00:00",
+      "value": 10185.65
+    },
+    {
+      "date": "2026-10-24T18:00:00",
+      "value": 10170.32
+    },
+    {
+      "date": "2026-10-25T18:00:00",
+      "value": 10153.17
+    },
+    {
+      "date": "2026-10-26T18:00:00",
+      "value": 10150.11
+    },
+    {
+      "date": "2026-10-27T18:00:00",
+      "value": 10133.37
+    },
+    {
+      "date": "2026-10-28T18:00:00",
+      "value": 10200.0
+    },
+    {
+      "date": "2026-10-29T18:00:00",
+      "value": 10151.11
+    },
+    {
+      "date": "2026-10-30T18:00:00",
+      "value": 10128.03
+    },
+    {
+      "date": "2026-10-31T18:00:00",
+      "value": 10123.8
+    },
+    {
+      "date": "2026-11-01T18:00:00",
+      "value": 10124.68
+    },
+    {
+      "date": "2026-11-02T18:00:00",
+      "value": 9976.6
+    },
+    {
+      "date": "2026-11-03T18:00:00",
+      "value": 9979.46
+    },
+    {
+      "date": "2026-11-04T18:00:00",
+      "value": 10112.33
+    },
+    {
+      "date": "2026-11-05T18:00:00",
+      "value": 9883.02
+    },
+    {
+      "date": "2026-11-06T18:00:00",
+      "value": 9856.05
+    },
+    {
+      "date": "2026-11-07T18:00:00",
+      "value": 9856.05
+    },
+    {
+      "date": "2026-11-08T18:00:00",
+      "value": 9856.05
+    },
+    {
+      "date": "2026-11-09T18:00:00",
+      "value": 9853.32
+    },
+    {
+      "date": "2026-11-10T18:00:00",
+      "value": 9815.05
+    },
+    {
+      "date": "2026-11-11T18:00:00",
+      "value": 9832.63
+    },
+    {
+      "date": "2026-11-12T18:00:00",
+      "value": 9843.76
+    },
+    {
+      "date": "2026-11-13T18:00:00",
+      "value": 9842.42
+    },
+    {
+      "date": "2026-11-14T18:00:00",
+      "value": 9840.72
+    },
+    {
+      "date": "2026-11-15T18:00:00",
+      "value": 9840.72
+    },
+    {
+      "date": "2026-11-16T18:00:00",
+      "value": 9806.34
+    },
+    {
+      "date": "2026-11-17T18:00:00",
+      "value": 9742.75
+    },
+    {
+      "date": "2026-11-18T18:00:00",
+      "value": 9742.75
+    },
+    {
+      "date": "2026-11-19T18:00:00",
+      "value": 9742.75
+    },
+    {
+      "date": "2026-11-20T18:00:00",
+      "value": 9742.75
+    },
+    {
+      "date": "2026-11-21T18:00:00",
+      "value": 9742.75
+    },
+    {
+      "date": "2026-11-22T18:00:00",
+      "value": 9742.75
+    },
+    {
+      "date": "2026-11-23T18:00:00",
+      "value": 9742.75
+    },
+    {
+      "date": "2026-11-24T18:00:00",
+      "value": 9742.75
+    },
+    {
+      "date": "2026-11-24T14:06:52",
+      "value": 9742.75
+    }
+  ],
+  "peaks": {},
+  "cooldown": {},
+  "tp": {},
+  "breaker": {
+    "drawdown": -0.074357669795037,
+    "factor": 1.0
+  },
+  "day": {
+    "date": "2026-11-24",
+    "start": 9742.746525916014,
+    "halted": false
+  },
+  "risk_budget": {
+    "day_pnl": 0.0,
+    "max_loss_day": null,
+    "budget_left": null,
+    "var95": null,
+    "max_loss_total": null,
+    "invest_max": null,
+    "halted_day": false,
+    "halted_total": false
+  },
+  "last_leader": "macd",
+  "last_stress": 1.0,
+  "thermo_last": 56.1,
+  "last_signals": {
+    "^FCHI": {
+      "action": "\u00c9VITER / SORTIR",
+      "score": -0.3190007155766286,
+      "rsi": 45.68482542892945,
+      "adx": 27.022838737233524
+    },
+    "^GDAXI": {
+      "action": "\u00c9VITER / SORTIR",
+      "score": -0.26384710795592414,
+      "rsi": 39.19202631961103,
+      "adx": 23.822885109734784
+    },
+    "^GSPC": {
+      "action": "NEUTRE",
+      "score": -0.05040824779381898,
+      "rsi": 47.05194500982396,
+      "adx": 19.880869243810466
+    },
+    "^IXIC": {
+      "action": "NEUTRE",
+      "score": -0.1108013065763861,
+      "rsi": 47.10301183922616,
+      "adx": 21.214340380676486
+    },
+    "^N225": {
+      "action": "\u00c9VITER / SORTIR",
+      "score": -0.4832003655308902,
+      "rsi": 46.26506477004316,
+      "adx": 25.275105863144717
+    },
+    "BTC-USD": {
+      "action": "\u00c9VITER / SORTIR",
+      "score": -0.3714570123286679,
+      "rsi": 27.628939452726613,
+      "adx": 36.282258084722386
+    },
+    "ETH-USD": {
+      "action": "\u00c9VITER / SORTIR",
+      "score": -0.37716374340017383,
+      "rsi": 30.51033904658479,
+      "adx": 36.77121967070101
+    },
+    "SOL-USD": {
+      "action": "\u00c9VITER / SORTIR",
+      "score": -0.32383373739646815,
+      "rsi": 31.11321098984486,
+      "adx": 39.98306671536342
+    },
+    "GC=F": {
+      "action": "\u00c9VITER / SORTIR",
+      "score": -0.5198369937084846,
+      "rsi": 35.49491801582235,
+      "adx": 27.37905264805246
+    },
+    "CL=F": {
+      "action": "\u00c9VITER / SORTIR",
+      "score": -0.3434499868400257,
+      "rsi": 31.400626386475196,
+      "adx": 27.65871252931469
+    }
+  },
+  "stop_alerted": [],
+  "feed": [
+    {
+      "date": "2026-10-07T18:00",
+      "kind": "risk:stop",
+      "level": "important",
+      "title": "Bouclier : stop d\u00e9clench\u00e9",
+      "text": "stop suiveur touch\u00e9 : prix 2,286.86 sous le stop 2,326.30 (plus haut 2,423.59 moins 3 ATR)",
+      "symbol": "ETH-USD"
+    },
+    {
+      "date": "2026-10-07T18:00",
+      "kind": "risk:stop",
+      "level": "important",
+      "title": "Bouclier : stop d\u00e9clench\u00e9",
+      "text": "stop suiveur touch\u00e9 : prix 73,999.82 sous le stop 74,251.04 (plus haut 76,872.34 moins 3 ATR)",
+      "symbol": "BTC-USD"
+    },
+    {
+      "date": "2026-10-08T18:00",
+      "kind": "rsi",
+      "level": "attention",
+      "title": "CAC 40 survendu",
+      "text": "RSI 24 : rebond technique possible",
+      "symbol": "^FCHI"
+    },
+    {
+      "date": "2026-10-08T18:00",
+      "kind": "risk:stop",
+      "level": "important",
+      "title": "Bouclier : stop d\u00e9clench\u00e9",
+      "text": "stop suiveur touch\u00e9 : prix 97.70 sous le stop 101.53 (plus haut 108.03 moins 3 ATR)",
+      "symbol": "SOL-USD"
+    },
+    {
+      "date": "2026-10-09T18:00",
+      "kind": "risk:stop",
+      "level": "important",
+      "title": "Bouclier : stop d\u00e9clench\u00e9",
+      "text": "stop suiveur touch\u00e9 : prix 389.48 sous le stop 389.80 (plus haut 398.92 moins 3 ATR)",
+      "symbol": "^N225"
+    },
+    {
+      "date": "2026-10-09T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "CAC 40 : \u00c9toile du matin",
+      "text": "Rouge, petite ind\u00e9cision, puis forte verte : retournement haussier en trois temps. Signal haussier pris en compte par le conseil.",
+      "symbol": "^FCHI"
+    },
+    {
+      "date": "2026-10-10T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "CAC 40 : \u00c9toile du matin",
+      "text": "Rouge, petite ind\u00e9cision, puis forte verte : retournement haussier en trois temps. Signal haussier pris en compte par le conseil.",
+      "symbol": "^FCHI"
+    },
+    {
+      "date": "2026-10-11T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "CAC 40 : \u00c9toile du matin",
+      "text": "Rouge, petite ind\u00e9cision, puis forte verte : retournement haussier en trois temps. Signal haussier pris en compte par le conseil.",
+      "symbol": "^FCHI"
+    },
+    {
+      "date": "2026-10-12T18:00",
+      "kind": "decision",
+      "level": "attention",
+      "title": "DAX : \u00e9viter / sortir \u2192 neutre",
+      "text": "score -0.33 \u2192 -0.22. Cassure de canal vote vente (-0.47, poids 42%)",
+      "symbol": "^GDAXI"
+    },
+    {
+      "date": "2026-10-12T18:00",
+      "kind": "decision",
+      "level": "attention",
+      "title": "Ethereum : achat \u2192 neutre",
+      "text": "score +0.54 \u2192 +0.23. Tendance de fond vote achat (+1.00, poids 7%)",
+      "symbol": "ETH-USD"
+    },
+    {
+      "date": "2026-10-12T18:00",
+      "kind": "decision",
+      "level": "important",
+      "title": "P\u00e9trole WTI : neutre \u2192 achat",
+      "text": "score +0.20 \u2192 +0.27. Cassure de canal vote achat (+0.25, poids 42%)",
+      "symbol": "CL=F"
+    },
+    {
+      "date": "2026-10-13T18:00",
+      "kind": "decision",
+      "level": "important",
+      "title": "Ethereum : neutre \u2192 achat",
+      "text": "score +0.23 \u2192 +0.27. Tendance de fond vote achat (+1.00, poids 7%)",
+      "symbol": "ETH-USD"
+    },
+    {
+      "date": "2026-10-14T18:00",
+      "kind": "decision",
+      "level": "attention",
+      "title": "Ethereum : achat \u2192 neutre",
+      "text": "score +0.27 \u2192 -0.04. Cassure de canal vote vente (-0.47, poids 40%)",
+      "symbol": "ETH-USD"
+    },
+    {
+      "date": "2026-10-14T18:00",
+      "kind": "decision",
+      "level": "attention",
+      "title": "Solana : achat \u2192 conserver",
+      "text": "score +0.35 \u2192 +0.20. Tendance de fond vote achat (+1.00, poids 7%)",
+      "symbol": "SOL-USD"
+    },
+    {
+      "date": "2026-10-14T18:00",
+      "kind": "stop",
+      "level": "attention",
+      "title": "Bitcoin proche de son stop",
+      "text": "\u00e0 1.8% du niveau de sortie automatique",
+      "symbol": "BTC-USD"
+    },
+    {
+      "date": "2026-10-14T18:00",
+      "kind": "risk:stop",
+      "level": "important",
+      "title": "Bouclier : stop d\u00e9clench\u00e9",
+      "text": "stop suiveur touch\u00e9 : prix 23,823.38 sous le stop 24,171.13 (plus haut 24,605.21 moins 3 ATR)",
+      "symbol": "^IXIC"
+    },
+    {
+      "date": "2026-10-14T18:00",
+      "kind": "risk:stop",
+      "level": "important",
+      "title": "Bouclier : stop d\u00e9clench\u00e9",
+      "text": "stop suiveur touch\u00e9 : prix 6,889.15 sous le stop 6,906.48 (plus haut 6,994.00 moins 3 ATR)",
+      "symbol": "^GSPC"
+    },
+    {
+      "date": "2026-10-15T18:00",
+      "kind": "decision",
+      "level": "attention",
+      "title": "Nikkei 225 : achat \u2192 neutre",
+      "text": "score +0.51 \u2192 +0.01. Cassure de canal vote vente (-0.31, poids 39%)",
+      "symbol": "^N225"
+    },
+    {
+      "date": "2026-10-15T18:00",
+      "kind": "decision",
+      "level": "important",
+      "title": "Solana : conserver \u2192 achat",
+      "text": "score +0.20 \u2192 +0.34. Chandeliers japonais vote achat (+0.56, poids 16%)",
+      "symbol": "SOL-USD"
+    },
+    {
+      "date": "2026-10-15T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Ethereum : Marteau",
+      "text": "Longue m\u00e8che basse apr\u00e8s une baisse : les acheteurs ont rejet\u00e9 les plus bas. Signal haussier pris en compte par le conseil.",
+      "symbol": "ETH-USD"
+    },
+    {
+      "date": "2026-10-15T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Solana : Marteau",
+      "text": "Longue m\u00e8che basse apr\u00e8s une baisse : les acheteurs ont rejet\u00e9 les plus bas. Signal haussier pris en compte par le conseil.",
+      "symbol": "SOL-USD"
+    },
+    {
+      "date": "2026-10-16T18:00",
+      "kind": "decision",
+      "level": "attention",
+      "title": "Nasdaq : achat \u2192 neutre",
+      "text": "score +0.42 \u2192 +0.17. RSI court vote achat (+1.00, poids 7%)",
+      "symbol": "^IXIC"
+    },
+    {
+      "date": "2026-10-16T18:00",
+      "kind": "decision",
+      "level": "attention",
+      "title": "Solana : achat \u2192 conserver",
+      "text": "score +0.34 \u2192 +0.20. Tendance de fond vote achat (+1.00, poids 7%)",
+      "symbol": "SOL-USD"
+    },
+    {
+      "date": "2026-10-16T18:00",
+      "kind": "momentum",
+      "level": "info",
+      "title": "P\u00e9trole WTI : la conviction renforce",
+      "text": "score +0.58 \u2192 +0.85",
+      "symbol": "CL=F"
+    },
+    {
+      "date": "2026-10-16T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "P\u00e9trole WTI : Trois soldats blancs",
+      "text": "Trois fortes bougies vertes successives : les acheteurs prennent le contr\u00f4le. Signal haussier pris en compte par le conseil.",
+      "symbol": "CL=F"
+    },
+    {
+      "date": "2026-10-17T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "P\u00e9trole WTI : Trois soldats blancs",
+      "text": "Trois fortes bougies vertes successives : les acheteurs prennent le contr\u00f4le. Signal haussier pris en compte par le conseil.",
+      "symbol": "CL=F"
+    },
+    {
+      "date": "2026-10-18T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Ethereum : Marteau",
+      "text": "Longue m\u00e8che basse apr\u00e8s une baisse : les acheteurs ont rejet\u00e9 les plus bas. Signal haussier pris en compte par le conseil.",
+      "symbol": "ETH-USD"
+    },
+    {
+      "date": "2026-10-18T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Solana : Marteau",
+      "text": "Longue m\u00e8che basse apr\u00e8s une baisse : les acheteurs ont rejet\u00e9 les plus bas. Signal haussier pris en compte par le conseil.",
+      "symbol": "SOL-USD"
+    },
+    {
+      "date": "2026-10-18T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "P\u00e9trole WTI : Trois soldats blancs",
+      "text": "Trois fortes bougies vertes successives : les acheteurs prennent le contr\u00f4le. Signal haussier pris en compte par le conseil.",
+      "symbol": "CL=F"
+    },
+    {
+      "date": "2026-10-19T18:00",
+      "kind": "rsi",
+      "level": "attention",
+      "title": "P\u00e9trole WTI surachet\u00e9",
+      "text": "RSI 76 : risque de repli \u00e0 court terme",
+      "symbol": "CL=F"
+    },
+    {
+      "date": "2026-10-19T18:00",
+      "kind": "risk:tp",
+      "level": "info",
+      "title": "Bouclier : prise de profit",
+      "text": "prise de profit n\u00b01 : +9.8% depuis l'achat (objectif 6 ATR atteint), 25% de la position encaiss\u00e9e, stop remont\u00e9 au prix d'achat",
+      "symbol": "CL=F"
+    },
+    {
+      "date": "2026-10-19T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Nikkei 225 : Marteau",
+      "text": "Longue m\u00e8che basse apr\u00e8s une baisse : les acheteurs ont rejet\u00e9 les plus bas. Signal haussier pris en compte par le conseil.",
+      "symbol": "^N225"
+    },
+    {
+      "date": "2026-10-19T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "P\u00e9trole WTI : Trois soldats blancs",
+      "text": "Trois fortes bougies vertes successives : les acheteurs prennent le contr\u00f4le. Signal haussier pris en compte par le conseil.",
+      "symbol": "CL=F"
+    },
+    {
+      "date": "2026-10-20T18:00",
+      "kind": "decision",
+      "level": "important",
+      "title": "Nasdaq : neutre \u2192 achat",
+      "text": "score +0.11 \u2192 +0.27. Chandeliers japonais vote achat (+0.56, poids 15%)",
+      "symbol": "^IXIC"
+    },
+    {
+      "date": "2026-10-20T18:00",
+      "kind": "decision",
+      "level": "important",
+      "title": "Solana : conserver \u2192 achat",
+      "text": "score +0.21 \u2192 +0.28. Tendance de fond vote achat (+1.00, poids 8%)",
+      "symbol": "SOL-USD"
+    },
+    {
+      "date": "2026-10-20T18:00",
+      "kind": "stop",
+      "level": "attention",
+      "title": "P\u00e9trole WTI proche de son stop",
+      "text": "\u00e0 2.2% du niveau de sortie automatique",
+      "symbol": "CL=F"
+    },
+    {
+      "date": "2026-10-20T18:00",
+      "kind": "stop",
+      "level": "attention",
+      "title": "S&P 500 proche de son stop",
+      "text": "\u00e0 1.2% du niveau de sortie automatique",
+      "symbol": "^GSPC"
+    },
+    {
+      "date": "2026-10-20T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "S&P 500 : Avalement haussier",
+      "text": "Une bougie verte englobe la rouge pr\u00e9c\u00e9dente apr\u00e8s une baisse. Signal haussier pris en compte par le conseil.",
+      "symbol": "^GSPC"
+    },
+    {
+      "date": "2026-10-20T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "S&P 500 : \u00c9toile du matin",
+      "text": "Rouge, petite ind\u00e9cision, puis forte verte : retournement haussier en trois temps. Signal haussier pris en compte par le conseil.",
+      "symbol": "^GSPC"
+    },
+    {
+      "date": "2026-10-20T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Nasdaq : \u00c9toile du matin",
+      "text": "Rouge, petite ind\u00e9cision, puis forte verte : retournement haussier en trois temps. Signal haussier pris en compte par le conseil.",
+      "symbol": "^IXIC"
+    },
+    {
+      "date": "2026-10-20T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "P\u00e9trole WTI : \u00c9toile filante",
+      "text": "Longue m\u00e8che haute apr\u00e8s une hausse : les vendeurs ont rejet\u00e9 les plus hauts. Signal baissier pris en compte par le conseil.",
+      "symbol": "CL=F"
+    },
+    {
+      "date": "2026-10-21T18:00",
+      "kind": "decision",
+      "level": "important",
+      "title": "Ethereum : neutre \u2192 achat",
+      "text": "score +0.15 \u2192 +0.26. Tendance de fond vote achat (+1.00, poids 10%)",
+      "symbol": "ETH-USD"
+    },
+    {
+      "date": "2026-10-21T18:00",
+      "kind": "stop",
+      "level": "attention",
+      "title": "Nasdaq proche de son stop",
+      "text": "\u00e0 1.9% du niveau de sortie automatique",
+      "symbol": "^IXIC"
+    },
+    {
+      "date": "2026-10-21T18:00",
+      "kind": "risk:stop",
+      "level": "important",
+      "title": "Bouclier : stop d\u00e9clench\u00e9",
+      "text": "stop suiveur touch\u00e9 : prix 86.53 sous le stop 88.13 (plus haut 92.34 moins 3 ATR)",
+      "symbol": "CL=F"
+    },
+    {
+      "date": "2026-10-21T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "P\u00e9trole WTI : \u00c9toile filante",
+      "text": "Longue m\u00e8che haute apr\u00e8s une hausse : les vendeurs ont rejet\u00e9 les plus hauts. Signal baissier pris en compte par le conseil.",
+      "symbol": "CL=F"
+    },
+    {
+      "date": "2026-10-22T18:00",
+      "kind": "decision",
+      "level": "attention",
+      "title": "Nasdaq : achat \u2192 conserver",
+      "text": "score +0.38 \u2192 +0.25. stop suiveur touch\u00e9 : prix 23,150.49 sous le stop 23,241.27 (plus haut 23,785.04 moins 3 ATR)",
+      "symbol": "^IXIC"
+    },
+    {
+      "date": "2026-10-22T18:00",
+      "kind": "decision",
+      "level": "attention",
+      "title": "Ethereum : achat \u2192 conserver",
+      "text": "score +0.26 \u2192 +0.25. Cassure de canal vote vente (-0.66, poids 25%)",
+      "symbol": "ETH-USD"
+    },
+    {
+      "date": "2026-10-22T18:00",
+      "kind": "stop",
+      "level": "attention",
+      "title": "Solana proche de son stop",
+      "text": "\u00e0 2.4% du niveau de sortie automatique",
+      "symbol": "SOL-USD"
+    },
+    {
+      "date": "2026-10-22T18:00",
+      "kind": "risk:stop",
+      "level": "important",
+      "title": "Bouclier : stop d\u00e9clench\u00e9",
+      "text": "stop suiveur touch\u00e9 : prix 23,150.49 sous le stop 23,241.27 (plus haut 23,785.04 moins 3 ATR)",
+      "symbol": "^IXIC"
+    },
+    {
+      "date": "2026-10-22T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Bitcoin : Avalement baissier",
+      "text": "Une bougie rouge englobe la verte pr\u00e9c\u00e9dente apr\u00e8s une hausse. Signal baissier pris en compte par le conseil.",
+      "symbol": "BTC-USD"
+    },
+    {
+      "date": "2026-10-23T18:00",
+      "kind": "decision",
+      "level": "important",
+      "title": "Nasdaq : conserver \u2192 achat",
+      "text": "score +0.25 \u2192 +0.27. Tendance de fond vote achat (+1.00, poids 12%)",
+      "symbol": "^IXIC"
+    },
+    {
+      "date": "2026-10-23T18:00",
+      "kind": "decision",
+      "level": "important",
+      "title": "Ethereum : conserver \u2192 achat",
+      "text": "score +0.25 \u2192 +0.28. Cassure de canal vote vente (-0.66, poids 23%)",
+      "symbol": "ETH-USD"
+    },
+    {
+      "date": "2026-10-23T18:00",
+      "kind": "risk:stop",
+      "level": "important",
+      "title": "Bouclier : stop d\u00e9clench\u00e9",
+      "text": "stop suiveur touch\u00e9 : prix 6,793.84 sous le stop 6,813.09 (plus haut 6,909.54 moins 3 ATR)",
+      "symbol": "^GSPC"
+    },
+    {
+      "date": "2026-10-23T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Nikkei 225 : Marteau",
+      "text": "Longue m\u00e8che basse apr\u00e8s une baisse : les acheteurs ont rejet\u00e9 les plus bas. Signal haussier pris en compte par le conseil.",
+      "symbol": "^N225"
+    },
+    {
+      "date": "2026-10-24T18:00",
+      "kind": "risk:stop",
+      "level": "important",
+      "title": "Bouclier : stop d\u00e9clench\u00e9",
+      "text": "stop suiveur touch\u00e9 : prix 71,996.75 sous le stop 72,311.91 (plus haut 74,831.99 moins 3 ATR)",
+      "symbol": "BTC-USD"
+    },
+    {
+      "date": "2026-10-24T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Nikkei 225 : Marteau",
+      "text": "Longue m\u00e8che basse apr\u00e8s une baisse : les acheteurs ont rejet\u00e9 les plus bas. Signal haussier pris en compte par le conseil.",
+      "symbol": "^N225"
+    },
+    {
+      "date": "2026-10-25T18:00",
+      "kind": "stop",
+      "level": "attention",
+      "title": "Ethereum proche de son stop",
+      "text": "\u00e0 2.1% du niveau de sortie automatique",
+      "symbol": "ETH-USD"
+    },
+    {
+      "date": "2026-10-25T18:00",
+      "kind": "risk:stop",
+      "level": "important",
+      "title": "Bouclier : stop d\u00e9clench\u00e9",
+      "text": "stop suiveur touch\u00e9 : prix 90.21 sous le stop 90.65 (plus haut 95.12 moins 3 ATR)",
+      "symbol": "SOL-USD"
+    },
+    {
+      "date": "2026-10-25T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Nikkei 225 : Marteau",
+      "text": "Longue m\u00e8che basse apr\u00e8s une baisse : les acheteurs ont rejet\u00e9 les plus bas. Signal haussier pris en compte par le conseil.",
+      "symbol": "^N225"
+    },
+    {
+      "date": "2026-10-26T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Nasdaq : \u00c9toile du matin",
+      "text": "Rouge, petite ind\u00e9cision, puis forte verte : retournement haussier en trois temps. Signal haussier pris en compte par le conseil.",
+      "symbol": "^IXIC"
+    },
+    {
+      "date": "2026-10-27T18:00",
+      "kind": "decision",
+      "level": "important",
+      "title": "DAX : neutre \u2192 achat",
+      "text": "score +0.18 \u2192 +0.26. Tendance de fond vote achat (+1.00, poids 15%)",
+      "symbol": "^GDAXI"
+    },
+    {
+      "date": "2026-10-27T18:00",
+      "kind": "council",
+      "level": "attention",
+      "title": "Le conseil change de m\u00e9thode dominante",
+      "text": "Cassure de canal \u2192 RSI court (18% des voix) : le march\u00e9 change de r\u00e9gime",
+      "symbol": null
+    },
+    {
+      "date": "2026-10-27T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Bitcoin : Avalement haussier",
+      "text": "Une bougie verte englobe la rouge pr\u00e9c\u00e9dente apr\u00e8s une baisse. Signal haussier pris en compte par le conseil.",
+      "symbol": "BTC-USD"
+    },
+    {
+      "date": "2026-10-27T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Ethereum : Avalement haussier",
+      "text": "Une bougie verte englobe la rouge pr\u00e9c\u00e9dente apr\u00e8s une baisse. Signal haussier pris en compte par le conseil.",
+      "symbol": "ETH-USD"
+    },
+    {
+      "date": "2026-10-27T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Ethereum : \u00c9toile du matin",
+      "text": "Rouge, petite ind\u00e9cision, puis forte verte : retournement haussier en trois temps. Signal haussier pris en compte par le conseil.",
+      "symbol": "ETH-USD"
+    },
+    {
+      "date": "2026-10-27T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Solana : Marteau",
+      "text": "Longue m\u00e8che basse apr\u00e8s une baisse : les acheteurs ont rejet\u00e9 les plus bas. Signal haussier pris en compte par le conseil.",
+      "symbol": "SOL-USD"
+    },
+    {
+      "date": "2026-10-27T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "P\u00e9trole WTI : \u00c9toile du soir",
+      "text": "Verte, petite ind\u00e9cision, puis forte rouge : retournement baissier en trois temps. Signal baissier pris en compte par le conseil.",
+      "symbol": "CL=F"
+    },
+    {
+      "date": "2026-10-28T18:00",
+      "kind": "stop",
+      "level": "attention",
+      "title": "Nasdaq proche de son stop",
+      "text": "\u00e0 2.1% du niveau de sortie automatique",
+      "symbol": "^IXIC"
+    },
+    {
+      "date": "2026-10-28T18:00",
+      "kind": "stop",
+      "level": "attention",
+      "title": "DAX proche de son stop",
+      "text": "\u00e0 1.6% du niveau de sortie automatique",
+      "symbol": "^GDAXI"
+    },
+    {
+      "date": "2026-10-29T18:00",
+      "kind": "stop",
+      "level": "attention",
+      "title": "S&P 500 proche de son stop",
+      "text": "\u00e0 1.5% du niveau de sortie automatique",
+      "symbol": "^GSPC"
+    },
+    {
+      "date": "2026-10-29T18:00",
+      "kind": "risk:stop",
+      "level": "important",
+      "title": "Bouclier : stop d\u00e9clench\u00e9",
+      "text": "stop suiveur touch\u00e9 : prix 2,016.45 sous le stop 2,022.15 (plus haut 2,124.57 moins 3 ATR)",
+      "symbol": "ETH-USD"
+    },
+    {
+      "date": "2026-10-30T18:00",
+      "kind": "risk:stop",
+      "level": "important",
+      "title": "Bouclier : stop d\u00e9clench\u00e9",
+      "text": "stop suiveur touch\u00e9 : prix 22,746.53 sous le stop 23,196.17 (plus haut 23,855.04 moins 3 ATR)",
+      "symbol": "^IXIC"
+    },
+    {
+      "date": "2026-10-30T18:00",
+      "kind": "risk:stop",
+      "level": "important",
+      "title": "Bouclier : stop d\u00e9clench\u00e9",
+      "text": "stop suiveur touch\u00e9 : prix 6,778.33 sous le stop 6,797.06 (plus haut 6,920.56 moins 3 ATR)",
+      "symbol": "^GSPC"
+    },
+    {
+      "date": "2026-10-30T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Ethereum : Marteau",
+      "text": "Longue m\u00e8che basse apr\u00e8s une baisse : les acheteurs ont rejet\u00e9 les plus bas. Signal haussier pris en compte par le conseil.",
+      "symbol": "ETH-USD"
+    },
+    {
+      "date": "2026-10-30T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Or : Trois corbeaux noirs",
+      "text": "Trois fortes bougies rouges successives : les vendeurs prennent le contr\u00f4le. Signal baissier pris en compte par le conseil.",
+      "symbol": "GC=F"
+    },
+    {
+      "date": "2026-10-31T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Or : Trois corbeaux noirs",
+      "text": "Trois fortes bougies rouges successives : les vendeurs prennent le contr\u00f4le. Signal baissier pris en compte par le conseil.",
+      "symbol": "GC=F"
+    },
+    {
+      "date": "2026-11-01T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Or : Trois corbeaux noirs",
+      "text": "Trois fortes bougies rouges successives : les vendeurs prennent le contr\u00f4le. Signal baissier pris en compte par le conseil.",
+      "symbol": "GC=F"
+    },
+    {
+      "date": "2026-11-02T18:00",
+      "kind": "decision",
+      "level": "attention",
+      "title": "Nasdaq : achat \u2192 neutre",
+      "text": "score +0.59 \u2192 +0.09. Tendance de fond vote achat (+1.00, poids 15%)",
+      "symbol": "^IXIC"
+    },
+    {
+      "date": "2026-11-02T18:00",
+      "kind": "trend",
+      "level": "info",
+      "title": "Solana entre en tendance",
+      "text": "ADX 26 : les m\u00e9thodes de tendance gagnent en fiabilit\u00e9",
+      "symbol": "SOL-USD"
+    },
+    {
+      "date": "2026-11-02T18:00",
+      "kind": "stop",
+      "level": "attention",
+      "title": "P\u00e9trole WTI proche de son stop",
+      "text": "\u00e0 -2.0% du niveau de sortie automatique",
+      "symbol": "CL=F"
+    },
+    {
+      "date": "2026-11-02T18:00",
+      "kind": "stop",
+      "level": "attention",
+      "title": "Bitcoin proche de son stop",
+      "text": "\u00e0 2.2% du niveau de sortie automatique",
+      "symbol": "BTC-USD"
+    },
+    {
+      "date": "2026-11-02T18:00",
+      "kind": "stop",
+      "level": "attention",
+      "title": "Solana proche de son stop",
+      "text": "\u00e0 2.1% du niveau de sortie automatique",
+      "symbol": "SOL-USD"
+    },
+    {
+      "date": "2026-11-02T18:00",
+      "kind": "risk:stop",
+      "level": "important",
+      "title": "Bouclier : stop d\u00e9clench\u00e9",
+      "text": "stop suiveur touch\u00e9 : prix 86.46 sous le stop 88.19 (plus haut 93.11 moins 3 ATR)",
+      "symbol": "CL=F"
+    },
+    {
+      "date": "2026-11-02T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Nasdaq : Trois corbeaux noirs",
+      "text": "Trois fortes bougies rouges successives : les vendeurs prennent le contr\u00f4le. Signal baissier pris en compte par le conseil.",
+      "symbol": "^IXIC"
+    },
+    {
+      "date": "2026-11-03T18:00",
+      "kind": "momentum",
+      "level": "info",
+      "title": "CAC 40 : la conviction s'affaiblit",
+      "text": "score -0.71 \u2192 -0.35",
+      "symbol": "^FCHI"
+    },
+    {
+      "date": "2026-11-03T18:00",
+      "kind": "decision",
+      "level": "attention",
+      "title": "Solana : achat \u2192 conserver",
+      "text": "score +0.59 \u2192 +0.17. Cassure de canal vote vente (-0.94, poids 15%)",
+      "symbol": "SOL-USD"
+    },
+    {
+      "date": "2026-11-03T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "CAC 40 : \u00c9toile filante",
+      "text": "Longue m\u00e8che haute apr\u00e8s une hausse : les vendeurs ont rejet\u00e9 les plus hauts. Signal baissier pris en compte par le conseil.",
+      "symbol": "^FCHI"
+    },
+    {
+      "date": "2026-11-04T18:00",
+      "kind": "momentum",
+      "level": "info",
+      "title": "P\u00e9trole WTI : la conviction s'affaiblit",
+      "text": "score +0.85 \u2192 +0.55",
+      "symbol": "CL=F"
+    },
+    {
+      "date": "2026-11-04T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "S&P 500 : \u00c9toile du matin",
+      "text": "Rouge, petite ind\u00e9cision, puis forte verte : retournement haussier en trois temps. Signal haussier pris en compte par le conseil.",
+      "symbol": "^GSPC"
+    },
+    {
+      "date": "2026-11-05T18:00",
+      "kind": "decision",
+      "level": "attention",
+      "title": "S&P 500 : achat \u2192 neutre",
+      "text": "score +0.47 \u2192 +0.10. Cassure de canal vote vente (-1.00, poids 16%)",
+      "symbol": "^GSPC"
+    },
+    {
+      "date": "2026-11-05T18:00",
+      "kind": "decision",
+      "level": "attention",
+      "title": "Ethereum : achat \u2192 conserver",
+      "text": "score +0.35 \u2192 +0.16. stop suiveur touch\u00e9 : prix 1,988.86 sous le stop 2,025.62 (plus haut 2,161.38 moins 3 ATR)",
+      "symbol": "ETH-USD"
+    },
+    {
+      "date": "2026-11-05T18:00",
+      "kind": "decision",
+      "level": "important",
+      "title": "Solana : conserver \u2192 achat",
+      "text": "score +0.14 \u2192 +0.27. stop suiveur touch\u00e9 : prix 79.34 sous le stop 79.70 (plus haut 85.26 moins 3 ATR)",
+      "symbol": "SOL-USD"
+    },
+    {
+      "date": "2026-11-05T18:00",
+      "kind": "decision",
+      "level": "attention",
+      "title": "P\u00e9trole WTI : achat \u2192 neutre",
+      "text": "score +0.55 \u2192 +0.24. Tendance de fond vote achat (+1.00, poids 14%)",
+      "symbol": "CL=F"
+    },
+    {
+      "date": "2026-11-05T18:00",
+      "kind": "stop",
+      "level": "attention",
+      "title": "Ethereum proche de son stop",
+      "text": "\u00e0 -1.8% du niveau de sortie automatique",
+      "symbol": "ETH-USD"
+    },
+    {
+      "date": "2026-11-05T18:00",
+      "kind": "stop",
+      "level": "attention",
+      "title": "S&P 500 proche de son stop",
+      "text": "\u00e0 2.7% du niveau de sortie automatique",
+      "symbol": "^GSPC"
+    },
+    {
+      "date": "2026-11-05T18:00",
+      "kind": "risk:stop",
+      "level": "important",
+      "title": "Bouclier : stop d\u00e9clench\u00e9",
+      "text": "stop suiveur touch\u00e9 : prix 67,594.57 sous le stop 68,089.94 (plus haut 71,744.03 moins 3 ATR)",
+      "symbol": "BTC-USD"
+    },
+    {
+      "date": "2026-11-05T18:00",
+      "kind": "risk:stop",
+      "level": "important",
+      "title": "Bouclier : stop d\u00e9clench\u00e9",
+      "text": "stop suiveur touch\u00e9 : prix 79.34 sous le stop 79.70 (plus haut 85.26 moins 3 ATR)",
+      "symbol": "SOL-USD"
+    },
+    {
+      "date": "2026-11-05T18:00",
+      "kind": "risk:stop",
+      "level": "important",
+      "title": "Bouclier : stop d\u00e9clench\u00e9",
+      "text": "stop suiveur touch\u00e9 : prix 1,988.86 sous le stop 2,025.62 (plus haut 2,161.38 moins 3 ATR)",
+      "symbol": "ETH-USD"
+    },
+    {
+      "date": "2026-11-06T18:00",
+      "kind": "decision",
+      "level": "attention",
+      "title": "CAC 40 : \u00e9viter / sortir \u2192 neutre",
+      "text": "score -0.48 \u2192 -0.12. Tendance de fond vote vente (-1.00, poids 13%)",
+      "symbol": "^FCHI"
+    },
+    {
+      "date": "2026-11-06T18:00",
+      "kind": "rsi",
+      "level": "attention",
+      "title": "Nikkei 225 survendu",
+      "text": "RSI 21 : rebond technique possible",
+      "symbol": "^N225"
+    },
+    {
+      "date": "2026-11-06T18:00",
+      "kind": "trend",
+      "level": "info",
+      "title": "Nikkei 225 entre en tendance",
+      "text": "ADX 27 : les m\u00e9thodes de tendance gagnent en fiabilit\u00e9",
+      "symbol": "^N225"
+    },
+    {
+      "date": "2026-11-06T18:00",
+      "kind": "decision",
+      "level": "attention",
+      "title": "Ethereum : conserver \u2192 neutre",
+      "text": "score +0.16 \u2192 +0.14. Cassure de canal vote vente (-0.99, poids 16%)",
+      "symbol": "ETH-USD"
+    },
+    {
+      "date": "2026-11-06T18:00",
+      "kind": "decision",
+      "level": "attention",
+      "title": "Solana : achat \u2192 neutre",
+      "text": "score +0.27 \u2192 +0.06. Cassure de canal vote vente (-0.94, poids 16%)",
+      "symbol": "SOL-USD"
+    },
+    {
+      "date": "2026-11-06T18:00",
+      "kind": "risk:stop",
+      "level": "important",
+      "title": "Bouclier : stop d\u00e9clench\u00e9",
+      "text": "stop suiveur touch\u00e9 : prix 25,820.36 sous le stop 25,881.76 (plus haut 26,437.67 moins 3 ATR)",
+      "symbol": "^GDAXI"
+    },
+    {
+      "date": "2026-11-06T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Nikkei 225 : Trois corbeaux noirs",
+      "text": "Trois fortes bougies rouges successives : les vendeurs prennent le contr\u00f4le. Signal baissier pris en compte par le conseil.",
+      "symbol": "^N225"
+    },
+    {
+      "date": "2026-11-07T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Nikkei 225 : Trois corbeaux noirs",
+      "text": "Trois fortes bougies rouges successives : les vendeurs prennent le contr\u00f4le. Signal baissier pris en compte par le conseil.",
+      "symbol": "^N225"
+    },
+    {
+      "date": "2026-11-07T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Solana : Marteau",
+      "text": "Longue m\u00e8che basse apr\u00e8s une baisse : les acheteurs ont rejet\u00e9 les plus bas. Signal haussier pris en compte par le conseil.",
+      "symbol": "SOL-USD"
+    },
+    {
+      "date": "2026-11-08T18:00",
+      "kind": "trend",
+      "level": "info",
+      "title": "Nasdaq entre en tendance",
+      "text": "ADX 26 : les m\u00e9thodes de tendance gagnent en fiabilit\u00e9",
+      "symbol": "^IXIC"
+    },
+    {
+      "date": "2026-11-08T18:00",
+      "kind": "decision",
+      "level": "important",
+      "title": "Nikkei 225 : neutre \u2192 \u00e9viter / sortir",
+      "text": "score -0.23 \u2192 -0.26. Cassure de canal vote vente (-1.00, poids 17%)",
+      "symbol": "^N225"
+    },
+    {
+      "date": "2026-11-08T18:00",
+      "kind": "decision",
+      "level": "important",
+      "title": "Ethereum : neutre \u2192 achat",
+      "text": "score +0.11 \u2192 +0.48. RSI court vote achat (+1.00, poids 26%)",
+      "symbol": "ETH-USD"
+    },
+    {
+      "date": "2026-11-08T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Nikkei 225 : Trois corbeaux noirs",
+      "text": "Trois fortes bougies rouges successives : les vendeurs prennent le contr\u00f4le. Signal baissier pris en compte par le conseil.",
+      "symbol": "^N225"
+    },
+    {
+      "date": "2026-11-09T18:00",
+      "kind": "decision",
+      "level": "important",
+      "title": "S&P 500 : neutre \u2192 achat",
+      "text": "score +0.02 \u2192 +0.28. Tendance de fond vote achat (+1.00, poids 11%)",
+      "symbol": "^GSPC"
+    },
+    {
+      "date": "2026-11-09T18:00",
+      "kind": "decision",
+      "level": "important",
+      "title": "Nasdaq : neutre \u2192 \u00e9viter / sortir",
+      "text": "score -0.06 \u2192 -0.29. RSI court vote vente (-1.00, poids 26%)",
+      "symbol": "^IXIC"
+    },
+    {
+      "date": "2026-11-09T18:00",
+      "kind": "decision",
+      "level": "attention",
+      "title": "Nikkei 225 : \u00e9viter / sortir \u2192 neutre",
+      "text": "score -0.26 \u2192 -0.19. Cassure de canal vote vente (-0.78, poids 18%)",
+      "symbol": "^N225"
+    },
+    {
+      "date": "2026-11-09T18:00",
+      "kind": "decision",
+      "level": "attention",
+      "title": "Bitcoin : achat \u2192 neutre",
+      "text": "score +0.32 \u2192 +0.10. Cassure de canal vote vente (-0.73, poids 18%)",
+      "symbol": "BTC-USD"
+    },
+    {
+      "date": "2026-11-09T18:00",
+      "kind": "decision",
+      "level": "attention",
+      "title": "Ethereum : achat \u2192 neutre",
+      "text": "score +0.48 \u2192 +0.05. Cassure de canal vote vente (-0.91, poids 18%)",
+      "symbol": "ETH-USD"
+    },
+    {
+      "date": "2026-11-09T18:00",
+      "kind": "momentum",
+      "level": "info",
+      "title": "Or : la conviction renforce",
+      "text": "score -0.25 \u2192 -0.63",
+      "symbol": "GC=F"
+    },
+    {
+      "date": "2026-11-09T18:00",
+      "kind": "decision",
+      "level": "important",
+      "title": "P\u00e9trole WTI : neutre \u2192 achat",
+      "text": "score +0.16 \u2192 +0.42. RSI court vote achat (+1.00, poids 26%)",
+      "symbol": "CL=F"
+    },
+    {
+      "date": "2026-11-09T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "S&P 500 : \u00c9toile du matin",
+      "text": "Rouge, petite ind\u00e9cision, puis forte verte : retournement haussier en trois temps. Signal haussier pris en compte par le conseil.",
+      "symbol": "^GSPC"
+    },
+    {
+      "date": "2026-11-09T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Nasdaq : \u00c9toile du matin",
+      "text": "Rouge, petite ind\u00e9cision, puis forte verte : retournement haussier en trois temps. Signal haussier pris en compte par le conseil.",
+      "symbol": "^IXIC"
+    },
+    {
+      "date": "2026-11-10T18:00",
+      "kind": "trend",
+      "level": "info",
+      "title": "CAC 40 entre en tendance",
+      "text": "ADX 26 : les m\u00e9thodes de tendance gagnent en fiabilit\u00e9",
+      "symbol": "^FCHI"
+    },
+    {
+      "date": "2026-11-10T18:00",
+      "kind": "decision",
+      "level": "attention",
+      "title": "S&P 500 : achat \u2192 conserver",
+      "text": "score +0.28 \u2192 +0.17. Tendance de fond vote achat (+1.00, poids 11%)",
+      "symbol": "^GSPC"
+    },
+    {
+      "date": "2026-11-10T18:00",
+      "kind": "decision",
+      "level": "attention",
+      "title": "Nasdaq : \u00e9viter / sortir \u2192 neutre",
+      "text": "score -0.29 \u2192 +0.08. Tendance de fond vote achat (+1.00, poids 11%)",
+      "symbol": "^IXIC"
+    },
+    {
+      "date": "2026-11-10T18:00",
+      "kind": "decision",
+      "level": "important",
+      "title": "Nikkei 225 : neutre \u2192 \u00e9viter / sortir",
+      "text": "score -0.19 \u2192 -0.31. RSI court vote vente (-0.50, poids 29%)",
+      "symbol": "^N225"
+    },
+    {
+      "date": "2026-11-10T18:00",
+      "kind": "decision",
+      "level": "important",
+      "title": "Bitcoin : neutre \u2192 achat",
+      "text": "score +0.10 \u2192 +0.28. Cassure de canal vote vente (-1.00, poids 17%)",
+      "symbol": "BTC-USD"
+    },
+    {
+      "date": "2026-11-10T18:00",
+      "kind": "momentum",
+      "level": "info",
+      "title": "Or : la conviction s'affaiblit",
+      "text": "score -0.63 \u2192 -0.34",
+      "symbol": "GC=F"
+    },
+    {
+      "date": "2026-11-10T18:00",
+      "kind": "decision",
+      "level": "attention",
+      "title": "P\u00e9trole WTI : achat \u2192 neutre",
+      "text": "score +0.42 \u2192 +0.05. Cassure de canal vote vente (-1.00, poids 17%)",
+      "symbol": "CL=F"
+    },
+    {
+      "date": "2026-11-10T18:00",
+      "kind": "trend",
+      "level": "info",
+      "title": "P\u00e9trole WTI entre en tendance",
+      "text": "ADX 25 : les m\u00e9thodes de tendance gagnent en fiabilit\u00e9",
+      "symbol": "CL=F"
+    },
+    {
+      "date": "2026-11-10T18:00",
+      "kind": "stop",
+      "level": "attention",
+      "title": "S&P 500 proche de son stop",
+      "text": "\u00e0 2.7% du niveau de sortie automatique",
+      "symbol": "^GSPC"
+    },
+    {
+      "date": "2026-11-10T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "P\u00e9trole WTI : Marteau",
+      "text": "Longue m\u00e8che basse apr\u00e8s une baisse : les acheteurs ont rejet\u00e9 les plus bas. Signal haussier pris en compte par le conseil.",
+      "symbol": "CL=F"
+    },
+    {
+      "date": "2026-11-11T18:00",
+      "kind": "decision",
+      "level": "important",
+      "title": "S&P 500 : conserver \u2192 achat",
+      "text": "score +0.17 \u2192 +0.28. Tendance de fond vote achat (+1.00, poids 11%)",
+      "symbol": "^GSPC"
+    },
+    {
+      "date": "2026-11-11T18:00",
+      "kind": "decision",
+      "level": "attention",
+      "title": "Bitcoin : achat \u2192 neutre",
+      "text": "score +0.28 \u2192 +0.06. Cassure de canal vote vente (-0.90, poids 19%)",
+      "symbol": "BTC-USD"
+    },
+    {
+      "date": "2026-11-11T18:00",
+      "kind": "trend",
+      "level": "info",
+      "title": "Ethereum entre en tendance",
+      "text": "ADX 25 : les m\u00e9thodes de tendance gagnent en fiabilit\u00e9",
+      "symbol": "ETH-USD"
+    },
+    {
+      "date": "2026-11-12T18:00",
+      "kind": "rsi",
+      "level": "attention",
+      "title": "CAC 40 surachet\u00e9",
+      "text": "RSI 76 : risque de repli \u00e0 court terme",
+      "symbol": "^FCHI"
+    },
+    {
+      "date": "2026-11-12T18:00",
+      "kind": "decision",
+      "level": "attention",
+      "title": "Nikkei 225 : \u00e9viter / sortir \u2192 neutre",
+      "text": "score -0.45 \u2192 -0.04. Tendance de fond vote achat (+1.00, poids 10%)",
+      "symbol": "^N225"
+    },
+    {
+      "date": "2026-11-12T18:00",
+      "kind": "stop",
+      "level": "attention",
+      "title": "DAX proche de son stop",
+      "text": "\u00e0 2.0% du niveau de sortie automatique",
+      "symbol": "^GDAXI"
+    },
+    {
+      "date": "2026-11-13T18:00",
+      "kind": "momentum",
+      "level": "info",
+      "title": "Bitcoin : la conviction s'affaiblit",
+      "text": "score +0.19 \u2192 -0.07",
+      "symbol": "BTC-USD"
+    },
+    {
+      "date": "2026-11-13T18:00",
+      "kind": "rsi",
+      "level": "attention",
+      "title": "Solana survendu",
+      "text": "RSI 23 : rebond technique possible",
+      "symbol": "SOL-USD"
+    },
+    {
+      "date": "2026-11-14T18:00",
+      "kind": "decision",
+      "level": "important",
+      "title": "CAC 40 : neutre \u2192 achat",
+      "text": "score +0.21 \u2192 +0.25. Cassure de canal vote achat (+1.00, poids 23%)",
+      "symbol": "^FCHI"
+    },
+    {
+      "date": "2026-11-14T18:00",
+      "kind": "rsi",
+      "level": "attention",
+      "title": "Bitcoin survendu",
+      "text": "RSI 23 : rebond technique possible",
+      "symbol": "BTC-USD"
+    },
+    {
+      "date": "2026-11-14T18:00",
+      "kind": "decision",
+      "level": "important",
+      "title": "Ethereum : neutre \u2192 \u00e9viter / sortir",
+      "text": "score -0.08 \u2192 -0.26. Cassure de canal vote vente (-1.00, poids 23%)",
+      "symbol": "ETH-USD"
+    },
+    {
+      "date": "2026-11-14T18:00",
+      "kind": "rsi",
+      "level": "attention",
+      "title": "Ethereum survendu",
+      "text": "RSI 22 : rebond technique possible",
+      "symbol": "ETH-USD"
+    },
+    {
+      "date": "2026-11-14T18:00",
+      "kind": "decision",
+      "level": "important",
+      "title": "Solana : neutre \u2192 \u00e9viter / sortir",
+      "text": "score -0.16 \u2192 -0.34. Cassure de canal vote vente (-1.00, poids 23%)",
+      "symbol": "SOL-USD"
+    },
+    {
+      "date": "2026-11-14T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Bitcoin : Trois corbeaux noirs",
+      "text": "Trois fortes bougies rouges successives : les vendeurs prennent le contr\u00f4le. Signal baissier pris en compte par le conseil.",
+      "symbol": "BTC-USD"
+    },
+    {
+      "date": "2026-11-14T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Ethereum : Trois corbeaux noirs",
+      "text": "Trois fortes bougies rouges successives : les vendeurs prennent le contr\u00f4le. Signal baissier pris en compte par le conseil.",
+      "symbol": "ETH-USD"
+    },
+    {
+      "date": "2026-11-14T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Solana : Trois corbeaux noirs",
+      "text": "Trois fortes bougies rouges successives : les vendeurs prennent le contr\u00f4le. Signal baissier pris en compte par le conseil.",
+      "symbol": "SOL-USD"
+    },
+    {
+      "date": "2026-11-15T18:00",
+      "kind": "trend",
+      "level": "info",
+      "title": "Bitcoin entre en tendance",
+      "text": "ADX 26 : les m\u00e9thodes de tendance gagnent en fiabilit\u00e9",
+      "symbol": "BTC-USD"
+    },
+    {
+      "date": "2026-11-15T18:00",
+      "kind": "decision",
+      "level": "attention",
+      "title": "Ethereum : \u00e9viter / sortir \u2192 neutre",
+      "text": "score -0.26 \u2192 -0.21. Cassure de canal vote vente (-0.85, poids 25%)",
+      "symbol": "ETH-USD"
+    },
+    {
+      "date": "2026-11-15T18:00",
+      "kind": "stop",
+      "level": "attention",
+      "title": "CAC 40 proche de son stop",
+      "text": "\u00e0 1.2% du niveau de sortie automatique",
+      "symbol": "^FCHI"
+    },
+    {
+      "date": "2026-11-16T18:00",
+      "kind": "decision",
+      "level": "important",
+      "title": "Bitcoin : neutre \u2192 \u00e9viter / sortir",
+      "text": "score -0.18 \u2192 -0.25. Cassure de canal vote vente (-0.92, poids 31%)",
+      "symbol": "BTC-USD"
+    },
+    {
+      "date": "2026-11-16T18:00",
+      "kind": "decision",
+      "level": "important",
+      "title": "Ethereum : neutre \u2192 \u00e9viter / sortir",
+      "text": "score -0.21 \u2192 -0.29. Cassure de canal vote vente (-0.88, poids 31%)",
+      "symbol": "ETH-USD"
+    },
+    {
+      "date": "2026-11-16T18:00",
+      "kind": "council",
+      "level": "attention",
+      "title": "Le conseil change de m\u00e9thode dominante",
+      "text": "RSI court \u2192 Cassure de canal (31% des voix) : le march\u00e9 change de r\u00e9gime",
+      "symbol": null
+    },
+    {
+      "date": "2026-11-16T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Bitcoin : Marteau",
+      "text": "Longue m\u00e8che basse apr\u00e8s une baisse : les acheteurs ont rejet\u00e9 les plus bas. Signal haussier pris en compte par le conseil.",
+      "symbol": "BTC-USD"
+    },
+    {
+      "date": "2026-11-17T18:00",
+      "kind": "decision",
+      "level": "attention",
+      "title": "CAC 40 : achat \u2192 conserver",
+      "text": "score +0.36 \u2192 +0.11. stop suiveur touch\u00e9 : prix 8,216.78 sous le stop 8,248.77 (plus haut 8,368.91 moins 3 ATR)",
+      "symbol": "^FCHI"
+    },
+    {
+      "date": "2026-11-17T18:00",
+      "kind": "momentum",
+      "level": "info",
+      "title": "P\u00e9trole WTI : la conviction renforce",
+      "text": "score +0.12 \u2192 -0.18",
+      "symbol": "CL=F"
+    },
+    {
+      "date": "2026-11-17T18:00",
+      "kind": "risk:stop",
+      "level": "important",
+      "title": "Bouclier : stop d\u00e9clench\u00e9",
+      "text": "stop suiveur touch\u00e9 : prix 6,674.30 sous le stop 6,683.70 (plus haut 6,843.01 moins 3 ATR)",
+      "symbol": "^GSPC"
+    },
+    {
+      "date": "2026-11-17T18:00",
+      "kind": "risk:stop",
+      "level": "important",
+      "title": "Bouclier : stop d\u00e9clench\u00e9",
+      "text": "stop suiveur touch\u00e9 : prix 26,045.37 sous le stop 26,251.08 (plus haut 26,771.88 moins 3 ATR)",
+      "symbol": "^GDAXI"
+    },
+    {
+      "date": "2026-11-17T18:00",
+      "kind": "risk:stop",
+      "level": "important",
+      "title": "Bouclier : stop d\u00e9clench\u00e9",
+      "text": "stop suiveur touch\u00e9 : prix 8,216.78 sous le stop 8,248.77 (plus haut 8,368.91 moins 3 ATR)",
+      "symbol": "^FCHI"
+    },
+    {
+      "date": "2026-11-17T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Solana : Avalement haussier",
+      "text": "Une bougie verte englobe la rouge pr\u00e9c\u00e9dente apr\u00e8s une baisse. Signal haussier pris en compte par le conseil.",
+      "symbol": "SOL-USD"
+    },
+    {
+      "date": "2026-11-18T18:00",
+      "kind": "decision",
+      "level": "attention",
+      "title": "CAC 40 : conserver \u2192 neutre",
+      "text": "score +0.11 \u2192 -0.04. Cassure de canal vote achat (+0.31, poids 32%)",
+      "symbol": "^FCHI"
+    },
+    {
+      "date": "2026-11-18T18:00",
+      "kind": "decision",
+      "level": "attention",
+      "title": "S&P 500 : achat \u2192 neutre",
+      "text": "score +0.28 \u2192 +0.23. RSI court vote achat (+1.00, poids 16%)",
+      "symbol": "^GSPC"
+    },
+    {
+      "date": "2026-11-18T18:00",
+      "kind": "rsi",
+      "level": "attention",
+      "title": "Bitcoin survendu",
+      "text": "RSI 25 : rebond technique possible",
+      "symbol": "BTC-USD"
+    },
+    {
+      "date": "2026-11-18T18:00",
+      "kind": "decision",
+      "level": "important",
+      "title": "P\u00e9trole WTI : neutre \u2192 \u00e9viter / sortir",
+      "text": "score -0.18 \u2192 -0.28. Cassure de canal vote vente (-1.00, poids 32%)",
+      "symbol": "CL=F"
+    },
+    {
+      "date": "2026-11-18T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "CAC 40 : Trois corbeaux noirs",
+      "text": "Trois fortes bougies rouges successives : les vendeurs prennent le contr\u00f4le. Signal baissier pris en compte par le conseil.",
+      "symbol": "^FCHI"
+    },
+    {
+      "date": "2026-11-18T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "DAX : Trois corbeaux noirs",
+      "text": "Trois fortes bougies rouges successives : les vendeurs prennent le contr\u00f4le. Signal baissier pris en compte par le conseil.",
+      "symbol": "^GDAXI"
+    },
+    {
+      "date": "2026-11-19T18:00",
+      "kind": "decision",
+      "level": "attention",
+      "title": "DAX : achat \u2192 neutre",
+      "text": "score +0.38 \u2192 +0.17. RSI court vote achat (+1.00, poids 15%)",
+      "symbol": "^GDAXI"
+    },
+    {
+      "date": "2026-11-19T18:00",
+      "kind": "decision",
+      "level": "important",
+      "title": "S&P 500 : neutre \u2192 \u00e9viter / sortir",
+      "text": "score +0.23 \u2192 -0.28. Cassure de canal vote vente (-1.00, poids 31%)",
+      "symbol": "^GSPC"
+    },
+    {
+      "date": "2026-11-19T18:00",
+      "kind": "decision",
+      "level": "important",
+      "title": "Nasdaq : neutre \u2192 \u00e9viter / sortir",
+      "text": "score -0.14 \u2192 -0.31. Cassure de canal vote vente (-0.92, poids 31%)",
+      "symbol": "^IXIC"
+    },
+    {
+      "date": "2026-11-19T18:00",
+      "kind": "trend",
+      "level": "info",
+      "title": "P\u00e9trole WTI entre en tendance",
+      "text": "ADX 25 : les m\u00e9thodes de tendance gagnent en fiabilit\u00e9",
+      "symbol": "CL=F"
+    },
+    {
+      "date": "2026-11-19T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "CAC 40 : Trois corbeaux noirs",
+      "text": "Trois fortes bougies rouges successives : les vendeurs prennent le contr\u00f4le. Signal baissier pris en compte par le conseil.",
+      "symbol": "^FCHI"
+    },
+    {
+      "date": "2026-11-19T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "DAX : Trois corbeaux noirs",
+      "text": "Trois fortes bougies rouges successives : les vendeurs prennent le contr\u00f4le. Signal baissier pris en compte par le conseil.",
+      "symbol": "^GDAXI"
+    },
+    {
+      "date": "2026-11-20T18:00",
+      "kind": "decision",
+      "level": "important",
+      "title": "CAC 40 : neutre \u2192 \u00e9viter / sortir",
+      "text": "score -0.24 \u2192 -0.47. Cassure de canal vote vente (-0.38, poids 30%)",
+      "symbol": "^FCHI"
+    },
+    {
+      "date": "2026-11-20T18:00",
+      "kind": "decision",
+      "level": "important",
+      "title": "DAX : neutre \u2192 \u00e9viter / sortir",
+      "text": "score +0.17 \u2192 -0.44. Cassure de canal vote vente (-1.00, poids 30%)",
+      "symbol": "^GDAXI"
+    },
+    {
+      "date": "2026-11-20T18:00",
+      "kind": "decision",
+      "level": "important",
+      "title": "Nikkei 225 : neutre \u2192 \u00e9viter / sortir",
+      "text": "score -0.17 \u2192 -0.33. Cassure de canal vote vente (-1.00, poids 30%)",
+      "symbol": "^N225"
+    },
+    {
+      "date": "2026-11-20T18:00",
+      "kind": "rsi",
+      "level": "attention",
+      "title": "Ethereum survendu",
+      "text": "RSI 22 : rebond technique possible",
+      "symbol": "ETH-USD"
+    },
+    {
+      "date": "2026-11-20T18:00",
+      "kind": "rsi",
+      "level": "attention",
+      "title": "Or survendu",
+      "text": "RSI 22 : rebond technique possible",
+      "symbol": "GC=F"
+    },
+    {
+      "date": "2026-11-20T18:00",
+      "kind": "decision",
+      "level": "attention",
+      "title": "P\u00e9trole WTI : \u00e9viter / sortir \u2192 neutre",
+      "text": "score -0.29 \u2192 -0.24. Cassure de canal vote vente (-0.91, poids 30%)",
+      "symbol": "CL=F"
+    },
+    {
+      "date": "2026-11-20T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "CAC 40 : Trois corbeaux noirs",
+      "text": "Trois fortes bougies rouges successives : les vendeurs prennent le contr\u00f4le. Signal baissier pris en compte par le conseil.",
+      "symbol": "^FCHI"
+    },
+    {
+      "date": "2026-11-20T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "DAX : Trois corbeaux noirs",
+      "text": "Trois fortes bougies rouges successives : les vendeurs prennent le contr\u00f4le. Signal baissier pris en compte par le conseil.",
+      "symbol": "^GDAXI"
+    },
+    {
+      "date": "2026-11-20T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "S&P 500 : Trois corbeaux noirs",
+      "text": "Trois fortes bougies rouges successives : les vendeurs prennent le contr\u00f4le. Signal baissier pris en compte par le conseil.",
+      "symbol": "^GSPC"
+    },
+    {
+      "date": "2026-11-20T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Nasdaq : Trois corbeaux noirs",
+      "text": "Trois fortes bougies rouges successives : les vendeurs prennent le contr\u00f4le. Signal baissier pris en compte par le conseil.",
+      "symbol": "^IXIC"
+    },
+    {
+      "date": "2026-11-21T18:00",
+      "kind": "trend",
+      "level": "info",
+      "title": "Nikkei 225 entre en tendance",
+      "text": "ADX 25 : les m\u00e9thodes de tendance gagnent en fiabilit\u00e9",
+      "symbol": "^N225"
+    },
+    {
+      "date": "2026-11-21T18:00",
+      "kind": "trend",
+      "level": "info",
+      "title": "Or entre en tendance",
+      "text": "ADX 25 : les m\u00e9thodes de tendance gagnent en fiabilit\u00e9",
+      "symbol": "GC=F"
+    },
+    {
+      "date": "2026-11-21T18:00",
+      "kind": "council",
+      "level": "attention",
+      "title": "Le conseil change de m\u00e9thode dominante",
+      "text": "Cassure de canal \u2192 MACD (31% des voix) : le march\u00e9 change de r\u00e9gime",
+      "symbol": null
+    },
+    {
+      "date": "2026-11-21T18:00",
+      "kind": "thermo",
+      "level": "attention",
+      "title": "Thermom\u00e8tre de crise : stress (59/100)",
+      "text": "profil proche de 2000 \u00b7 Bulle Internet \u2014 Lente \u00e9rosion apr\u00e8s des exc\u00e8s. Les rebonds sont souvent des pi\u00e8ges tant que la tendance de fond est baissi\u00e8re.",
+      "symbol": null
+    },
+    {
+      "date": "2026-11-21T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "CAC 40 : Trois corbeaux noirs",
+      "text": "Trois fortes bougies rouges successives : les vendeurs prennent le contr\u00f4le. Signal baissier pris en compte par le conseil.",
+      "symbol": "^FCHI"
+    },
+    {
+      "date": "2026-11-21T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "DAX : Trois corbeaux noirs",
+      "text": "Trois fortes bougies rouges successives : les vendeurs prennent le contr\u00f4le. Signal baissier pris en compte par le conseil.",
+      "symbol": "^GDAXI"
+    },
+    {
+      "date": "2026-11-21T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "S&P 500 : Trois corbeaux noirs",
+      "text": "Trois fortes bougies rouges successives : les vendeurs prennent le contr\u00f4le. Signal baissier pris en compte par le conseil.",
+      "symbol": "^GSPC"
+    },
+    {
+      "date": "2026-11-21T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Nasdaq : Trois corbeaux noirs",
+      "text": "Trois fortes bougies rouges successives : les vendeurs prennent le contr\u00f4le. Signal baissier pris en compte par le conseil.",
+      "symbol": "^IXIC"
+    },
+    {
+      "date": "2026-11-21T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Bitcoin : Marteau",
+      "text": "Longue m\u00e8che basse apr\u00e8s une baisse : les acheteurs ont rejet\u00e9 les plus bas. Signal haussier pris en compte par le conseil.",
+      "symbol": "BTC-USD"
+    },
+    {
+      "date": "2026-11-21T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Solana : Marteau",
+      "text": "Longue m\u00e8che basse apr\u00e8s une baisse : les acheteurs ont rejet\u00e9 les plus bas. Signal haussier pris en compte par le conseil.",
+      "symbol": "SOL-USD"
+    },
+    {
+      "date": "2026-11-22T18:00",
+      "kind": "decision",
+      "level": "important",
+      "title": "P\u00e9trole WTI : neutre \u2192 \u00e9viter / sortir",
+      "text": "score -0.24 \u2192 -0.25. Cassure de canal vote vente (-0.91, poids 31%)",
+      "symbol": "CL=F"
+    },
+    {
+      "date": "2026-11-22T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "CAC 40 : Trois corbeaux noirs",
+      "text": "Trois fortes bougies rouges successives : les vendeurs prennent le contr\u00f4le. Signal baissier pris en compte par le conseil.",
+      "symbol": "^FCHI"
+    },
+    {
+      "date": "2026-11-22T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "DAX : Trois corbeaux noirs",
+      "text": "Trois fortes bougies rouges successives : les vendeurs prennent le contr\u00f4le. Signal baissier pris en compte par le conseil.",
+      "symbol": "^GDAXI"
+    },
+    {
+      "date": "2026-11-22T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "S&P 500 : Trois corbeaux noirs",
+      "text": "Trois fortes bougies rouges successives : les vendeurs prennent le contr\u00f4le. Signal baissier pris en compte par le conseil.",
+      "symbol": "^GSPC"
+    },
+    {
+      "date": "2026-11-22T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Nasdaq : Trois corbeaux noirs",
+      "text": "Trois fortes bougies rouges successives : les vendeurs prennent le contr\u00f4le. Signal baissier pris en compte par le conseil.",
+      "symbol": "^IXIC"
+    },
+    {
+      "date": "2026-11-23T18:00",
+      "kind": "decision",
+      "level": "attention",
+      "title": "S&P 500 : \u00e9viter / sortir \u2192 neutre",
+      "text": "score -0.44 \u2192 -0.06. Tendance de fond vote achat (+1.00, poids 6%)",
+      "symbol": "^GSPC"
+    },
+    {
+      "date": "2026-11-23T18:00",
+      "kind": "decision",
+      "level": "attention",
+      "title": "Nasdaq : \u00e9viter / sortir \u2192 neutre",
+      "text": "score -0.51 \u2192 -0.17. Cassure de canal vote vente (-0.33, poids 31%)",
+      "symbol": "^IXIC"
+    },
+    {
+      "date": "2026-11-24T18:00",
+      "kind": "pattern",
+      "level": "info",
+      "title": "P\u00e9trole WTI : Marteau",
+      "text": "Longue m\u00e8che basse apr\u00e8s une baisse : les acheteurs ont rejet\u00e9 les plus bas. Signal haussier pris en compte par le conseil.",
+      "symbol": "CL=F"
+    },
+    {
+      "date": "2026-11-24T14:06",
+      "kind": "pattern",
+      "level": "info",
+      "title": "P\u00e9trole WTI : Marteau",
+      "text": "Longue m\u00e8che basse apr\u00e8s une baisse : les acheteurs ont rejet\u00e9 les plus bas. Signal haussier pris en compte par le conseil.",
+      "symbol": "CL=F"
+    }
+  ],
+  "cost_basis": {},
+  "score_history": [
+    {
+      "date": "2026-07-28 18:00",
+      "oracle": 52,
+      "performance": 40,
+      "intelligence": 50,
+      "risk": 22
+    },
+    {
+      "date": "2026-08-02 18:00",
+      "oracle": 55,
+      "performance": 41,
+      "intelligence": 57,
+      "risk": 19
+    },
+    {
+      "date": "2026-08-07 18:00",
+      "oracle": 81,
+      "performance": 100,
+      "intelligence": 58,
+      "risk": 12
+    },
+    {
+      "date": "2026-08-12 18:00",
+      "oracle": 79,
+      "performance": 100,
+      "intelligence": 56,
+      "risk": 15
+    },
+    {
+      "date": "2026-08-17 18:00",
+      "oracle": 77,
+      "performance": 93,
+      "intelligence": 56,
+      "risk": 14
+    },
+    {
+      "date": "2026-08-22 18:00",
+      "oracle": 57,
+      "performance": 48,
+      "intelligence": 55,
+      "risk": 20
+    },
+    {
+      "date": "2026-08-27 18:00",
+      "oracle": 57,
+      "performance": 46,
+      "intelligence": 59,
+      "risk": 24
+    },
+    {
+      "date": "2026-09-01 18:00",
+      "oracle": 51,
+      "performance": 30,
+      "intelligence": 58,
+      "risk": 21
+    },
+    {
+      "date": "2026-09-06 18:00",
+      "oracle": 50,
+      "performance": 28,
+      "intelligence": 58,
+      "risk": 22
+    },
+    {
+      "date": "2026-09-11 18:00",
+      "oracle": 40,
+      "performance": 13,
+      "intelligence": 56,
+      "risk": 34
+    },
+    {
+      "date": "2026-09-16 18:00",
+      "oracle": 44,
+      "performance": 17,
+      "intelligence": 54,
+      "risk": 21
+    },
+    {
+      "date": "2026-09-21 18:00",
+      "oracle": 46,
+      "performance": 29,
+      "intelligence": 56,
+      "risk": 37
+    },
+    {
+      "date": "2026-09-26 18:00",
+      "oracle": 48,
+      "performance": 32,
+      "intelligence": 57,
+      "risk": 35
+    },
+    {
+      "date": "2026-10-01 18:00",
+      "oracle": 51,
+      "performance": 37,
+      "intelligence": 57,
+      "risk": 31
+    },
+    {
+      "date": "2026-10-06 18:00",
+      "oracle": 53,
+      "performance": 43,
+      "intelligence": 55,
+      "risk": 32
+    },
+    {
+      "date": "2026-10-11 18:00",
+      "oracle": 51,
+      "performance": 30,
+      "intelligence": 55,
+      "risk": 12
+    },
+    {
+      "date": "2026-10-16 18:00",
+      "oracle": 47,
+      "performance": 28,
+      "intelligence": 56,
+      "risk": 33
+    },
+    {
+      "date": "2026-10-21 18:00",
+      "oracle": 48,
+      "performance": 27,
+      "intelligence": 58,
+      "risk": 33
+    },
+    {
+      "date": "2026-10-26 18:00",
+      "oracle": 45,
+      "performance": 19,
+      "intelligence": 56,
+      "risk": 24
+    },
+    {
+      "date": "2026-10-31 18:00",
+      "oracle": 44,
+      "performance": 20,
+      "intelligence": 54,
+      "risk": 28
+    },
+    {
+      "date": "2026-11-05 18:00",
+      "oracle": 41,
+      "performance": 11,
+      "intelligence": 50,
+      "risk": 16
+    },
+    {
+      "date": "2026-11-10 18:00",
+      "oracle": 41,
+      "performance": 12,
+      "intelligence": 50,
+      "risk": 20
+    },
+    {
+      "date": "2026-11-15 18:00",
+      "oracle": 43,
+      "performance": 19,
+      "intelligence": 50,
+      "risk": 22
+    },
+    {
+      "date": "2026-11-20 18:00",
+      "oracle": 52,
+      "performance": 33,
+      "intelligence": 49,
+      "risk": 6
+    },
+    {
+      "date": "2026-11-24 18:00",
+      "oracle": 49,
+      "performance": 27,
+      "intelligence": 50,
+      "risk": 6
+    },
+    {
+      "date": "2026-11-24 14:06",
+      "oracle": 49,
+      "performance": 27,
+      "intelligence": 50,
+      "risk": 6
+    }
+  ],
+  "realized_pnl": -257.25347408399097,
+  "replayed": true
+}
