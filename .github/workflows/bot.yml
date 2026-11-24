@@ -1,0 +1,59 @@
+name: M-TRADE - bot autonome (paper)
+
+on:
+  schedule:
+    - cron: "17 */2 * * *"     # toutes les 2 heures, 7j/7 (heure UTC)
+  workflow_dispatch:            # bouton "Run workflow" pour le lancer à la main
+    inputs:
+      rejouer:
+        description: "Premier lancement : nombre de jours à rejouer sur les vrais cours (0 = non)"
+        default: "0"
+      backtest:
+        description: "Lancer aussi le backtest sur 5 ans de vrais cours (oui/non)"
+        default: "non"
+
+permissions:
+  contents: write               # pour sauvegarder le portefeuille dans le dépôt
+
+concurrency:
+  group: trading-bot
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Installer les dépendances
+        run: pip install -r requirements.txt
+
+      - name: Rejouer l'historique (premier lancement)
+        if: ${{ github.event.inputs.rejouer != '' && github.event.inputs.rejouer != '0' }}
+        run: python main.py replay --days ${{ github.event.inputs.rejouer }}
+
+      - name: Backtest sur les vrais cours
+        if: ${{ github.event.inputs.backtest == 'oui' }}
+        run: |
+          python main.py backtest | tee backtest.txt
+          { echo '## Backtest M-TRADE (vrais cours)'; echo '```'; cat backtest.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Lancer le bot
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python main.py run
+
+      - name: Sauvegarder le portefeuille, le journal et l'interface
+        run: |
+          git config user.name "trading-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data/ docs/
+          git diff --cached --quiet || git commit -m "Bot: mise à jour $(date -u +%F_%H:%M)"
+          git push

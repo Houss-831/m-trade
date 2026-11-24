@@ -1,0 +1,15 @@
+{
+  "user_name": "Mahjoub",
+  "capital": 10000,
+  "invest_max": 8000,
+  "max_loss_day": 150,
+  "max_loss_total": 1500,
+  "risk_profile": "equilibre",
+  "markets": ["Actions", "Crypto", "Matières"],
+  "assets": null,
+  "strategies": null,
+  "ai_weight": 0.3,
+  "allow_short": false,
+  "notify_orders": true,
+  "summary_hour": 21
+}
