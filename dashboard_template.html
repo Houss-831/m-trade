@@ -689,6 +689,14 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
 .tg input { accent-color: var(--accent); width: 16px; height: 16px; margin: 0; }
 .tg:has(input:checked) { border-color: rgba(62, 224, 255, 0.5); background: rgba(62, 224, 255, 0.07); }
 .tg small { color: var(--muted); font-size: 11px; }
+.opts { display: grid; gap: 8px; }
+.opt { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; align-items: center; padding: 11px 13px; border-radius: 14px; background: var(--panel); border: 1px solid var(--line); }
+.opt b { font-size: 14px; } .opt small { grid-column: 1; color: var(--muted); font-size: 12px; line-height: 1.45; }
+.opt .st { grid-row: 1 / span 2; grid-column: 2; display: flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 700; padding: 5px 10px; border-radius: 99px; white-space: nowrap; }
+.opt .st.on { color: #2BFFA3; background: rgba(43,255,163,.1); border: 1px solid rgba(43,255,163,.3); }
+.opt .st.off { color: var(--muted); background: rgba(255,255,255,.04); border: 1px dashed var(--line); }
+.opt.paid.off-o { opacity: .72; } .opt.paid.off-o b::after { content: " · payant"; color: #FFB03B; font-size: 11.5px; font-weight: 600; }
+.paid-off { position: relative; } .paid-note { display: flex; gap: 10px; align-items: center; padding: 12px 14px; border-radius: 14px; border: 1px dashed #FFB03B; background: rgba(255,176,59,.08); font-size: 13px; margin-bottom: 12px; }
 .sw-row { display: flex; align-items: center; gap: 10px; font-size: 13.5px; cursor: pointer; grid-column: 1 / -1; }
 .sw-row input { position: absolute; opacity: 0; width: 1px; height: 1px; }
 .sw-ui { width: 40px; height: 22px; border-radius: 99px; background: var(--raise); border: 1px solid var(--line); position: relative; flex: none; transition: background 0.2s; }
@@ -1344,6 +1352,11 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
         </fieldset>
 
         <fieldset class="card fs">
+          <legend><svg class="i"><use href="#i-lock"/></svg>Options M-TRADE<span class="right muted" style="font-size:12px;font-weight:500;margin-left:auto" id="opt-sum"></span></legend>
+          <div class="opts" id="opts" style="clear:both"></div>
+        </fieldset>
+
+        <fieldset class="card fs">
           <legend><svg class="i"><use href="#i-euro"/></svg>Ton argent et tes limites</legend>
           <div class="fields">
             <label class="fld"><span>Capital de départ</span><span class="inp"><input type="number" id="f-capital" min="100" step="100"><em>€</em></span><small>Le montant fictif avec lequel le bot démarre.</small></label>
@@ -1674,7 +1687,7 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
     $("dot").classList.toggle("stale", age > 6);
     var notes = [];
     if (D.demo) notes.push("Aperçu avec des données simulées. Une fois le bot lancé, ses vraies données s'afficheront ici.");
-    if (!D.ai_enabled) notes.push("IA non connectée : décisions purement techniques. Ajoute la clé ANTHROPIC_API_KEY pour activer l'analyse de l'actu.");
+    if (!D.ai_enabled) notes.push(optOff("ai_claude") ? "Analyse IA Claude en pause (option payante désactivée) : l'actu est lue par mots-clés." : "IA non connectée : décisions purement techniques. Ajoute la clé ANTHROPIC_API_KEY pour activer l'analyse de l'actu.");
     showBanner(notes.join(" "));
     renderTape(); renderMe(); renderBadge(); scBoot();
     rendered = {};
@@ -1872,7 +1885,7 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
   // ---------- Signaux ----------
   function renderMacro() {
     $("macro").textContent = D.macro || "L'IA n'est pas connectée pour l'instant. Les décisions reposent sur la tendance, le momentum et le RSI.";
-    $("ai-model").textContent = D.ai_enabled ? "analyse par " + D.settings.ai_model : "IA non connectée";
+    $("ai-model").textContent = D.ai_enabled ? "analyse par " + D.settings.ai_model : (optOff("ai_claude") ? "IA Claude : option payante désactivée" : "IA non connectée");
   }
   function renderMatrix() {
     var A = D.assets.filter(function (a) { return a.tradable && a.score != null; }).sort(function (a, b) { return b.score - a.score; });
@@ -2207,6 +2220,9 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
   }
   function renderAI() {
     var A = D.ai_report; if (!A) { $("ia-bulletin").hidden = true; return; }
+    var aiOff = optOff("ai_claude"), sec = $("ia-bulletin"), pn = $("ai-paid-note");
+    if (aiOff && !pn) { pn = document.createElement("div"); pn.id = "ai-paid-note"; pn.className = "paid-note"; pn.innerHTML = ic("lock", "width:18px;height:18px;color:#FFB03B") + "<div><b>Option payante désactivée.</b> L'analyse IA de l'actualité par Claude est en pause : le bot lit l'actu par mots-clés. Le bulletin ci-dessous se remplira quand tu l'activeras (Réglages › Options).</div>"; sec.insertBefore(pn, sec.children[1]); }
+    if (pn) pn.hidden = !aiOff;
     var R = A.report || {}, acc = R.accuracy, learning = (R.significant || 0) < 30;
     var col = acc == null ? C.muted : acc >= 0.55 ? C.good : acc >= 0.45 ? (css("--violet") || "#8B5CFF") : C.bad;
     $("ai-ring").innerHTML = ring(170, acc == null ? 0 : acc * 100, col, 12, true) + '<div class="v"><b>' + (acc == null ? "–" : Math.round(acc * 100) + '<span style="font-size:18px"> %</span>') + "</b><span>bons appels</span></div>";
@@ -2299,7 +2315,7 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
     portefeuille: function () { renderPortfolio(); renderTrades(); renderOrders(); },
     cockpit: function () { renderCockpit(); },
     assistant: function () {},
-    reglages: function () { initSettings(); paintLook(); },
+    reglages: function () { initSettings(); paintLook(); renderOptions(); var r = $("f-ai"), sm = r && r.parentNode.querySelector("small"); if (sm && optOff("ai_claude")) sm.textContent = "Analyse IA Claude désactivée (option payante) : ce poids s'applique pour l'instant à la lecture de l'actu par mots-clés."; },
     savoir: function () { renderKnowledge(); renderTimeline(); }
   };
   var rendered = {}, current = null;
@@ -3838,6 +3854,17 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
         else out.textContent = (err && err.text) || "La réponse n'a pas pu être obtenue. Réessaie.";
       })
       .then(function () { busy = false; $("send").disabled = false; });
+  }
+  function optOff(k) { var o = (D.options || []).find(function (x) { return x.key === k; }); return !!(o && !o.enabled); }
+  function renderOptions() {
+    var O = D.options || [], el = $("opts"); if (!el) return;
+    if (!O.length) { el.innerHTML = '<div class="empty">La liste des options apparaîtra au prochain passage du bot.</div>'; return; }
+    var on = O.filter(function (o) { return o.enabled; }).length;
+    $("opt-sum").textContent = on + "/" + O.length + " actives";
+    el.innerHTML = O.map(function (o) {
+      return '<div class="opt' + (o.paid ? " paid" : "") + (o.enabled ? "" : " off-o") + '"><b>' + esc(o.name) + "</b><small>" + esc(o.desc) + "</small>" +
+        (o.enabled ? '<span class="st on">' + ic("zap", "width:12px;height:12px") + (o.paid ? "Activée" : "Inclus") + "</span>" : '<span class="st off" title="Option payante : demande à Claude de l\'activer quand tu es prêt">' + ic("lock", "width:12px;height:12px") + "Désactivée</span>") + "</div>";
+    }).join("") + (O.some(function (o) { return !o.enabled; }) ? '<p class="explain" style="margin:4px 2px 0">Les options payantes restent visibles mais en pause. Tout le reste est gratuit et actif. Pour en activer une, il suffira de le demander : rien n\'est facturé tant qu\'elles sont désactivées.</p>' : "");
   }
   function setChat(on, note) {
     chatReady = on; $("send").disabled = !on;

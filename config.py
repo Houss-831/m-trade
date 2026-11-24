@@ -77,8 +77,10 @@ STRATEGY = {
 }
 
 # Analyste IA (Claude). Clé dans la variable d'environnement ANTHROPIC_API_KEY.
+# OPTION PAYANTE, désactivée pour l'instant : passer à True ET ajouter le secret ANTHROPIC_API_KEY.
+# Désactivée, le bot lit l'actualité par mots-clés (gratuit) ; tout le reste fonctionne.
 AI = {
-    "enabled": True,
+    "enabled": False,
     "model": "claude-haiku-5-5",      # rapide et économique ; "claude-sonnet-5-5" = plus fin
     "api_version": "2026-10-21",
     "news_weight": 0.30,              # poids de l'IA dans le score (remplace news_weight)
@@ -107,3 +109,20 @@ PAPER = {
     "state_file": "data/portfolio.json",
     "journal_file": "data/journal.csv",
 }
+
+
+# Catalogue des options (affiché dans Réglages > Options). paid=True : option payante.
+OPTIONS = [
+    {"key": "prices", "name": "Vrais cours des marchés", "desc": "Indices, crypto, or, pétrole, devises (Yahoo Finance, quotidien).", "paid": False},
+    {"key": "live", "name": "Direct crypto et or", "desc": "Bougies et prix en temps réel (Binance), scalping en direct.", "paid": False},
+    {"key": "news", "name": "Actualités mondiales", "desc": "Flux d'actus lus à chaque passage, analysés par mots-clés.", "paid": False},
+    {"key": "bot", "name": "Bot autonome toutes les 2 h", "desc": "Achats, ventes, stops et prises de profit sur le portefeuille fictif (GitHub Actions).", "paid": False},
+    {"key": "council", "name": "Conseil des 8 stratégies", "desc": "Dont les chandeliers japonais, pondérées selon leurs résultats.", "paid": False},
+    {"key": "thermo", "name": "Thermomètre de crise", "desc": "Compare le marché aux grandes crises et réduit le risque.", "paid": False},
+    {"key": "lab", "name": "Laboratoire", "desc": "Test de chance, walk-forward, robustesse, chaque jour.", "paid": False},
+    {"key": "knowledge", "name": "Encyclopédie M-TRADE", "desc": "66 fiches et 400 ans d'histoire des marchés.", "paid": False},
+    {"key": "telegram", "name": "Alertes Telegram", "desc": "Gratuit : il suffit d'ajouter TELEGRAM_TOKEN et TELEGRAM_CHAT_ID dans GitHub.", "paid": False},
+    {"key": "assistant", "name": "Assistant M-TRADE", "desc": "Discussion avec l'IA, incluse quand l'appli est ouverte dans Claude.", "paid": False},
+    {"key": "ai_claude", "name": "Analyse IA de l'actualité (Claude)", "desc": "Claude lit et comprend chaque actu, applique l'encyclopédie, compare aux crises passées, et se fait noter. Nécessite une clé API Anthropic (facturée à l'usage, quelques euros par mois).", "paid": True},
+    {"key": "ai_memory", "name": "Bulletin et mémoire de l'IA", "desc": "Notes des prédictions de l'IA et ajustement automatique de son poids. Dépend de l'analyse IA.", "paid": True},
+]

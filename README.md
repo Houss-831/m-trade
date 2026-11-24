@@ -308,6 +308,11 @@ L'icône M-TRADE apparaît alors sur ton écran d'accueil, et l'appli s'ouvre en
   dans cet aperçu pour l'utiliser avec tes vraies données.
 - **Direct crypto** (Bitcoin, Ethereum, Solana) via Binance, sur la version GitHub Pages.
 
+## 💶 Options gratuites et payantes
+
+Tout fonctionne gratuitement : vrais cours, direct crypto et or, actus, bot autonome, conseil des 8 stratégies, thermomètre de crise, laboratoire, encyclopédie, alertes Telegram et assistant (dans l'appli Claude).
+La seule option payante est **l'analyse IA de l'actualité par Claude**, avec son bulletin et sa mémoire. Elle est **désactivée** (`AI["enabled"] = False` dans `config.py`) mais reste visible dans Réglages › Options. Pour l'activer, passe-la à `True` et ajoute le secret `ANTHROPIC_API_KEY`.
+
 ## 📚 La culture de trader (v14)
 
 - **Encyclopédie M-TRADE** (`knowledge.py`) : 66 fiches, de la naissance de la Bourse d'Amsterdam (1602) à aujourd'hui. Elle couvre l'analyse technique, la macro, l'intermarché, le risque, la psychologie, les découvertes académiques, la crypto, les matières premières et l'exécution. Chaque fiche se termine par une **règle**. Ces règles et les leçons des grandes crises sont envoyées à Claude à chaque analyse. L'IA doit dire quelle règle elle applique (`principle`) et à quel épisode la situation ressemble (`analogue`). On consulte tout ça dans l'onglet Savoir (recherche et chapitres).

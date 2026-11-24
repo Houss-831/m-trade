@@ -222,6 +222,8 @@ def cmd_run(args):
     rep = ai_memory.report(mem, config.UNIVERSE)
     reg_now = market_regimes(prices[[s for s in config.TRADABLE if s in prices]]).iloc[-1]
     ai_extra, nw_why = {}, ""
+    if not ai["enabled"]:
+        print("💤 Analyse IA Claude désactivée (option payante) : lecture de l'actu par mots-clés")
     if ai["enabled"] and (os.getenv("ANTHROPIC_API_KEY") or args.mock_ai):
         try:
             macro, per_asset, ai_extra = analyze(news, config.TRADABLE, config.UNIVERSE, prices,
@@ -276,6 +278,7 @@ def cmd_run(args):
     payload["feed"] = list(reversed(state.get("feed", [])))[:120]
     payload["thermo"] = ctx.get("thermo") if ctx else None
     payload["knowledge"] = knowledge.payload()
+    payload["options"] = [{**o, "enabled": (not o["paid"]) or bool(config.AI["enabled"])} for o in config.OPTIONS]
     payload["lab"] = lab_cached(full, [s for s in config.TRADABLE if s in full], p, pp["fee_rate"])
     path = write_dashboard(payload)
     print(f"🖥️  Interface mise à jour : {path}")
@@ -354,6 +357,7 @@ def cmd_replay(args):
     payload["feed"] = list(reversed(state.get("feed", [])))[:120]
     payload["thermo"] = ctx.get("thermo") if ctx else None
     payload["knowledge"] = knowledge.payload()
+    payload["options"] = [{**o, "enabled": (not o["paid"]) or bool(config.AI["enabled"])} for o in config.OPTIONS]
     payload["lab"] = lab_cached(prices, [s for s in config.TRADABLE if s in prices], p,
                                 pp["fee_rate"], force=True)
     print(f"Interface : {write_dashboard(payload)}")
