@@ -499,6 +499,10 @@
     {
       "date": "2026-11-24T14:36:42",
       "value": 9742.75
+    },
+    {
+      "date": "2026-11-24T23:28:18",
+      "value": 9742.75
     }
   ],
   "peaks": {},
@@ -525,95 +529,65 @@
   },
   "last_leader": "macd",
   "last_stress": 1.0,
-  "thermo_last": 56.6,
+  "thermo_last": 56.9,
   "last_signals": {
     "^FCHI": {
       "action": "\u00c9VITER / SORTIR",
-      "score": -0.2973131374073502,
-      "rsi": 45.81374802540002,
-      "adx": 27.004421223452013
+      "score": -0.349319411456554,
+      "rsi": 45.63273962013802,
+      "adx": 27.03027956706087
     },
     "^GDAXI": {
       "action": "\u00c9VITER / SORTIR",
-      "score": -0.2584493648697312,
-      "rsi": 39.07319635266221,
-      "adx": 23.839860819298902
+      "score": -0.32013024410132157,
+      "rsi": 42.43856437815958,
+      "adx": 23.35909395851356
     },
     "^GSPC": {
       "action": "NEUTRE",
-      "score": -0.08842621180645807,
-      "rsi": 43.269777789550176,
-      "adx": 20.42117884670672
+      "score": -0.0844369130375314,
+      "rsi": 45.69624230206603,
+      "adx": 20.074541059204456
     },
     "^IXIC": {
       "action": "NEUTRE",
-      "score": -0.1449988093062691,
-      "rsi": 42.966963080738694,
-      "adx": 21.805204489031837
-    },
-    "^N225": {
-      "action": "\u00c9VITER / SORTIR",
-      "score": -0.464798263431296,
-      "rsi": 45.86385564900953,
-      "adx": 25.33242145186381
+      "score": -0.11220271727731225,
+      "rsi": 44.006054218670315,
+      "adx": 21.656762897898748
     },
     "BTC-USD": {
       "action": "\u00c9VITER / SORTIR",
-      "score": -0.39591142839800275,
-      "rsi": 27.40469552257119,
-      "adx": 36.314292931887444
+      "score": -0.3431758447853191,
+      "rsi": 27.32002749434683,
+      "adx": 36.326388364490924
     },
     "ETH-USD": {
       "action": "\u00c9VITER / SORTIR",
-      "score": -0.4005817066581013,
-      "rsi": 29.880169585063015,
-      "adx": 36.86124387948983
+      "score": -0.3433167619132227,
+      "rsi": 29.970493599143026,
+      "adx": 36.84834044890697
     },
     "SOL-USD": {
       "action": "\u00c9VITER / SORTIR",
-      "score": -0.34782100065645494,
-      "rsi": 30.40181358162448,
-      "adx": 40.08469491653776
+      "score": -0.27635466500596956,
+      "rsi": 30.98320623561574,
+      "adx": 40.00163882311044
     },
     "GC=F": {
       "action": "\u00c9VITER / SORTIR",
-      "score": -0.5269714726369392,
-      "rsi": 35.17314229977953,
-      "adx": 27.42502060748715
+      "score": -0.57049335276451,
+      "rsi": 32.77099819671801,
+      "adx": 27.76818405078165
     },
     "CL=F": {
-      "action": "\u00c9VITER / SORTIR",
-      "score": -0.34778209714057096,
-      "rsi": 32.89206201085835,
-      "adx": 27.445650297259952
+      "action": "NEUTRE",
+      "score": -0.2174040502878591,
+      "rsi": 34.53663549786896,
+      "adx": 27.21071122768701
     }
   },
   "stop_alerted": [],
   "feed": [
-    {
-      "date": "2026-10-07T18:00",
-      "kind": "risk:stop",
-      "level": "important",
-      "title": "Bouclier : stop d\u00e9clench\u00e9",
-      "text": "stop suiveur touch\u00e9 : prix 73,999.82 sous le stop 74,251.04 (plus haut 76,872.34 moins 3 ATR)",
-      "symbol": "BTC-USD"
-    },
-    {
-      "date": "2026-10-08T18:00",
-      "kind": "rsi",
-      "level": "attention",
-      "title": "CAC 40 survendu",
-      "text": "RSI 24 : rebond technique possible",
-      "symbol": "^FCHI"
-    },
-    {
-      "date": "2026-10-08T18:00",
-      "kind": "risk:stop",
-      "level": "important",
-      "title": "Bouclier : stop d\u00e9clench\u00e9",
-      "text": "stop suiveur touch\u00e9 : prix 97.70 sous le stop 101.53 (plus haut 108.03 moins 3 ATR)",
-      "symbol": "SOL-USD"
-    },
     {
       "date": "2026-10-09T18:00",
       "kind": "risk:stop",
@@ -2189,6 +2163,30 @@
       "title": "Ethereum : Marteau",
       "text": "Longue m\u00e8che basse apr\u00e8s une baisse : les acheteurs ont rejet\u00e9 les plus bas. Signal haussier pris en compte par le conseil.",
       "symbol": "ETH-USD"
+    },
+    {
+      "date": "2026-11-24T23:28",
+      "kind": "decision",
+      "level": "attention",
+      "title": "P\u00e9trole WTI : \u00e9viter / sortir \u2192 neutre",
+      "text": "score -0.35 \u2192 -0.22. Cassure de canal vote vente (-0.86, poids 25%)",
+      "symbol": "CL=F"
+    },
+    {
+      "date": "2026-11-24T23:28",
+      "kind": "pattern",
+      "level": "info",
+      "title": "S&P 500 : \u00c9toile du matin",
+      "text": "Rouge, petite ind\u00e9cision, puis forte verte : retournement haussier en trois temps. Signal haussier pris en compte par le conseil.",
+      "symbol": "^GSPC"
+    },
+    {
+      "date": "2026-11-24T23:28",
+      "kind": "pattern",
+      "level": "info",
+      "title": "P\u00e9trole WTI : Marteau",
+      "text": "Longue m\u00e8che basse apr\u00e8s une baisse : les acheteurs ont rejet\u00e9 les plus bas. Signal haussier pris en compte par le conseil.",
+      "symbol": "CL=F"
     }
   ],
   "cost_basis": {},
@@ -2370,6 +2368,13 @@
     },
     {
       "date": "2026-11-24 14:36",
+      "oracle": 50,
+      "performance": 28,
+      "intelligence": 50,
+      "risk": 6
+    },
+    {
+      "date": "2026-11-24 23:28",
       "oracle": 50,
       "performance": 28,
       "intelligence": 50,
