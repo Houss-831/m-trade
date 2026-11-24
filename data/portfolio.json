@@ -491,6 +491,10 @@
     {
       "date": "2026-11-24T14:21:42",
       "value": 9742.75
+    },
+    {
+      "date": "2026-11-24T14:28:31",
+      "value": 9742.75
     }
   ],
   "peaks": {},
@@ -517,79 +521,71 @@
   },
   "last_leader": "macd",
   "last_stress": 1.0,
-  "thermo_last": 56.1,
+  "thermo_last": 56.0,
   "last_signals": {
     "^FCHI": {
       "action": "\u00c9VITER / SORTIR",
-      "score": -0.3211360796411178,
-      "rsi": 45.41365401338324,
-      "adx": 27.061577510882984
+      "score": -0.32555880229660467,
+      "rsi": 45.40314550503299,
+      "adx": 27.06307872636159
     },
     "^GDAXI": {
       "action": "\u00c9VITER / SORTIR",
-      "score": -0.25419494153341926,
-      "rsi": 38.861620941127974,
-      "adx": 23.870085878089505
+      "score": -0.30782482190483623,
+      "rsi": 38.77451537362283,
+      "adx": 23.882529530590244
     },
     "^GSPC": {
       "action": "NEUTRE",
-      "score": -0.04807318962153325,
-      "rsi": 46.87822372660394,
-      "adx": 19.905686569984756
+      "score": -0.04378831516459623,
+      "rsi": 46.946697960282314,
+      "adx": 19.89590453660213
     },
     "^IXIC": {
       "action": "NEUTRE",
-      "score": -0.10664939897381129,
-      "rsi": 46.97415397721164,
-      "adx": 21.23274864667856
+      "score": -0.11171787357801671,
+      "rsi": 47.02498586933491,
+      "adx": 21.225486947803805
     },
     "^N225": {
       "action": "\u00c9VITER / SORTIR",
-      "score": -0.4756596531771899,
-      "rsi": 45.988694253487225,
-      "adx": 25.31458736550985
+      "score": -0.47604337451117207,
+      "rsi": 45.96289597060346,
+      "adx": 25.318272834493243
     },
     "BTC-USD": {
       "action": "\u00c9VITER / SORTIR",
-      "score": -0.3730142074683802,
-      "rsi": 27.67989042166846,
-      "adx": 36.27497937487355
+      "score": -0.3631268369467858,
+      "rsi": 27.881844248952547,
+      "adx": 36.24612882811868
     },
     "ETH-USD": {
       "action": "\u00c9VITER / SORTIR",
-      "score": -0.38132909644878693,
-      "rsi": 30.442726936357147,
-      "adx": 36.78087854359067
+      "score": -0.33704012400622346,
+      "rsi": 30.61908583639365,
+      "adx": 36.755684415014024
     },
     "SOL-USD": {
       "action": "\u00c9VITER / SORTIR",
-      "score": -0.32992708297905404,
-      "rsi": 30.965467326181383,
-      "adx": 40.00417295302963
+      "score": -0.3195595653014346,
+      "rsi": 31.206753162469525,
+      "adx": 39.96970354784561
     },
     "GC=F": {
       "action": "\u00c9VITER / SORTIR",
-      "score": -0.5247085254441043,
-      "rsi": 35.416960593654835,
-      "adx": 27.39018942264782
+      "score": -0.5206316836466947,
+      "rsi": 35.53755189659229,
+      "adx": 27.372962093656753
     },
     "CL=F": {
       "action": "\u00c9VITER / SORTIR",
-      "score": -0.35948835992145123,
-      "rsi": 32.73778018897002,
-      "adx": 27.467690557529714
+      "score": -0.3793140236963598,
+      "rsi": 32.730153171647245,
+      "adx": 27.468780131432972
     }
   },
   "stop_alerted": [],
   "feed": [
-    {
-      "date": "2026-10-07T18:00",
-      "kind": "risk:stop",
-      "level": "important",
-      "title": "Bouclier : stop d\u00e9clench\u00e9",
-      "text": "stop suiveur touch\u00e9 : prix 2,286.86 sous le stop 2,326.30 (plus haut 2,423.59 moins 3 ATR)",
-      "symbol": "ETH-USD"
-    },
     {
       "date": "2026-10-07T18:00",
       "kind": "risk:stop",
@@ -2181,6 +2177,14 @@
       "title": "P\u00e9trole WTI : Marteau",
       "text": "Longue m\u00e8che basse apr\u00e8s une baisse : les acheteurs ont rejet\u00e9 les plus bas. Signal haussier pris en compte par le conseil.",
       "symbol": "CL=F"
+    },
+    {
+      "date": "2026-11-24T14:28",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Ethereum : Marteau",
+      "text": "Longue m\u00e8che basse apr\u00e8s une baisse : les acheteurs ont rejet\u00e9 les plus bas. Signal haussier pris en compte par le conseil.",
+      "symbol": "ETH-USD"
     }
   ],
   "cost_basis": {},
@@ -2361,9 +2365,9 @@
       "risk": 6
     },
     {
-      "date": "2026-11-24 14:21",
+      "date": "2026-11-24 14:28",
       "oracle": 49,
-      "performance": 27,
+      "performance": 26,
       "intelligence": 50,
       "risk": 6
     }
