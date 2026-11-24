@@ -1004,6 +1004,7 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
         <div class="card-h"><svg class="i"><use href="#i-wallet"/></svg>Porte-monnaie scalping<span class="right muted" style="font-size:12px">argent fictif · mis à jour en continu</span></div>
         <div class="sc-big num" id="sc-val">–</div>
         <div class="sc-pnl num" id="sc-pnl"></div>
+        <div class="paid-note" id="sc-why" hidden></div>
         <div class="chart h200" id="sc-eq"></div>
         <div class="sc-stats" id="sc-stats"></div>
       </div>
@@ -3283,11 +3284,33 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
       SC.raf = requestAnimationFrame(loop); };
     SC.raf = requestAnimationFrame(loop);
   }
+  function scWhy() {
+    var el = $("sc-why"); if (!el) return;
+    var noEdge = SC.cfg.auto && SC.cal && !SC_SYMS.some(function (s2) { return SC.cal[s2] && SC.cal[s2].ok; });
+    var tooShort = SC.cfg.tf === "1m" && SC.cfg.smart && SC.cfg.fee_mult >= 2;
+    if (!SC.on || Object.keys(SC.W.pos).length || SC.W.trades.length > 2 || (!noEdge && !tooShort)) { el.hidden = true; return; }
+    el.hidden = false;
+    el.innerHTML = ic("alert", "width:18px;height:18px;color:#FFB03B;flex:none") + "<div><b>Pourquoi le scalper ne trade pas ?</b> " +
+      (tooShort ? "En bougies d'1 minute, les mouvements sont plus petits que les frais (0,2 % aller-retour) : chaque signal est refusé pour ne pas perdre d'argent. " : "") +
+      (noEdge ? "Le test sur les 3 000 dernières bougies réelles ne montre aucun réglage rentable : par prudence, il attend. " : "") +
+      '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">' + (SC.cfg.tf !== "5m" ? '<button type="button" class="btn" id="sc-fix-tf">Passer en bougies 5 min</button>' : "") +
+      '<button type="button" class="btn primary" id="sc-train">Mode entraînement : trader quand même</button></div>' +
+      '<small class="muted" style="display:block;margin-top:6px">Le mode entraînement ouvre des positions même sans avantage prouvé, pour voir le porte-monnaie vivre. Avec de l\'argent fictif, mais il perdra probablement en frais.</small></div>';
+  }
+  document.addEventListener("click", function (e) {
+    if (e.target.id === "sc-fix-tf") { var t = $("sc-tf"); t.value = "5m"; t.dispatchEvent(new Event("change", { bubbles: true })); }
+    if (e.target.id === "sc-train") {
+      SC.cfg.auto = false; SC.cfg.fee_mult = 1.2; SC.cfg.min_er = 0.2; SC.cfg.min_score = 0.6; SC.cfg.train = true;
+      scSave(); scKnobs(); scLog("🎓 <b>mode entraînement</b> : le scalper trade même sans avantage prouvé (seuil 0,60, objectif ≥ 1,2× les frais)", ""); scPaint(true);
+      toast("Mode entraînement activé : le scalper va prendre des positions.", "");
+    }
+  });
   function scPaint(full) {
     if (current !== "scalp" || !SC.W) return;
     var st = $("sc-state"); st.innerHTML = "<i></i>" + (SC.on ? "EN MARCHE" : "EN PAUSE"); st.style.color = SC.on ? C.good : C.warn;
     var tg = $("sc-toggle"); tg.innerHTML = SC.on ? ic("clock") + "Mettre en pause" : ic("play") + "Démarrer";
     var v = scEquity(), pl = v - SC.W.start;
+    scWhy();
     var waitTxt = SC.on && !Object.keys(SC.W.pos).length ? ' <span class="chip c-neutral" style="font-size:11px">' + (SC.cal && !SC_SYMS.some(function (s2) { return SC.cal[s2] && SC.cal[s2].ok; }) ? "aucun avantage prouvé : en attente" : "en attente d'un signal") + "</span>" : "";
     $("sc-pnl").innerHTML = waitTxt + ' <span class="' + cls(pl) + '">' + (pl >= 0 ? "▲ +" : "▼ ") + eur(pl, 2) + " · " + pct(pl / SC.W.start, 2) + '</span> <span class="muted" style="font-weight:500;font-size:13px">depuis le ' + new Date(SC.W.sess).toLocaleString("fr-FR", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) + "</span>";
     // statistiques
