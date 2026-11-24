@@ -2399,7 +2399,51 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
       ["#performance", "sparkles", "Score M-TRADE", S.oracle + '<span class="muted" style="font-size:14px"> /100</span>', grade(S.oracle)],
       ["#labo", "flask", "Laboratoire", L ? Math.round(L.prob_edge * 100) + " %" : "–", L ? esc(L.verdict) : "pas encore de verdict"]
     ];
-    $("apercu").innerHTML = tiles.map(function (t) { return '<a class="kq" href="' + t[0] + '"><span>' + ic(t[1]) + t[2] + "</span><b>" + t[3] + "</b><small>" + t[4] + "</small></a>"; }).join("");
+    $("apercu").innerHTML = tiles.map(function (t, i) { return '<a class="kq" href="' + t[0] + '"><span>' + ic(t[1]) + t[2] + "</span><b" + (i < 2 ? ' id="kq-v' + i + '"' : "") + ">" + t[3] + "</b><small" + (i < 2 ? ' id="kq-s' + i + '"' : "") + ">" + t[4] + "</small></a>"; }).join("");
+    homeLive();
+  }
+  // ---------- Portefeuille en direct sur l'accueil ----------
+  var HL = { ws: null, px: {}, sim: null };
+  function homeLive() {
+    var P = D.portfolio, pos = P.positions || [];
+    var liveSyms = pos.map(function (p) { return p.symbol; }).filter(function (s) { return BIN[s]; });
+    var s0 = $("kq-s0");
+    if (!pos.length) {
+      if (s0) s0.innerHTML = '<span class="' + cls(P.value / P.start - 1) + '">' + pct(P.value / P.start - 1, 2) + "</span> · 100 % en liquidités : rien ne bouge tant que le bot n'a pas de position";
+      return;
+    }
+    var paint = function () {
+      var v = P.cash || 0, moved = false;
+      pos.forEach(function (p) {
+        var a = asset(p.symbol) || {}, lp = HL.px[p.symbol];
+        if (lp != null && a.price) { v += p.value * lp / a.price; moved = true; } else v += p.value;
+      });
+      var b = $("kq-v0"); if (!b) return;
+      var old = HL.last; HL.last = v;
+      b.textContent = eur(v);
+      if (old != null && Math.abs(v - old) > 0.004) { b.classList.remove("flash-up", "flash-down"); void b.offsetWidth; b.classList.add(v > old ? "flash-up" : "flash-down"); setTimeout(function () { b.classList.remove("flash-up", "flash-down"); }, 700); }
+      var r = v / P.start - 1;
+      $("kq-s0").innerHTML = '<span class="' + cls(r) + '">' + pct(r, 2) + "</span> depuis le départ" + (moved ? ' · <span style="color:' + C.good + '">● en direct</span>' : "");
+      var day = v - P.value + ((D.risk_budget || {}).day_pnl || 0), dv = $("kq-v1");
+      if (dv && moved) dv.innerHTML = '<span class="' + cls(day) + '">' + (day > 0 ? "+" : "") + eur(day) + "</span>";
+    };
+    if (!liveSyms.length) { if (s0) s0.innerHTML += " · actifs cotés à la clôture, mis à jour toutes les 2 h"; return; }
+    if (HL.ws || HL.sim) { paint(); return; }
+    checkNet().then(function (net) {
+      if (net && window.WebSocket) {
+        try {
+          var rev = {}; liveSyms.forEach(function (k) { rev[BIN[k]] = k; });
+          var ws = new WebSocket(BIN_WS + "/stream?streams=" + Object.keys(rev).map(function (b) { return b.toLowerCase() + "@miniTicker"; }).join("/"));
+          ws.onmessage = function (e) { var m = (JSON.parse(e.data) || {}).data; if (!m || !rev[m.s]) return; HL.px[rev[m.s]] = +m.c; if (current === "accueil") paint(); };
+          ws.onclose = function () { HL.ws = null; setTimeout(function () { if (current === "accueil") homeLive(); }, 4000); };
+          HL.ws = ws; return;
+        } catch (e) {}
+      }
+      HL.sim = setInterval(function () {                      // aperçu hors ligne : petites variations simulées
+        liveSyms.forEach(function (s) { var a = asset(s) || {}, cur = HL.px[s] || a.price; HL.px[s] = cur * (1 + 0.0006 * gauss()); });
+        if (current === "accueil") paint();
+      }, 1500);
+    });
   }
 
   // =====================================================================
