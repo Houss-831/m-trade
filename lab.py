@@ -27,7 +27,9 @@ def _norm_cdf(x):
     return 0.5 * (1 + math.erf(x / math.sqrt(2)))
 
 
-def _sim(px, p, fee, window=60, temperature=4.0, regime=None):
+def _sim(px, p, fee, window=None, temperature=None, regime=None):
+    window = window or p.get("council_window", 60)
+    temperature = temperature or p.get("council_temp", 4.0)
     rg = p.get("regime_memory", True) if regime is None else regime
     score, *_ = council(px, window=window, temperature=temperature, keys=p.get("strategies"), regime=rg)
     vol = px.pct_change().rolling(p["vol_days"]).std() * np.sqrt(252)

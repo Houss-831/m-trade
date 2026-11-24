@@ -36,6 +36,9 @@ jobs:
       - name: Installer les dépendances
         run: pip install -r requirements.txt
 
+      - name: Réglage automatique sur les vrais cours (une fois par semaine)
+        run: python main.py tune
+
       - name: Rejouer l'historique (premier lancement automatique, ou à la demande)
         run: |
           N="${{ github.event.inputs.rejouer }}"

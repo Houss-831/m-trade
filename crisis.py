@@ -35,9 +35,11 @@ def _clip01(x):
     return np.clip(x, 0.0, 1.0)
 
 
-def series(px, window=20, long=120):
+def series(px, window=20, long=120, tail=420):
     cols = [c for c in RISKY if c in px.columns]
-    p = px[cols].ffill().iloc[-420:]
+    p = px[cols].ffill()
+    if tail:
+        p = p.iloc[-tail:]
     r = p.pct_change()
     basket = (1 + r.mean(axis=1).fillna(0)).cumprod()
     # corrélation moyenne entre paires (fenêtre courte)
@@ -113,7 +115,7 @@ def thermometer(px):
             "scale": 0.6 if s >= 70 else (0.85 if s >= 55 else 1.0)}
 
 
-def factor_series(px):
-    """Facteur d'exposition quotidien (pour backtest/rejeu)."""
-    score, _, _ = series(px)
+def factor_series(px, tail=None):
+    """Facteur d'exposition quotidien (pour backtest, labo et réglage automatique)."""
+    score, _, _ = series(px, tail=tail)
     return pd.Series(np.where(score >= 70, 0.6, np.where(score >= 55, 0.85, 1.0)), index=score.index)

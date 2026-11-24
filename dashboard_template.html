@@ -1167,6 +1167,14 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
         <p class="explain">Sharpe du bot pour 20 réglages du conseil : la fenêtre de mesure (lignes) et la réactivité des poids (colonnes). Le cadre doré marque le réglage actuel. Une large zone verte veut dire que le résultat ne dépend pas d'un réglage chanceux.</p>
       </div>
     </div>
+    <div class="card" id="tune-card" style="margin-top:14px">
+      <div class="card-h"><svg class="i"><use href="#i-sliders"/></svg>Réglage automatique sur les vrais cours<span class="right chip" id="tune-chip"></span></div>
+      <p id="tune-sum" style="margin:0 0 10px"></p>
+      <div class="mini" id="tune-mini"></div>
+      <div class="sub-label">Les 5 meilleurs réglages (note de régularité)</div>
+      <div id="tune-top"></div>
+      <p class="explain" id="tune-oos"></p>
+    </div>
   </section>
   </div>
   <div class="view" data-view="flux" hidden>
@@ -2183,7 +2191,23 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
     };
     c.cv.onpointerleave = function () { c.tip.style.display = "none"; };
   }
+  function renderTuning() {
+    var T = D.tuning, el = $("tune-card"); if (!el) return;
+    if (!T) { $("tune-sum").textContent = "Le premier réglage automatique sera calculé au prochain passage du bot, sur 5 ans de vrais cours."; $("tune-chip").textContent = "en attente"; return; }
+    $("tune-chip").textContent = (T.adopted ? "nouveau réglage" : "réglage confirmé") + " · " + dFmt(T.date);
+    $("tune-chip").style.color = T.adopted ? C.good : C.muted;
+    $("tune-sum").textContent = T.summary;
+    var cs = T.chosen_stats, ps = T.previous_stats;
+    $("tune-mini").innerHTML = [["Sharpe retenu", cs.sharpe], ["Sharpe avant", ps.sharpe], ["Sharpe marché", T.market_sharpe], ["Pire baisse", pct(cs.max_dd, 1)], ["Réglages testés", T.tested], ["Historique", T.years + " ans"]]
+      .map(function (x) { return '<div class="kpi"><span>' + x[0] + "</span><b>" + x[1] + "</b></div>"; }).join("");
+    $("tune-top").innerHTML = T.top.map(function (t, i) {
+      return '<div class="dr-o"><span><b>' + (i + 1) + ".</b> " + t.window + " j · temp. " + t.temperature + " · " + esc(t.group_txt) + " · seuil " + t.entry.toFixed(2) + (t.thermo ? " · thermomètre" : "") + '</span><span class="num ' + cls(t.robust) + '">' + t.robust.toFixed(2) + "</span></div>";
+    }).join("");
+    var O = T.oos;
+    $("tune-oos").textContent = "Contrôle honnête : en choisissant le réglage sans voir la période du " + dFmt(O.from) + " au " + dFmt(O.to) + ", le bot aurait obtenu un Sharpe de " + O.chosen + " sur cette période, contre " + O.previous + " avec l'ancien réglage et " + O.market + " pour le marché. Un réglage n'est adopté que s'il est nettement meilleur et ne fait pas pire sur la période jamais vue.";
+  }
   function renderLab() {
+    renderTuning();
     var Lb = D.lab; if (!Lb) { $("labo").hidden = true; return; }
     $("labo").hidden = false;
     var pr = Math.round(Lb.prob_edge * 100), col = pr >= 95 ? C.good : pr >= 80 ? C.bot : pr >= 40 ? C.muted : C.bad;

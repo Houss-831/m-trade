@@ -313,6 +313,10 @@ L'icône M-TRADE apparaît alors sur ton écran d'accueil, et l'appli s'ouvre en
 Tout fonctionne gratuitement : vrais cours, direct crypto et or, actus, bot autonome, conseil des 8 stratégies, thermomètre de crise, laboratoire, encyclopédie, alertes Telegram et assistant (dans l'appli Claude).
 La seule option payante est **l'analyse IA de l'actualité par Claude**, avec son bulletin et sa mémoire. Elle est **désactivée** (`AI["enabled"] = False` dans `config.py`) mais reste visible dans Réglages › Options. Pour l'activer, passe-la à `True` et ajoute le secret `ANTHROPIC_API_KEY`.
 
+## 🎛️ Réglage automatique (chaque semaine, sur les vrais cours)
+
+`python main.py tune` (lancé automatiquement par GitHub une fois par semaine) teste 270 réglages du conseil sur 5 ans de vrais cours : fenêtre d'évaluation, température, groupe de stratégies, seuil d'entrée et thermomètre. Chaque réglage est noté sur sa régularité, sur 3 périodes successives, et lissé avec ses voisins pour éviter le sur-ajustement. Un nouveau réglage n'est adopté que s'il bat nettement l'ancien et ne fait pas pire sur une période jamais vue. Le niveau de risque choisi dans Réglages n'est jamais modifié. Les résultats sont dans `data/tuning.json` et dans l'onglet Performance.
+
 ## 📚 La culture de trader (v14)
 
 - **Encyclopédie M-TRADE** (`knowledge.py`) : 66 fiches, de la naissance de la Bourse d'Amsterdam (1602) à aujourd'hui. Elle couvre l'analyse technique, la macro, l'intermarché, le risque, la psychologie, les découvertes académiques, la crypto, les matières premières et l'exécution. Chaque fiche se termine par une **règle**. Ces règles et les leçons des grandes crises sont envoyées à Claude à chaque analyse. L'IA doit dire quelle règle elle applique (`principle`) et à quel épisode la situation ressemble (`analogue`). On consulte tout ça dans l'onglet Savoir (recherche et chapitres).

@@ -119,6 +119,12 @@ def activate_profile():
     strat, risk, paper, tradable, keys, aiw = apply_profile(prof)
     config.STRATEGY.update(strat)
     config.STRATEGY["strategies"] = keys
+    config.STRATEGY["user_strategies"] = bool(prof.get("strategies"))
+    import optimizer
+    tun = optimizer.load()
+    if tun:
+        optimizer.apply(config.STRATEGY, tun)
+        print("🎛️  réglage automatique du " + tun["date"] + " : " + tun["summary"])
     config.RISK.update(risk)
     config.PAPER.update(paper)
     config.TRADABLE[:] = tradable
@@ -164,7 +170,7 @@ def decide(prices, p, per_asset=None, nw=None, macro="", state=None, now=None):
         for pt in s_["patterns"][:2]:
             if pt["dir"]:
                 s_["reasons"].append(f"chandeliers : {pt['name'].lower()} {'il y a ' + str(pt['ago']) + ' j' if pt['ago'] else 'aujourd’hui'}")
-    if th["scale"] < 1:
+    if th["scale"] < 1 and p.get("thermo", True):
         for k in target:
             target[k] *= th["scale"]
         for s_ in signals.values():
@@ -278,6 +284,8 @@ def cmd_run(args):
     payload["feed"] = list(reversed(state.get("feed", [])))[:120]
     payload["thermo"] = ctx.get("thermo") if ctx else None
     payload["knowledge"] = knowledge.payload()
+    import optimizer
+    payload["tuning"] = optimizer.load()
     payload["options"] = [{**o, "enabled": (not o["paid"]) or bool(config.AI["enabled"])} for o in config.OPTIONS]
     payload["lab"] = lab_cached(full, [s for s in config.TRADABLE if s in full], p, pp["fee_rate"])
     path = write_dashboard(payload)
@@ -357,6 +365,8 @@ def cmd_replay(args):
     payload["feed"] = list(reversed(state.get("feed", [])))[:120]
     payload["thermo"] = ctx.get("thermo") if ctx else None
     payload["knowledge"] = knowledge.payload()
+    import optimizer
+    payload["tuning"] = optimizer.load()
     payload["options"] = [{**o, "enabled": (not o["paid"]) or bool(config.AI["enabled"])} for o in config.OPTIONS]
     payload["lab"] = lab_cached(prices, [s for s in config.TRADABLE if s in prices], p,
                                 pp["fee_rate"], force=True)
@@ -374,13 +384,31 @@ def cmd_status(args):
         print(f"  {config.UNIVERSE.get(s, s):16} {q:>12.4f}  ≈ {q * prices.get(s, 0):>10,.0f} €")
 
 
+def cmd_tune(args):
+    """Réglage automatique sur les vrais cours (une fois par semaine, ou --force)."""
+    import optimizer
+    if not args.force and not optimizer.due():
+        print("🎛️  réglage automatique déjà fait cette semaine")
+        return
+    full = load_prices(args.demo, "5y")
+    res = optimizer.tune(full, config.TRADABLE, dict(config.STRATEGY), config.PAPER["fee_rate"])
+    if not res:
+        print("🎛️  pas assez d'historique pour le réglage automatique")
+        return
+    optimizer.save(res)
+    print("🎛️  " + res["summary"])
+    print(f"   contrôle hors échantillon ({res['oos']['from']} → {res['oos']['to']}) : "
+          f"Sharpe {res['oos']['chosen']} (sélection aveugle) contre {res['oos']['previous']} (avant) et {res['oos']['market']} (marché)")
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(description="Bot d'analyse et de paper trading")
-    ap.add_argument("command", choices=["backtest", "run", "status", "replay"])
+    ap.add_argument("command", choices=["backtest", "run", "status", "replay", "tune"])
     ap.add_argument("--demo", action="store_true", help="données simulées, sans internet")
     ap.add_argument("--mock-ai", action="store_true", help="simule la réponse de l'IA (test)")
     ap.add_argument("--days", type=int, default=120, help="jours à rejouer (replay)")
+    ap.add_argument("--force", action="store_true", help="refaire le réglage automatique (tune)")
     ap.add_argument("--full", action="store_true", help="affiche aussi le rapport complet des signaux")
     a = ap.parse_args()
     activate_profile()
-    {"backtest": cmd_backtest, "run": cmd_run, "status": cmd_status, "replay": cmd_replay}[a.command](a)
+    {"backtest": cmd_backtest, "run": cmd_run, "status": cmd_status, "replay": cmd_replay, "tune": cmd_tune}[a.command](a)

@@ -20,7 +20,8 @@ def rsi(series, n=14):
 
 def build_context(prices, p):
     """Calcule une fois tout ce dont le bot a besoin sur l'ensemble des actifs tradés."""
-    score, weights, votes, skill = council(prices, keys=p.get("strategies"), regime=p.get("regime_memory", True))
+    score, weights, votes, skill = council(prices, window=p.get("council_window", 60), temperature=p.get("council_temp", 4.0),
+                                          keys=p.get("strategies"), regime=p.get("regime_memory", True))
     vol = prices.pct_change().rolling(p["vol_days"]).std() * np.sqrt(252)
     return {"score": score, "weights": weights, "votes": votes, "skill": skill, "vol": vol,
             "rsi": rsi(prices, p["rsi_days"]), "sma_f": prices.rolling(p["sma_fast"]).mean(),
