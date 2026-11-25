@@ -286,6 +286,14 @@ def cmd_run(args):
     payload["knowledge"] = knowledge.payload()
     import optimizer
     payload["tuning"] = optimizer.load()
+    try:
+        import scalper_server as _ss
+        _S = _ss.load()
+        if _S.get("updated"):
+            payload["scalp_server"] = {k: _S.get(k) for k in ("start", "cash", "pos", "equity", "updated", "source", "fees", "prices", "created")}
+            payload["scalp_server"].update({"trades": _S["trades"][-60:], "log": _S["log"][-60:], "eq": _S["eq"][-600:], "summary": _ss.summary(_S)})
+    except Exception:
+        pass
     payload["options"] = [{**o, "enabled": (not o["paid"]) or bool(config.AI["enabled"])} for o in config.OPTIONS]
     payload["lab"] = lab_cached(full, [s for s in config.TRADABLE if s in full], p, pp["fee_rate"])
     path = write_dashboard(payload)
@@ -367,6 +375,14 @@ def cmd_replay(args):
     payload["knowledge"] = knowledge.payload()
     import optimizer
     payload["tuning"] = optimizer.load()
+    try:
+        import scalper_server as _ss
+        _S = _ss.load()
+        if _S.get("updated"):
+            payload["scalp_server"] = {k: _S.get(k) for k in ("start", "cash", "pos", "equity", "updated", "source", "fees", "prices", "created")}
+            payload["scalp_server"].update({"trades": _S["trades"][-60:], "log": _S["log"][-60:], "eq": _S["eq"][-600:], "summary": _ss.summary(_S)})
+    except Exception:
+        pass
     payload["options"] = [{**o, "enabled": (not o["paid"]) or bool(config.AI["enabled"])} for o in config.OPTIONS]
     payload["lab"] = lab_cached(prices, [s for s in config.TRADABLE if s in prices], p,
                                 pp["fee_rate"], force=True)

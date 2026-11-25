@@ -96,6 +96,30 @@ def apply_risk(state, targets, last_px, last_atr, signals, now=None, cfg=None, r
             if sym in signals:
                 signals[sym]["reasons"] = [msg] + signals[sym]["reasons"]
 
+    # ---- Stops des paris à la baisse (positions courtes) : plus bas + k ATR ----
+    troughs = state.setdefault("troughs", {})
+    for sym, qty in list(state["positions"].items()):
+        px = last_px.get(sym)
+        if not px or qty >= 0:
+            continue
+        troughs[sym] = min(troughs.get(sym, px), px)
+        a = last_atr.get(sym) or 0
+        stop = troughs[sym] + cfg["atr_mult"] * a
+        entry = basis.get(sym, 0) / qty if qty else 0
+        stops[sym] = {"stop": stop, "peak": troughs[sym], "distance": stop / px - 1 if px else None,
+                      "tp_next": None, "tp_level": 0, "entry": entry, "short": True}
+        if a and px > stop:
+            targets[sym] = 0.0
+            cool[sym] = (now + timedelta(days=cfg["cooldown_days"])).isoformat()
+            msg = (f"stop du pari à la baisse touché : prix {px:,.2f} au-dessus du stop {stop:,.2f} "
+                   f"(plus bas {troughs[sym]:,.2f} plus {cfg['atr_mult']:.0f} ATR)")
+            events.append({"type": "stop", "symbol": sym, "text": msg})
+            if sym in signals:
+                signals[sym]["reasons"] = [msg] + signals[sym]["reasons"]
+    for sym in list(troughs):
+        if sym not in state["positions"] or state["positions"][sym] >= 0:
+            troughs.pop(sym, None)
+
     for sym in list(peaks):
         if sym not in state["positions"]:
             peaks.pop(sym, None)
@@ -106,7 +130,7 @@ def apply_risk(state, targets, last_px, last_atr, signals, now=None, cfg=None, r
     for sym, until in list(cool.items()):
         if datetime.fromisoformat(until) <= now:
             cool.pop(sym)
-        elif targets.get(sym, 0) > 0 and sym not in state["positions"]:
+        elif targets.get(sym, 0) != 0 and sym not in state["positions"]:
             targets[sym] = 0.0
             events.append({"type": "cooldown", "symbol": sym,
                            "text": f"pause après stop jusqu'au {until[:10]}"})

@@ -313,6 +313,14 @@ L'icône M-TRADE apparaît alors sur ton écran d'accueil, et l'appli s'ouvre en
 Tout fonctionne gratuitement : vrais cours, direct crypto et or, actus, bot autonome, conseil des 8 stratégies, thermomètre de crise, laboratoire, encyclopédie, alertes Telegram et assistant (dans l'appli Claude).
 La seule option payante est **l'analyse IA de l'actualité par Claude**, avec son bulletin et sa mémoire. Elle est **désactivée** (`AI["enabled"] = False` dans `config.py`) mais reste visible dans Réglages › Options. Pour l'activer, passe-la à `True` et ajoute le secret `ANTHROPIC_API_KEY`.
 
+## ⏱️ Fonctionnement 24 h/24 (service.yml)
+
+Une session GitHub Actions d'environ 5 h 45 tourne en continu, et la suivante démarre dès que la précédente se termine :
+- toutes les 5 minutes, le **scalper serveur** (`scalper_server.py`) traite les bougies 5 min qui viennent de clôturer sur Bitcoin, Ethereum, Solana et l'or, avec de l'argent fictif ;
+- toutes les 2 heures, le bot principal fait un passage complet (actus, conseil, décisions) ;
+- toutes les 10 minutes, tout est sauvegardé et l'appli en ligne se met à jour.
+Le bot principal peut maintenant aussi **parier à la baisse** (vente à découvert fictive), avec un stop dédié (plus bas + 3 ATR).
+
 ## 🎛️ Réglage automatique (chaque semaine, sur les vrais cours)
 
 `python main.py tune` (lancé automatiquement par GitHub une fois par semaine) teste 270 réglages du conseil sur 5 ans de vrais cours : fenêtre d'évaluation, température, groupe de stratégies, seuil d'entrée et thermomètre. Chaque réglage est noté sur sa régularité, sur 3 périodes successives, et lissé avec ses voisins pour éviter le sur-ajustement. Un nouveau réglage n'est adopté que s'il bat nettement l'ancien et ne fait pas pire sur une période jamais vue. Le niveau de risque choisi dans Réglages n'est jamais modifié. Les résultats sont dans `data/tuning.json` et dans l'onglet Performance.

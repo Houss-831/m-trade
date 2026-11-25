@@ -986,6 +986,20 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
   </section>
   </div>
   <div class="view" data-view="scalp" hidden>
+  <section id="srv-sec">
+    <div class="sec-title"><span class="ico"><svg class="i"><use href="#i-zap"/></svg></span><h2>Scalper serveur 24 h/24</h2><small>tourne sur GitHub même quand ton téléphone est éteint · bougies 5 min réelles · argent fictif</small></div>
+    <div class="card">
+      <div class="card-h"><svg class="i"><use href="#i-wallet"/></svg>Porte-monnaie du scalper serveur<span class="right chip" id="srv-chip">–</span></div>
+      <div class="sc-big num" id="srv-val">–</div>
+      <div class="sc-pnl num" id="srv-pnl"></div>
+      <div class="chart h200" id="srv-eq"></div>
+      <div class="mini" id="srv-mini"></div>
+      <div class="sub-label">Positions ouvertes</div>
+      <div id="srv-pos"></div>
+      <div class="sub-label">Journal du scalper serveur</div>
+      <div class="sc-tape" id="srv-log" style="max-height:260px;overflow:auto"></div>
+    </div>
+  </section>
   <section id="scalp-sec">
     <div class="lv-head">
       <div>
@@ -2332,7 +2346,7 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
   var VIEW_RENDER = {
     accueil: function () { renderEvent(); renderThermoHome(); renderBriefing(); renderApercu(); renderSince(); renderHomeFeed(); renderConvictions(); renderGuard(); renderNews(); },
     live: function () { liveInit(); },
-    scalp: function () { scView(); },
+    scalp: function () { renderSrv(); scView(); },
     flux: function () { renderFeedFilters(); renderFeed(); drawSigMap(); renderHealth(); markSeen(); },
     performance: function () { renderAI(); renderHero(D.portfolio, D.scores); renderRegime(); drawCurves(); startTerminal(); renderLive(); radarChart($("radar"), D.profile || []); drawScoreHistory(); drawProjection(); renderLab(); },
     strategie: function () { renderMacro(); renderThermo(); renderMatrix(); renderCouncil(); renderShield(); },
@@ -2401,7 +2415,10 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
       ["#labo", "flask", "Laboratoire", L ? Math.round(L.prob_edge * 100) + " %" : "–", L ? esc(L.verdict) : "pas encore de verdict"]
     ];
     $("apercu").innerHTML = tiles.map(function (t, i) { return '<a class="kq" href="' + t[0] + '"><span>' + ic(t[1]) + t[2] + "</span><b" + (i < 2 ? ' id="kq-v' + i + '"' : "") + ">" + t[3] + "</b><small" + (i < 2 ? ' id="kq-s' + i + '"' : "") + ">" + t[4] + "</small></a>"; }).join("");
-    homeLive();
+    var srvTile = document.createElement("a"); srvTile.className = "kq"; srvTile.href = "#scalp"; srvTile.id = "kq-srv";
+    srvTile.innerHTML = "<span>" + ic("zap") + "Scalper 24 h/24</span><b>–</b><small>démarre au prochain passage</small>";
+    $("apercu").appendChild(srvTile);
+    homeLive(); if (typeof renderSrvHome === "function") renderSrvHome();
   }
   // ---------- Portefeuille en direct sur l'accueil ----------
   var HL = { ws: null, px: {}, sim: null };
@@ -3284,6 +3301,51 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
       SC.raf = requestAnimationFrame(loop); };
     SC.raf = requestAnimationFrame(loop);
   }
+  // ---------- Scalper serveur (24 h/24, lu dans scalp.json) ----------
+  var SRV = { data: null, at: 0 };
+  function srvData() { return SRV.data || (D && D.scalp_server) || null; }
+  function srvFetch() {
+    if (location.protocol === "file:" || !window.fetch) return Promise.resolve(srvData());
+    return fetch("scalp.json?t=" + Date.now(), { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (j) { if (j) { SRV.data = j; SRV.at = Date.now(); } return srvData(); }).catch(function () { return srvData(); });
+  }
+  function renderSrv() {
+    var X = srvData(), el = $("srv-val"); if (!el) return;
+    if (!X) { el.textContent = "–"; $("srv-pnl").innerHTML = '<span class="muted">Le scalper serveur démarre au prochain passage sur GitHub (quelques minutes).</span>'; return; }
+    var S = X.summary || {}, v = S.equity != null ? S.equity : X.equity, pl = v - X.start;
+    el.textContent = eur(v, 2);
+    var age = X.updated ? (Date.now() - new Date(X.updated)) / 60000 : 999;
+    $("srv-chip").textContent = age < 15 ? "● en marche · " + ago(X.updated) : "dernier passage " + ago(X.updated);
+    $("srv-chip").style.color = age < 15 ? C.good : C.warn;
+    $("srv-pnl").innerHTML = '<span class="' + cls(pl) + '">' + (pl >= 0 ? "▲ +" : "▼ ") + eur(pl, 2) + " · " + pct(pl / X.start, 2) + '</span> <span class="muted" style="font-size:13px">depuis le ' + dFmt(X.created) + "</span>";
+    var eq = X.eq || [];
+    if (eq.length > 1) lineChart($("srv-eq"), { labels: eq.map(function (e) { return new Date(e[0]).toISOString(); }), yFmt: function (x) { return eur(x); },
+      xFmt: function (l, i) { return i === 0 || i === eq.length - 1 ? new Date(l).toLocaleString("fr-FR", { day: "2-digit", hour: "2-digit", minute: "2-digit" }) : ""; },
+      series: [{ data: eq.map(function (e) { return e[1]; }), color: pl >= 0 ? C.good : C.bad, width: 2, fill: true, glow: true, end: true }],
+      tipFmt: function (i) { return "<b>" + new Date(eq[i][0]).toLocaleString("fr-FR") + "</b><br>" + eur(eq[i][1], 2); } });
+    $("srv-mini").innerHTML = [["Opérations", S.trades || 0], ["Gagnantes", S.win_rate != null ? Math.round(S.win_rate * 100) + " %" : "–"], ["Frais payés", eur(S.fees || 0, 2)], ["Source", X.source || "–"]]
+      .map(function (x) { return '<div class="kpi"><span>' + x[0] + "</span><b>" + x[1] + "</b></div>"; }).join("");
+    var P = X.pos || {}, ks = Object.keys(P);
+    $("srv-pos").innerHTML = ks.length ? ks.map(function (k) {
+      var p = P[k], cur = (X.prices || {})[k] || p.entry, u = p.dir * p.qty * (cur - p.entry);
+      return '<div class="dr-o"><span><b>' + (p.dir > 0 ? "🟢 Achat " : "🔴 Vente à découvert ") + esc((asset(k) || {}).name || k) + "</b> à " + p.entry.toLocaleString("fr-FR", { maximumFractionDigits: 2 }) + " $ · stop " + p.sl.toLocaleString("fr-FR", { maximumFractionDigits: 2 }) + " · objectif " + p.tp.toLocaleString("fr-FR", { maximumFractionDigits: 2 }) + '</span><span class="num ' + cls(u) + '">' + (u >= 0 ? "+" : "") + eur(u, 2) + "</span></div>";
+    }).join("") : '<div class="empty">Aucune position : il attend un signal assez fort (score ≥ 0,70) qui couvre les frais.</div>';
+    $("srv-log").innerHTML = (X.log || []).slice().reverse().map(function (l) { return "<div><span class=\"muted\">" + new Date(l[0]).toLocaleString("fr-FR", { day: "2-digit", hour: "2-digit", minute: "2-digit" }) + "</span> " + esc(l[1]) + "</div>"; }).join("");
+  }
+  setInterval(function () { if (!D) return; srvFetch().then(function () { if (current === "scalp") renderSrv(); if (current === "accueil") renderSrvHome(); }); }, 60000);
+  setTimeout(function () { srvFetch().then(function () { if (!D) return; if (current === "scalp") renderSrv(); renderSrvHome(); }); }, 1500);
+  function renderSrvHome() {
+    var X = srvData(), el = $("kq-srv"); if (!el || !X) return;
+    var S = X.summary || {}, v = S.equity != null ? S.equity : X.equity, pl = v - X.start;
+    el.innerHTML = '<span>' + ic("zap") + 'Scalper 24 h/24</span><b class="' + cls(pl) + '">' + eur(v) + '</b><small><span class="' + cls(pl) + '">' + (pl >= 0 ? "+" : "") + eur(pl, 2) + "</span> · " + (S.trades || 0) + " opérations · " + Object.keys(X.pos || {}).length + " ouverte(s)</small>";
+  }
+  // Données fraîches au retour sur l'appli : si le bot a publié une nouvelle analyse, on recharge.
+  document.addEventListener("visibilitychange", function () {
+    if (document.visibilityState !== "visible" || location.protocol === "file:") return;
+    fetch("data.json?t=" + Date.now(), { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
+      if (j && j.generated && j.generated !== D.generated && current !== "live" && current !== "scalp") location.reload();
+    }).catch(function () {});
+  });
   function scWhy() {
     var el = $("sc-why"); if (!el) return;
     var noEdge = SC.cfg.auto && SC.cal && !SC_SYMS.some(function (s2) { return SC.cal[s2] && SC.cal[s2].ok; });

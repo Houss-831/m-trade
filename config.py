@@ -73,7 +73,7 @@ STRATEGY = {
     "entry_threshold": 0.25,     # score minimum pour ouvrir une position
     "exit_threshold": 0.10,      # on ne revend que si le score retombe sous ce seuil (hystérésis)
     "stress_level": 1.5,         # filtre de crise : volatilité 20 j > 1,5 × celle d'un an → on réduit
-    "allow_short": False,        # True = le bot peut parier à la baisse
+    "allow_short": True,         # le bot peut aussi parier à la baisse (vente à découvert fictive)
 }
 
 # Analyste IA (Claude). Clé dans la variable d'environnement ANTHROPIC_API_KEY.

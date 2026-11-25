@@ -42,7 +42,11 @@ def rebalance(state, signals, target_weights, prices, fee_rate, min_trade_pct=0.
         closing = w == 0 and cur_qty != 0
         if abs(delta * px) < value * min_trade_pct and not closing:
             continue
-        if delta > 0:                            # jamais plus que le cash disponible
+        if cur_qty * target_qty < 0:              # changement de sens : on ferme d'abord, puis on ouvre
+            target_qty = 0.0
+            delta = -cur_qty
+            closing = True
+        if delta > 0 and cur_qty >= 0:            # achat : jamais plus que le cash disponible
             delta = min(delta, max(state["cash"], 0) / (px * (1 + fee_rate)))
             target_qty = cur_qty + delta
             if delta * px < value * 0.005:
@@ -52,9 +56,9 @@ def rebalance(state, signals, target_weights, prices, fee_rate, min_trade_pct=0.
         state["cash"] -= cost + fee
         basis = state.setdefault("cost_basis", {})
         pnl = None
-        if delta > 0:
+        if cur_qty == 0 or (cur_qty > 0) == (delta > 0):   # ouverture ou renforcement (achat ou vente à découvert)
             basis[sym] = basis.get(sym, 0.0) + cost + fee
-        elif cur_qty > 0:                         # vente : gain/perte réalisé
+        else:                                     # réduction : gain/perte réalisé (positions longues et courtes)
             part = basis.get(sym, 0.0) * (-delta / cur_qty)
             pnl = -cost - fee - part
             basis[sym] = basis.get(sym, 0.0) - part
@@ -64,9 +68,13 @@ def rebalance(state, signals, target_weights, prices, fee_rate, min_trade_pct=0.
             state["positions"].pop(sym, None)
             basis.pop(sym, None)
         sig = signals.get(sym, {})
-        side = "ACHAT" if delta > 0 else ("VENTE TOTALE" if closing else "ALLÈGEMENT")
-        if delta > 0 and cur_qty > 0:
-            side = "RENFORCEMENT"
+        if cur_qty < 0 or (cur_qty == 0 and delta < 0):      # position courte (pari à la baisse)
+            side = ("RACHAT (fin de vente à découvert)" if closing else "RACHAT PARTIEL") if delta > 0 else \
+                   ("VENTE À DÉCOUVERT" if cur_qty == 0 else "RENFORCEMENT À LA BAISSE")
+        else:
+            side = "ACHAT" if delta > 0 else ("VENTE TOTALE" if closing else "ALLÈGEMENT")
+            if delta > 0 and cur_qty > 0:
+                side = "RENFORCEMENT"
         orders.append({"date": ts,
                        "symbol": sym, "name": sig.get("name", sym), "side": side,
                        "weight_before": round(cur_qty * px / value, 4),

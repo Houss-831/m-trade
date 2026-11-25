@@ -1,11 +1,7 @@
 name: M-TRADE - bot autonome (paper)
 
+# Lancement manuel uniquement (rejeu, backtest). Le fonctionnement 24 h/24 est assuré par service.yml.
 on:
-  schedule:
-    - cron: "17 */2 * * *"     # toutes les 2 heures, 7j/7 (heure UTC)
-  push:                         # se lance tout seul quand le code du bot est mis à jour
-    branches: [main]
-    paths-ignore: ["data/**", "docs/**", "README.md"]
   workflow_dispatch:            # bouton "Run workflow" pour le lancer à la main
     inputs:
       rejouer:

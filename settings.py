@@ -13,7 +13,7 @@ Exemple minimal :
   "assets": null,             // null = tous les actifs des marchés choisis
   "strategies": null,         // null = les 8 stratégies
   "ai_weight": 0.3,
-  "allow_short": false,
+  "allow_short": true,
   "notify_orders": true,
   "summary_hour": 21
 }
@@ -40,7 +40,7 @@ DEFAULT = {
     "user_name": "", "capital": config.PAPER["starting_cash"], "invest_max": None,
     "max_loss_day": None, "max_loss_total": None, "risk_profile": "equilibre", "custom": {},
     "markets": ["Actions", "Crypto", "Matières"], "assets": None, "strategies": None,
-    "ai_weight": config.AI["news_weight"], "allow_short": False, "take_profit": True,
+    "ai_weight": config.AI["news_weight"], "allow_short": True, "take_profit": True,
     "notify_orders": True, "summary_hour": config.PAPER.get("daily_summary_hour", 21),
 }
 

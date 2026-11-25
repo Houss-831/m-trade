@@ -1,0 +1,41 @@
+name: M-TRADE - service 24h/24
+
+on:
+  schedule:
+    - cron: "*/20 * * * *"      # relance de secours : une session démarre dès que la précédente se termine
+  push:
+    branches: [main]
+    paths: ["**.py", "dashboard_template.html", "requirements.txt", ".github/workflows/service.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: m-trade-service
+  cancel-in-progress: false
+
+jobs:
+  service:
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Installer les dépendances
+        run: pip install -r requirements.txt
+
+      - name: Service (scalper toutes les 5 min, bot toutes les 2 h, appli toutes les 10 min)
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          git config user.name "M-TRADE bot"
+          git config user.email "bot@users.noreply.github.com"
+          python service.py 335
