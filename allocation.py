@@ -159,7 +159,12 @@ def choose(prices, universes, p, fee, previous=None, margin=0.05):
     kept = False
     if previous:
         pk = (previous.get("universe"), previous.get("mode"), previous.get("thermo"), previous.get("band") or BANDS[0])
-        if pk in res and res[best]["robust"] - res[pk]["robust"] < margin:
+        try:
+            age = (date.today() - date.fromisoformat(previous.get("since") or previous["date"])).days
+        except (KeyError, ValueError):
+            age = 999
+        need = margin if age >= 28 else 0.15          # moins de 4 semaines : il faut une amélioration très nette
+        if pk in res and res[best]["robust"] - res[pk]["robust"] < need:
             best, kept = pk, True
     blind = max(res, key=lambda k: res[k]["robust2"])          # choix sans voir la dernière période
     ranked = sorted(res.values(), key=lambda x: -x["robust"])
@@ -167,6 +172,7 @@ def choose(prices, universes, p, fee, previous=None, margin=0.05):
     ew = res[(b["universe"], "ew", False, BANDS[0])]
     old = res.get(("élargi", "core50", True, BANDS[0])) or res[(b["universe"], "council_long", True, BANDS[0])]
     out = {"date": date.today().isoformat(), "mode": b["mode"], "thermo": b["thermo"], "universe": b["universe"], "band": b["band"], "kept": kept,
+           "since": (previous or {}).get("since") or (previous or {}).get("date") if kept else date.today().isoformat(),
            "chosen": b, "ranking": ranked, "folds": [[str(a)[:10], str(z)[:10]] for a, z in folds],
            "blind": {"mode": res[blind]["mode"], "thermo": res[blind]["thermo"], "universe": res[blind]["universe"],
                      "name": res[blind]["name"], "last": res[blind]["last"], "market_last": ew["last"]}}

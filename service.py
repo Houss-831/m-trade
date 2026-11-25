@@ -95,9 +95,32 @@ def main_run():
     mark_run()
 
 
+def apply_reset():
+    """Remise à zéro demandée (data/reset_request.json) : archive l'historique et repart de 10 000 €."""
+    if not os.path.exists("data/reset_request.json"):
+        return
+    import shutil
+    stamp = datetime.now(timezone.utc).strftime("%Y-%m-%d_%H%M")
+    arch = os.path.join("data", "archive", stamp)
+    os.makedirs(arch, exist_ok=True)
+    for f in ("portfolio.json", "journal.csv", "scalp_server.json"):
+        p = os.path.join("data", f)
+        if os.path.exists(p):
+            shutil.move(p, os.path.join(arch, f))
+    now = datetime.now().isoformat(timespec="seconds")
+    with open("data/portfolio.json", "w") as f:      # portefeuille neuf, sans rejeu du passé
+        json.dump({"cash": 10000.0, "positions": {}, "start_value": 10000.0, "created": now, "history": [],
+                   "reset_from": arch}, f, indent=2)
+    os.remove("data/reset_request.json")
+    with open(STATE, "w") as f:                      # passage complet du bot tout de suite
+        json.dump({"last_run": 0, "at": now}, f)
+    print("🔄 portefeuilles remis à 10 000 €, ancien historique archivé dans", arch)
+
+
 def main():
     t_end = time.time() + MINUTES * 60
     last_save = 0
+    apply_reset()
     sh(sys.executable, "main.py", "render", check=True)      # l'appli prend tout de suite le nouveau modèle
     if os.getenv("TELEGRAM_TOKEN") and not os.path.exists("data/telegram_chat.txt"):
         try:                                                    # connexion Telegram : message de bienvenue tout de suite
