@@ -95,7 +95,7 @@ def main():
             print(datetime.now(timezone.utc).strftime("%H:%M"), "scalper", ss.summary(S))
         except Exception as e:                       # une erreur réseau ne doit jamais arrêter le service
             print("scalper :", e)
-        if time.time() - last_run() >= RUN_EVERY or not os.path.exists("data/allocation.json"):
+        if time.time() - last_run() >= RUN_EVERY or not os.path.exists("data/allocation.json") or not os.path.exists("data/tuning.json"):
             try:
                 main_run()
             except Exception as e:

@@ -121,6 +121,10 @@ def activate_profile():
     config.STRATEGY["strategies"] = keys
     config.STRATEGY["user_strategies"] = bool(prof.get("strategies"))
     import optimizer
+    import allocation
+    al = allocation.load()
+    if al:                                          # la méthode retenue sur les vrais cours décide du sens autorisé
+        config.STRATEGY["allow_short"] = al.get("mode") == "council_ls" or bool(prof.get("force_short"))
     tun = optimizer.load()
     if tun:
         optimizer.apply(config.STRATEGY, tun)
@@ -488,6 +492,7 @@ def cmd_tune(args):
         print("🎛️  réglage automatique déjà fait cette semaine")
         return
     full = load_prices(args.demo, "5y")
+    activate_profile()
     res = optimizer.tune(full, config.TRADABLE, dict(config.STRATEGY), config.PAPER["fee_rate"])
     if not res:
         print("🎛️  pas assez d'historique pour le réglage automatique")
