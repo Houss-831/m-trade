@@ -118,6 +118,13 @@ def build_summary(state, value, prices, names, extra=None):
     return "\n".join(L)
 
 
+def clean_token(raw):
+    """Le jeton collé peut contenir des espaces, un retour à la ligne ou le texte de BotFather autour : on extrait le jeton."""
+    import re
+    m = re.search(r"\d{5,}:[A-Za-z0-9_-]{20,}", raw or "")
+    return m.group(0) if m else (raw or "").strip()
+
+
 def telegram_chat(token):
     """Identifiant de la conversation : secret TELEGRAM_CHAT_ID, sinon trouvé tout seul
     à partir du dernier message que tu as envoyé à ton bot (il suffit de lui écrire « bonjour »)."""
@@ -163,7 +170,7 @@ _WELCOMED = False
 def send_telegram(text):
     """Envoie le message si TELEGRAM_TOKEN est défini (la conversation est trouvée automatiquement)."""
     global _WELCOMED
-    token = os.getenv("TELEGRAM_TOKEN")
+    token = clean_token(os.getenv("TELEGRAM_TOKEN"))
     if not token:
         return False
     first = not os.path.exists("data/telegram_chat.txt") and not os.getenv("TELEGRAM_CHAT_ID")
