@@ -1,7 +1,11 @@
 {
-  "cash": 8062.8670384900515,
+  "cash": 7044.3548936843945,
   "positions": {
-    "XLV": 9.55273631837434
+    "XLV": 2.9839162643824775,
+    "AAPL": 1.5567232598001115,
+    "IEF": 6.596751994627074,
+    "TLT": 7.576612472821284,
+    "XLF": 9.823364997389074
   },
   "start_value": 10000.0,
   "created": "2026-11-24T14:06:10",
@@ -535,16 +539,8 @@
       "value": 9676.05
     },
     {
-      "date": "2026-11-25T09:40:28",
-      "value": 9675.87
-    },
-    {
-      "date": "2026-11-25T09:45:28",
-      "value": 9675.52
-    },
-    {
-      "date": "2026-11-25T09:50:28",
-      "value": 9675.52
+      "date": "2026-11-25T09:51:18",
+      "value": 9672.28
     }
   ],
   "peaks": {
@@ -569,7 +565,7 @@
     "day_pnl": -67.22842498594582,
     "max_loss_day": null,
     "budget_left": null,
-    "var95": 30.434075642080945,
+    "var95": 50.38787793945351,
     "max_loss_total": null,
     "invest_max": null,
     "halted_day": false,
@@ -580,186 +576,130 @@
   "thermo_last": 55.9,
   "last_signals": {
     "^FCHI": {
-      "action": "NEUTRE",
-      "score": -0.16154068384875153,
-      "rsi": 50.107381143848635,
-      "adx": 25.155329758184344
+      "action": "ACHAT",
+      "score": -0.16321919127181717,
+      "rsi": 50.035747514769156,
+      "adx": 25.14509638260156
     },
     "^GDAXI": {
-      "action": "\u00c9VITER / SORTIR",
-      "score": -0.5671720577663116,
-      "rsi": 37.582675465142,
-      "adx": 24.037203636662614
+      "action": "ACHAT",
+      "score": -0.560945969501869,
+      "rsi": 37.52355276773481,
+      "adx": 24.045649736292216
     },
     "^GSPC": {
-      "action": "NEUTRE",
-      "score": -0.04317082979584934,
+      "action": "ACHAT",
+      "score": -0.034078398683390215,
       "rsi": 46.285091941353805,
       "adx": 18.956763024582642
     },
     "^IXIC": {
-      "action": "\u00c9VITER / SORTIR",
-      "score": -0.28169517247860437,
+      "action": "ACHAT",
+      "score": -0.2791893472983697,
       "rsi": 44.378197818023345,
       "adx": 20.771276691291316
     },
     "^N225": {
-      "action": "\u00c9VITER / SORTIR",
-      "score": -0.8313477655185784,
+      "action": "ACHAT",
+      "score": -0.813847772021475,
       "rsi": 40.46544110045881,
       "adx": 24.600118503633485
     },
     "BTC-USD": {
-      "action": "\u00c9VITER / SORTIR",
-      "score": -0.7316242404101538,
-      "rsi": 25.791057296340682,
-      "adx": 37.16743188783416
+      "action": "ACHAT",
+      "score": -0.7218967459264223,
+      "rsi": 25.81456693215347,
+      "adx": 37.16407336843234
     },
     "ETH-USD": {
-      "action": "\u00c9VITER / SORTIR",
-      "score": -0.7394739505994595,
-      "rsi": 28.08707345055906,
-      "adx": 37.31819178398897
+      "action": "ACHAT",
+      "score": -0.7345126449150459,
+      "rsi": 28.135040094692314,
+      "adx": 37.31133940625565
     },
     "SOL-USD": {
-      "action": "\u00c9VITER / SORTIR",
-      "score": -0.7229332399923817,
-      "rsi": 28.524405136116897,
-      "adx": 40.19267413561607
+      "action": "ACHAT",
+      "score": -0.7201342958444531,
+      "rsi": 28.573172854615436,
+      "adx": 40.185707318687705
     },
     "GC=F": {
-      "action": "\u00c9VITER / SORTIR",
-      "score": -0.833688068144242,
-      "rsi": 32.827081773527226,
-      "adx": 28.105130993135024
+      "action": "ACHAT",
+      "score": -0.835337631888448,
+      "rsi": 32.744633996330606,
+      "adx": 28.116909247020256
     },
     "CL=F": {
-      "action": "\u00c9VITER / SORTIR",
-      "score": -0.5830618079704722,
-      "rsi": 36.2474291720982,
-      "adx": 26.875034477453102
+      "action": "ACHAT",
+      "score": -0.582637317195275,
+      "rsi": 36.284389451482696,
+      "adx": 26.86975443754103
     },
     "XLK": {
-      "action": "\u00c9VITER / SORTIR",
-      "score": -0.5912504346998906,
-      "rsi": 41.60850229232626,
-      "adx": 26.11368688229094
+      "action": "ACHAT",
+      "score": -0.5943456906460393,
+      "rsi": 41.608502292282026,
+      "adx": 26.113686883820378
     },
     "XLV": {
       "action": "ACHAT",
-      "score": 0.7981342025190861,
-      "rsi": 60.21561138974116,
-      "adx": 28.57706652891831
+      "score": 0.798134221089344,
+      "rsi": 60.21561138976731,
+      "adx": 28.57706653035904
     },
     "XLE": {
-      "action": "\u00c9VITER / SORTIR",
-      "score": -0.566452628131299,
-      "rsi": 38.78036630083909,
-      "adx": 25.181665687670773
+      "action": "ACHAT",
+      "score": -0.5675787828230248,
+      "rsi": 38.78036630083902,
+      "adx": 25.181665687674858
     },
     "XLF": {
       "action": "ACHAT",
-      "score": 0.39968582723203616,
+      "score": 0.40083524504142143,
       "rsi": 51.86161437001266,
-      "adx": 19.702804366261102
+      "adx": 19.70280436626109
     },
     "AAPL": {
       "action": "ACHAT",
       "score": 0.85,
-      "rsi": 62.12410564206342,
-      "adx": 18.103162597498667
+      "rsi": 62.124105642060904,
+      "adx": 18.103162597412204
     },
     "MSFT": {
-      "action": "NEUTRE",
-      "score": -0.23018853959102212,
-      "rsi": 44.518276309497,
-      "adx": 14.435361651596057
+      "action": "ACHAT",
+      "score": -0.2301885691896715,
+      "rsi": 44.51827630695031,
+      "adx": 14.435361749609582
     },
     "NVDA": {
-      "action": "\u00c9VITER / SORTIR",
-      "score": -0.46509972144903866,
-      "rsi": 44.117418240077264,
-      "adx": 41.5589470746423
+      "action": "ACHAT",
+      "score": -0.4584330558727066,
+      "rsi": 44.11741824007728,
+      "adx": 41.55894707464311
     },
     "TLT": {
       "action": "ACHAT",
-      "score": 0.8388888888888889,
-      "rsi": 69.12107532204038,
-      "adx": 28.678858144810004
+      "score": 0.8451612903225806,
+      "rsi": 69.12107531286583,
+      "adx": 28.678857760578367
     },
     "IEF": {
       "action": "ACHAT",
-      "score": 0.8624999999999999,
-      "rsi": 72.67647061772112,
-      "adx": 36.31804153915576
+      "score": 0.8730769230769231,
+      "rsi": 72.67647019615741,
+      "adx": 36.31803841008619
     },
     "SI=F": {
-      "action": "\u00c9VITER / SORTIR",
-      "score": -0.895,
-      "rsi": 27.20830922452909,
-      "adx": 37.55754437523906
+      "action": "ACHAT",
+      "score": -0.9045454545454545,
+      "rsi": 27.12553821406877,
+      "adx": 37.56936880530482
     }
   },
   "stop_alerted": [
     "XLV"
   ],
   "feed": [
-    {
-      "date": "2026-10-27T18:00",
-      "kind": "pattern",
-      "level": "info",
-      "title": "Ethereum : Avalement haussier",
-      "text": "Une bougie verte englobe la rouge pr\u00e9c\u00e9dente apr\u00e8s une baisse. Signal haussier pris en compte par le conseil.",
-      "symbol": "ETH-USD"
-    },
-    {
-      "date": "2026-10-27T18:00",
-      "kind": "pattern",
-      "level": "info",
-      "title": "Ethereum : \u00c9toile du matin",
-      "text": "Rouge, petite ind\u00e9cision, puis forte verte : retournement haussier en trois temps. Signal haussier pris en compte par le conseil.",
-      "symbol": "ETH-USD"
-    },
-    {
-      "date": "2026-10-27T18:00",
-      "kind": "pattern",
-      "level": "info",
-      "title": "Solana : Marteau",
-      "text": "Longue m\u00e8che basse apr\u00e8s une baisse : les acheteurs ont rejet\u00e9 les plus bas. Signal haussier pris en compte par le conseil.",
-      "symbol": "SOL-USD"
-    },
-    {
-      "date": "2026-10-27T18:00",
-      "kind": "pattern",
-      "level": "info",
-      "title": "P\u00e9trole WTI : \u00c9toile du soir",
-      "text": "Verte, petite ind\u00e9cision, puis forte rouge : retournement baissier en trois temps. Signal baissier pris en compte par le conseil.",
-      "symbol": "CL=F"
-    },
-    {
-      "date": "2026-10-28T18:00",
-      "kind": "stop",
-      "level": "attention",
-      "title": "Nasdaq proche de son stop",
-      "text": "\u00e0 2.1% du niveau de sortie automatique",
-      "symbol": "^IXIC"
-    },
-    {
-      "date": "2026-10-28T18:00",
-      "kind": "stop",
-      "level": "attention",
-      "title": "DAX proche de son stop",
-      "text": "\u00e0 1.6% du niveau de sortie automatique",
-      "symbol": "^GDAXI"
-    },
-    {
-      "date": "2026-10-29T18:00",
-      "kind": "stop",
-      "level": "attention",
-      "title": "S&P 500 proche de son stop",
-      "text": "\u00e0 1.5% du niveau de sortie automatique",
-      "symbol": "^GSPC"
-    },
     {
       "date": "2026-10-29T18:00",
       "kind": "risk:stop",
@@ -2209,7 +2149,127 @@
       "symbol": "AAPL"
     },
     {
-      "date": "2026-11-25T09:40",
+      "date": "2026-11-25T09:51",
+      "kind": "decision",
+      "level": "important",
+      "title": "CAC 40 : neutre \u2192 achat",
+      "text": "score -0.09 \u2192 -0.16. m\u00e9thode d'allocation retenue sur les vrais cours : Base toujours investie (50 %) + conseil hausse seulement (50 %) + thermom\u00e8tre \u00b7 poids vis\u00e9 +2% \u00b7 prix au-dessous de sa moyenne 200 jours",
+      "symbol": "^FCHI"
+    },
+    {
+      "date": "2026-11-25T09:51",
+      "kind": "decision",
+      "level": "important",
+      "title": "DAX : \u00e9viter / sortir \u2192 achat",
+      "text": "score -0.49 \u2192 -0.56. m\u00e9thode d'allocation retenue sur les vrais cours : Base toujours investie (50 %) + conseil hausse seulement (50 %) + thermom\u00e8tre \u00b7 poids vis\u00e9 +2% \u00b7 prix au-dessous de sa moyenne 200 jours",
+      "symbol": "^GDAXI"
+    },
+    {
+      "date": "2026-11-25T09:51",
+      "kind": "decision",
+      "level": "important",
+      "title": "S&P 500 : neutre \u2192 achat",
+      "text": "score -0.03 \u2192 -0.03. m\u00e9thode d'allocation retenue sur les vrais cours : Base toujours investie (50 %) + conseil hausse seulement (50 %) + thermom\u00e8tre \u00b7 poids vis\u00e9 +2% \u00b7 prix au-dessous de sa moyenne 200 jours",
+      "symbol": "^GSPC"
+    },
+    {
+      "date": "2026-11-25T09:51",
+      "kind": "decision",
+      "level": "important",
+      "title": "Nasdaq : \u00e9viter / sortir \u2192 achat",
+      "text": "score -0.27 \u2192 -0.28. m\u00e9thode d'allocation retenue sur les vrais cours : Base toujours investie (50 %) + conseil hausse seulement (50 %) + thermom\u00e8tre \u00b7 poids vis\u00e9 +2% \u00b7 prix au-dessous de sa moyenne 200 jours",
+      "symbol": "^IXIC"
+    },
+    {
+      "date": "2026-11-25T09:51",
+      "kind": "decision",
+      "level": "important",
+      "title": "Nikkei 225 : \u00e9viter / sortir \u2192 achat",
+      "text": "score -0.82 \u2192 -0.81. m\u00e9thode d'allocation retenue sur les vrais cours : Base toujours investie (50 %) + conseil hausse seulement (50 %) + thermom\u00e8tre \u00b7 poids vis\u00e9 +2% \u00b7 prix au-dessous de sa moyenne 200 jours",
+      "symbol": "^N225"
+    },
+    {
+      "date": "2026-11-25T09:51",
+      "kind": "decision",
+      "level": "important",
+      "title": "Bitcoin : \u00e9viter / sortir \u2192 achat",
+      "text": "score -0.72 \u2192 -0.72. m\u00e9thode d'allocation retenue sur les vrais cours : Base toujours investie (50 %) + conseil hausse seulement (50 %) + thermom\u00e8tre \u00b7 poids vis\u00e9 +2% \u00b7 prix au-dessous de sa moyenne 200 jours",
+      "symbol": "BTC-USD"
+    },
+    {
+      "date": "2026-11-25T09:51",
+      "kind": "decision",
+      "level": "important",
+      "title": "Ethereum : \u00e9viter / sortir \u2192 achat",
+      "text": "score -0.73 \u2192 -0.73. m\u00e9thode d'allocation retenue sur les vrais cours : Base toujours investie (50 %) + conseil hausse seulement (50 %) + thermom\u00e8tre \u00b7 poids vis\u00e9 +2% \u00b7 prix au-dessous de sa moyenne 200 jours",
+      "symbol": "ETH-USD"
+    },
+    {
+      "date": "2026-11-25T09:51",
+      "kind": "decision",
+      "level": "important",
+      "title": "Solana : \u00e9viter / sortir \u2192 achat",
+      "text": "score -0.72 \u2192 -0.72. m\u00e9thode d'allocation retenue sur les vrais cours : Base toujours investie (50 %) + conseil hausse seulement (50 %) + thermom\u00e8tre \u00b7 poids vis\u00e9 +2% \u00b7 prix au-dessous de sa moyenne 200 jours",
+      "symbol": "SOL-USD"
+    },
+    {
+      "date": "2026-11-25T09:51",
+      "kind": "decision",
+      "level": "important",
+      "title": "Or : \u00e9viter / sortir \u2192 achat",
+      "text": "score -0.82 \u2192 -0.84. m\u00e9thode d'allocation retenue sur les vrais cours : Base toujours investie (50 %) + conseil hausse seulement (50 %) + thermom\u00e8tre \u00b7 poids vis\u00e9 +2% \u00b7 prix au-dessous de sa moyenne 200 jours",
+      "symbol": "GC=F"
+    },
+    {
+      "date": "2026-11-25T09:51",
+      "kind": "decision",
+      "level": "important",
+      "title": "P\u00e9trole WTI : \u00e9viter / sortir \u2192 achat",
+      "text": "score -0.59 \u2192 -0.58. m\u00e9thode d'allocation retenue sur les vrais cours : Base toujours investie (50 %) + conseil hausse seulement (50 %) + thermom\u00e8tre \u00b7 poids vis\u00e9 +2% \u00b7 prix au-dessous de sa moyenne 200 jours",
+      "symbol": "CL=F"
+    },
+    {
+      "date": "2026-11-25T09:51",
+      "kind": "decision",
+      "level": "important",
+      "title": "Secteur technologie US : \u00e9viter / sortir \u2192 achat",
+      "text": "score -0.59 \u2192 -0.59. m\u00e9thode d'allocation retenue sur les vrais cours : Base toujours investie (50 %) + conseil hausse seulement (50 %) + thermom\u00e8tre \u00b7 poids vis\u00e9 +2% \u00b7 prix au-dessous de sa moyenne 200 jours",
+      "symbol": "XLK"
+    },
+    {
+      "date": "2026-11-25T09:51",
+      "kind": "decision",
+      "level": "important",
+      "title": "Secteur \u00e9nergie US : \u00e9viter / sortir \u2192 achat",
+      "text": "score -0.56 \u2192 -0.57. m\u00e9thode d'allocation retenue sur les vrais cours : Base toujours investie (50 %) + conseil hausse seulement (50 %) + thermom\u00e8tre \u00b7 poids vis\u00e9 +2% \u00b7 prix au-dessus de sa moyenne 200 jours",
+      "symbol": "XLE"
+    },
+    {
+      "date": "2026-11-25T09:51",
+      "kind": "decision",
+      "level": "important",
+      "title": "Microsoft : neutre \u2192 achat",
+      "text": "score -0.23 \u2192 -0.23. m\u00e9thode d'allocation retenue sur les vrais cours : Base toujours investie (50 %) + conseil hausse seulement (50 %) + thermom\u00e8tre \u00b7 poids vis\u00e9 +2% \u00b7 prix au-dessus de sa moyenne 200 jours",
+      "symbol": "MSFT"
+    },
+    {
+      "date": "2026-11-25T09:51",
+      "kind": "decision",
+      "level": "important",
+      "title": "Nvidia : \u00e9viter / sortir \u2192 achat",
+      "text": "score -0.45 \u2192 -0.46. m\u00e9thode d'allocation retenue sur les vrais cours : Base toujours investie (50 %) + conseil hausse seulement (50 %) + thermom\u00e8tre \u00b7 poids vis\u00e9 +2% \u00b7 prix au-dessous de sa moyenne 200 jours",
+      "symbol": "NVDA"
+    },
+    {
+      "date": "2026-11-25T09:51",
+      "kind": "decision",
+      "level": "important",
+      "title": "Argent m\u00e9tal : \u00e9viter / sortir \u2192 achat",
+      "text": "score -0.90 \u2192 -0.90. m\u00e9thode d'allocation retenue sur les vrais cours : Base toujours investie (50 %) + conseil hausse seulement (50 %) + thermom\u00e8tre \u00b7 poids vis\u00e9 +2% \u00b7 prix au-dessous de sa moyenne 200 jours",
+      "symbol": "SI=F"
+    },
+    {
+      "date": "2026-11-25T09:51",
       "kind": "pattern",
       "level": "info",
       "title": "S&P 500 : \u00c9toile du matin",
@@ -2217,7 +2277,7 @@
       "symbol": "^GSPC"
     },
     {
-      "date": "2026-11-25T09:40",
+      "date": "2026-11-25T09:51",
       "kind": "pattern",
       "level": "info",
       "title": "P\u00e9trole WTI : Marteau",
@@ -2225,7 +2285,7 @@
       "symbol": "CL=F"
     },
     {
-      "date": "2026-11-25T09:40",
+      "date": "2026-11-25T09:51",
       "kind": "pattern",
       "level": "info",
       "title": "Secteur finance US : \u00c9toile du matin",
@@ -2233,71 +2293,7 @@
       "symbol": "XLF"
     },
     {
-      "date": "2026-11-25T09:40",
-      "kind": "pattern",
-      "level": "info",
-      "title": "Apple : \u00c9toile du matin",
-      "text": "Rouge, petite ind\u00e9cision, puis forte verte : retournement haussier en trois temps. Signal haussier pris en compte par le conseil.",
-      "symbol": "AAPL"
-    },
-    {
-      "date": "2026-11-25T09:45",
-      "kind": "pattern",
-      "level": "info",
-      "title": "S&P 500 : \u00c9toile du matin",
-      "text": "Rouge, petite ind\u00e9cision, puis forte verte : retournement haussier en trois temps. Signal haussier pris en compte par le conseil.",
-      "symbol": "^GSPC"
-    },
-    {
-      "date": "2026-11-25T09:45",
-      "kind": "pattern",
-      "level": "info",
-      "title": "P\u00e9trole WTI : Marteau",
-      "text": "Longue m\u00e8che basse apr\u00e8s une baisse : les acheteurs ont rejet\u00e9 les plus bas. Signal haussier pris en compte par le conseil.",
-      "symbol": "CL=F"
-    },
-    {
-      "date": "2026-11-25T09:45",
-      "kind": "pattern",
-      "level": "info",
-      "title": "Secteur finance US : \u00c9toile du matin",
-      "text": "Rouge, petite ind\u00e9cision, puis forte verte : retournement haussier en trois temps. Signal haussier pris en compte par le conseil.",
-      "symbol": "XLF"
-    },
-    {
-      "date": "2026-11-25T09:45",
-      "kind": "pattern",
-      "level": "info",
-      "title": "Apple : \u00c9toile du matin",
-      "text": "Rouge, petite ind\u00e9cision, puis forte verte : retournement haussier en trois temps. Signal haussier pris en compte par le conseil.",
-      "symbol": "AAPL"
-    },
-    {
-      "date": "2026-11-25T09:50",
-      "kind": "pattern",
-      "level": "info",
-      "title": "S&P 500 : \u00c9toile du matin",
-      "text": "Rouge, petite ind\u00e9cision, puis forte verte : retournement haussier en trois temps. Signal haussier pris en compte par le conseil.",
-      "symbol": "^GSPC"
-    },
-    {
-      "date": "2026-11-25T09:50",
-      "kind": "pattern",
-      "level": "info",
-      "title": "P\u00e9trole WTI : Marteau",
-      "text": "Longue m\u00e8che basse apr\u00e8s une baisse : les acheteurs ont rejet\u00e9 les plus bas. Signal haussier pris en compte par le conseil.",
-      "symbol": "CL=F"
-    },
-    {
-      "date": "2026-11-25T09:50",
-      "kind": "pattern",
-      "level": "info",
-      "title": "Secteur finance US : \u00c9toile du matin",
-      "text": "Rouge, petite ind\u00e9cision, puis forte verte : retournement haussier en trois temps. Signal haussier pris en compte par le conseil.",
-      "symbol": "XLF"
-    },
-    {
-      "date": "2026-11-25T09:50",
+      "date": "2026-11-25T09:51",
       "kind": "pattern",
       "level": "info",
       "title": "Apple : \u00c9toile du matin",
@@ -2306,7 +2302,11 @@
     }
   ],
   "cost_basis": {
-    "XLV": 1613.733825673641
+    "XLV": 504.0698757223922,
+    "AAPL": 504.23539279080137,
+    "IEF": 553.0291280704242,
+    "TLT": 564.8227130626668,
+    "XLF": 504.23539279080137
   },
   "score_history": [
     {
@@ -2506,14 +2506,14 @@
       "risk": 6
     },
     {
-      "date": "2026-11-25 09:50",
-      "oracle": 43,
+      "date": "2026-11-25 09:51",
+      "oracle": 44,
       "performance": 20,
       "intelligence": 48,
-      "risk": 22
+      "risk": 15
     }
   ],
-  "realized_pnl": -323.3991358363141,
+  "realized_pnl": -325.2526038785274,
   "replayed": true,
   "troughs": {}
 }
