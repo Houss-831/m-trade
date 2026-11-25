@@ -145,6 +145,48 @@ def activate_profile():
     return prof
 
 
+def mc_filter(target, signals, ctx, px, p, held, horizon=20):
+    """Avant chaque nouvelle position (hausse ou baisse) : 10 000 scénarios tirés des situations comparables passées.
+    Les positions déjà ouvertes dans le même sens ne sont pas re-testées (l'hystérésis et les stops les gèrent)."""
+    import numpy as np
+    import montecarlo as mc
+    sc, atr = ctx["score"], ctx["atr"]
+    thr = p["entry_threshold"]
+    last = len(px) - 1
+    cache = {}
+    for sym, w in list(target.items()):
+        if not w or held.get(sym) == (1 if w > 0 else -1):
+            continue
+        d = 1 if w > 0 else -1
+        if d not in cache:                                  # analogues de tous les actifs, en ATR
+            pools = []
+            for s2 in px.columns:
+                ser = sc[s2].values if s2 in sc else None
+                if ser is None:
+                    continue
+                idx = [i for i in range(250, last - horizon) if ser[i] * d >= thr]
+                c = px[s2].values
+                pth = mc.analog_paths(c, c, c, atr[s2].values, idx, horizon)
+                if pth is not None:
+                    pools.append((s2, pth))
+            cache[d] = pools
+        own = [pth for s2, pth in cache[d] if s2 == sym]
+        use = own if own and len(own[0][0]) >= 40 else [pth for _, pth in cache[d]]
+        if not use:
+            ok, txt, res = mc.verdict(None, 0, 0)
+        else:
+            paths = tuple(np.concatenate([q[k] for q in use]) for k in range(3))
+            res = mc.simulate(paths, d, config.RISK.get("tp1_atr", 6.0), config.RISK.get("atr_mult", 3.0), seed=last)
+            a = atr[sym].iloc[-1] / px[sym].iloc[-1]
+            ok, txt, res = mc.verdict(res, float(a), 2 * config.PAPER["fee_rate"], min_analogs=30, min_pwin=0.45)
+        sig = signals.get(sym)
+        if sig is not None:
+            sig["mc"] = res
+            sig["reasons"].insert(0, ("hausse : " if d > 0 else "baisse : ") + txt)
+        if not ok:
+            target[sym] = 0.0
+
+
 def decide(prices, p, per_asset=None, nw=None, macro="", state=None, now=None):
     """Signaux du conseil + actu, poids cibles, puis gestion du risque."""
     syms = [s for s in config.TRADABLE if s in prices]
@@ -175,6 +217,7 @@ def decide(prices, p, per_asset=None, nw=None, macro="", state=None, now=None):
             target[k] *= th["scale"]
         for s_ in signals.values():
             s_["reasons"].append(f"thermomètre de crise {th['score']:.0f}/100 ({th['analogue']}) : exposition × {th['scale']:.2f}")
+    mc_filter(target, signals, ctx, prices[syms], p, held)
     raw = dict(target)
     sf = float(ctx["stress"].iloc[-1])
     if sf < 0.99:

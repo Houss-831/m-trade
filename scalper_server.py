@@ -18,7 +18,7 @@ NAMES = {"BTC-USD": "Bitcoin", "ETH-USD": "Ethereum", "SOL-USD": "Solana", "GC=F
 HOSTS = ["https://data-api.binance.vision", "https://api.binance.com"]
 CFG = {"tf": "5m", "risk": 0.005, "tp_atr": 2.5, "sl_atr": 1.2, "max_pos": 3, "time_stop": 24,
        "min_score": 0.7, "fee": 0.001, "fee_mult": 2.0, "min_er": 0.25, "short": True,
-       "max_loss_day": 0.03, "start": 10000.0}
+       "max_loss_day": 0.03, "start": 10000.0, "mc": True, "mc_min_pwin": 0.35}
 
 
 # ---------------------------------------------------------------- données
@@ -28,7 +28,7 @@ def _get(url, timeout=10):
         return json.loads(r.read().decode())
 
 
-def candles(sym, limit=300):
+def candles(sym, limit=1000):
     """Bougies 5 min clôturées : [(t_ms, o, h, l, c, v)]."""
     now = time.time() * 1000
     for host in HOSTS:
@@ -204,7 +204,40 @@ def _open(S, sym, st, price, ms, px):
     S["trades"].append({"t": _iso(ms), "sym": sym, "name": NAMES[sym], "kind": "open", "dir": d, "entry": price,
                         "score": st["score"], "why": ", ".join(st["why"])})
     _log(S, ms, f"{'🟢 achat' if d > 0 else '🔴 vente à découvert'} {NAMES[sym]} à {price:,.2f} $ (score {st['score']:.2f} : "
-               f"{', '.join(st['why'])}) · stop {S['pos'][sym]['sl']:,.2f} · objectif {S['pos'][sym]['tp']:,.2f}")
+               f"{', '.join(st['why'])}) · stop {S['pos'][sym]['sl']:,.2f} · objectif {S['pos'][sym]['tp']:,.2f}"
+               + (f" · {st['mc']}" if st.get("mc") else ""))
+
+
+def scan_setups(L, I):
+    """Toutes les bougies passées où un signal valide est apparu : {1: [n...], -1: [n...]}."""
+    out = {1: [], -1: []}
+    for n in range(60, len(L)):
+        st = decide(L, I, n)
+        if st and st["score"] >= CFG["min_score"] and not st["block"]:
+            out[st["dir"]].append(n)
+    return out
+
+
+def mc_check(sym, n, st, data, inds, setups):
+    """10 000 scénarios avant d'ouvrir : analogues de tous les actifs (en ATR), sans regarder le futur."""
+    import numpy as np
+    import montecarlo as mc
+    H = CFG["time_stop"]
+    t_now = data[sym][n][0]
+    pools = []
+    for s2, L2 in data.items():
+        I2 = inds[s2]
+        idx = [i for i in setups[s2][st["dir"]] if i + H < len(L2) and L2[i + H][0] < t_now]
+        arr = lambda k: np.array([x[k] for x in L2])
+        p = mc.analog_paths(arr(4), arr(2), arr(3), np.array(I2["atr"]), idx, H)
+        if p is not None:
+            pools.append(p)
+    if not pools:
+        return mc.verdict(None, 0, 0)
+    paths = tuple(np.concatenate([p[k] for p in pools]) for k in range(3))
+    res = mc.simulate(paths, st["dir"], CFG["tp_atr"], CFG["sl_atr"], seed=int(t_now // 1000) % 2**31)
+    atr_pct = st["atr"] / data[sym][n][4]
+    return mc.verdict(res, atr_pct, 2 * CFG["fee"] + 0.0003, min_analogs=20, min_pwin=CFG["mc_min_pwin"])
 
 
 def step(S=None):
@@ -221,11 +254,13 @@ def step(S=None):
         return S
     # chronologie commune de toutes les bougies non encore traitées
     events = []
+    inds = {sym: indicators(L) for sym, L in data.items()}
+    setups = {sym: scan_setups(L, inds[sym]) for sym, L in data.items()}
     if not S["last"] and not S["trades"]:
         _log(S, time.time() * 1000, "▶ scalper serveur démarré : il tourne 24 h/24 sur GitHub (bougies 5 min, argent fictif). "
                                     "Premier passage : les 6 dernières heures sont jouées pour amorcer.")
     for sym, L in data.items():
-        I = indicators(L)
+        I = inds[sym]
         last = S["last"].get(sym) or L[max(60, len(L) - 73)][0]
         for n in range(60, len(L)):
             if L[n][0] > last:
@@ -255,7 +290,14 @@ def step(S=None):
         elif not S["day"].get("halted") and len(S["pos"]) < CFG["max_pos"]:
             st = decide(L, I, n)
             if st and st["score"] >= CFG["min_score"] and not st["block"]:
-                _open(S, sym, st, bar[4], ms, {**px, **cur})
+                ok, txt, res = mc_check(sym, n, st, data, inds, setups) if CFG["mc"] else (True, "", None)
+                S.setdefault("mc_stats", {"ok": 0, "no": 0})["ok" if ok else "no"] += 1
+                if ok:
+                    st["mc"] = txt
+                    _open(S, sym, st, bar[4], ms, {**px, **cur})
+                elif ms - S.setdefault("mc_log", {}).get(sym, 0) >= 30 * 60000:
+                    S["mc_log"][sym] = ms
+                    _log(S, ms, f"🧪 {NAMES[sym]} : signal {'hausse' if st['dir'] > 0 else 'baisse'} {st['score']:.2f} · {txt}")
         S["last"][sym] = ms
         v = equity(S, {**px, **cur})
         if not S["day"].get("halted") and v - S["day"]["start"] <= -CFG["max_loss_day"] * S["start"]:
@@ -270,7 +312,7 @@ def step(S=None):
     S["prices"] = px
     S["signals"] = {}
     for sym, L in data.items():                                # état du signal courant, pour l'appli
-        st = decide(L, indicators(L), len(L) - 1)
+        st = decide(L, inds[sym], len(L) - 1)
         if st:
             S["signals"][sym] = {"dir": st["dir"], "score": st["score"], "why": st["why"], "block": st["block"]}
     return S
@@ -282,7 +324,8 @@ def summary(S):
     return {"equity": S.get("equity", S["cash"]), "start": S["start"], "trades": len(cl),
             "win_rate": round(len(wins) / len(cl), 3) if cl else None,
             "pnl": round(S.get("equity", S["cash"]) - S["start"], 2), "fees": round(S["fees"], 2),
-            "open": len(S["pos"]), "updated": S.get("updated"), "source": S.get("source")}
+            "open": len(S["pos"]), "updated": S.get("updated"), "source": S.get("source"),
+            "mc_ok": S.get("mc_stats", {}).get("ok", 0), "mc_no": S.get("mc_stats", {}).get("no", 0)}
 
 
 if __name__ == "__main__":

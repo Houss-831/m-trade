@@ -321,6 +321,10 @@ Une session GitHub Actions d'environ 5 h 45 tourne en continu, et la suivante d�
 - toutes les 10 minutes, tout est sauvegardé et l'appli en ligne se met à jour.
 Le bot principal peut maintenant aussi **parier à la baisse** (vente à découvert fictive), avec un stop dédié (plus bas + 3 ATR).
 
+## 🧪 10 000 scénarios avant chaque investissement (`montecarlo.py`)
+
+Avant d'ouvrir une position, à la hausse comme à la baisse, le bot et le scalper serveur cherchent toutes les situations comparables passées (même sens, même conviction). Elles sont prises sur tous les actifs et exprimées en ATR. À partir de ce qui a suivi, ils recomposent 10 000 trajectoires (bootstrap par blocs), appliquent stop, objectif, durée et frais, puis n'investissent que si l'espérance après frais est positive et la probabilité de gain suffisante. Sur des cours purement aléatoires, le filtre refuse tous les trades, ce qui est le comportement voulu.
+
 ## 🎛️ Réglage automatique (chaque semaine, sur les vrais cours)
 
 `python main.py tune` (lancé automatiquement par GitHub une fois par semaine) teste 270 réglages du conseil sur 5 ans de vrais cours : fenêtre d'évaluation, température, groupe de stratégies, seuil d'entrée et thermomètre. Chaque réglage est noté sur sa régularité, sur 3 périodes successives, et lissé avec ses voisins pour éviter le sur-ajustement. Un nouveau réglage n'est adopté que s'il bat nettement l'ancien et ne fait pas pire sur une période jamais vue. Le niveau de risque choisi dans Réglages n'est jamais modifié. Les résultats sont dans `data/tuning.json` et dans l'onglet Performance.
