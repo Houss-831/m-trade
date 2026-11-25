@@ -1182,6 +1182,13 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
         <p class="explain">Sharpe du bot pour 20 réglages du conseil : la fenêtre de mesure (lignes) et la réactivité des poids (colonnes). Le cadre doré marque le réglage actuel. Une large zone verte veut dire que le résultat ne dépend pas d'un réglage chanceux.</p>
       </div>
     </div>
+    <div class="card" id="alloc-card" style="margin-top:14px">
+      <div class="card-h"><svg class="i"><use href="#i-layers"/></svg>Méthode d'investissement choisie sur les vrais cours<span class="right chip" id="alloc-chip"></span></div>
+      <p id="alloc-sum" style="margin:0 0 10px"></p>
+      <div class="sub-label">Classement des méthodes (régularité sur 3 périodes, frais inclus)</div>
+      <div id="alloc-rank"></div>
+      <p class="explain" id="alloc-blind"></p>
+    </div>
     <div class="card" id="tune-card" style="margin-top:14px">
       <div class="card-h"><svg class="i"><use href="#i-sliders"/></svg>Réglage automatique sur les vrais cours<span class="right chip" id="tune-chip"></span></div>
       <p id="tune-sum" style="margin:0 0 10px"></p>
@@ -2206,7 +2213,19 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
     };
     c.cv.onpointerleave = function () { c.tip.style.display = "none"; };
   }
+  function renderAlloc() {
+    var A = D.allocation; if (!$("alloc-card")) return;
+    if (!A) { $("alloc-sum").textContent = "La comparaison des méthodes sur les vrais cours sera faite au prochain passage du bot."; $("alloc-chip").textContent = "en attente"; return; }
+    $("alloc-chip").textContent = dFmt(A.date); $("alloc-sum").textContent = A.summary;
+    $("alloc-rank").innerHTML = A.ranking.filter(function (r, i, arr) { return !r.thermo || i < 4; }).slice(0, 8).map(function (r) {
+      var me = r.mode === A.mode && r.thermo === A.thermo;
+      return '<div class="dr-o"' + (me ? ' style="border-left:3px solid ' + C.good + ';padding-left:8px"' : "") + "><span>" + (me ? "<b>✓ " : "") + esc(r.name) + (r.thermo ? " + thermomètre" : "") + (me ? "</b>" : "") + '<br><small class="muted">' + pct(r.return, 0) + " au total · " + pct(r.cagr, 1) + " par an · pire baisse " + pct(r.max_dd, 0) + '</small></span><span class="num ' + cls(r.robust) + '">' + r.sharpe.toFixed(2) + "</span></div>";
+    }).join("");
+    var B = A.blind;
+    $("alloc-blind").textContent = "Contrôle honnête : en choisissant sans voir la dernière période (" + dFmt(A.folds[2][0]) + " → " + dFmt(A.folds[2][1]) + "), la méthode retenue aurait été « " + B.name + " », avec un Sharpe de " + B.last + " sur cette période, contre " + B.market_last + " pour « tout acheter et garder ». Le chiffre à droite est le Sharpe (rendement par unité de risque) sur tout l'historique.";
+  }
   function renderTuning() {
+    renderAlloc();
     var T = D.tuning, el = $("tune-card"); if (!el) return;
     if (!T) { $("tune-sum").textContent = "Le premier réglage automatique sera calculé au prochain passage du bot, sur 5 ans de vrais cours."; $("tune-chip").textContent = "en attente"; return; }
     $("tune-chip").textContent = (T.adopted ? "nouveau réglage" : "réglage confirmé") + " · " + dFmt(T.date);

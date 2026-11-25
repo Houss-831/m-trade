@@ -212,12 +212,33 @@ def decide(prices, p, per_asset=None, nw=None, macro="", state=None, now=None):
         for pt in s_["patterns"][:2]:
             if pt["dir"]:
                 s_["reasons"].append(f"chandeliers : {pt['name'].lower()} {'il y a ' + str(pt['ago']) + ' j' if pt['ago'] else 'aujourd’hui'}")
-    if th["scale"] < 1 and p.get("thermo", True):
+    alloc_mode = ((__import__("allocation").load() or {}).get("mode", "council_ls"))
+    if th["scale"] < 1 and p.get("thermo", True) and alloc_mode.startswith("council"):
         for k in target:
             target[k] *= th["scale"]
         for s_ in signals.values():
             s_["reasons"].append(f"thermomètre de crise {th['score']:.0f}/100 ({th['analogue']}) : exposition × {th['scale']:.2f}")
-    mc_filter(target, signals, ctx, prices[syms], p, held)
+    import allocation
+    alloc = allocation.load()
+    mode = (alloc or {}).get("mode", "council_ls")
+    risk_cfg = config.RISK
+    if mode in ("council_ls", "council_long"):
+        if mode == "council_long":
+            target = {k: max(v, 0.0) for k, v in target.items()}
+        mc_filter(target, signals, ctx, prices[syms], p, held)
+    else:
+        thf = crisis.factor_series(prices, tail=None) if alloc.get("thermo") else None
+        w = allocation.weights(prices[syms], mode, p, ctx["score"], thf)
+        target = {k: float(v) for k, v in w.iloc[-1].items()}
+        sma = prices[syms].rolling(200).mean().iloc[-1]
+        for sym, s_ in signals.items():
+            t = target.get(sym, 0.0)
+            above = prices[sym].iloc[-1] > sma.get(sym, np.nan)
+            s_["action"] = "ACHAT" if t > 0.005 else ("VENTE À DÉCOUVERT" if t < -0.005 else "ÉVITER / SORTIR")
+            s_["reasons"].insert(0, f"méthode d'allocation retenue sur les vrais cours : {allocation.MODES[mode]}"
+                                    f"{' + thermomètre' if alloc.get('thermo') else ''} · poids visé {t:+.0%} · "
+                                    f"prix {'au-dessus' if above else 'au-dessous'} de sa moyenne 200 jours")
+        risk_cfg = {**config.RISK, "atr_mult": 1e9, "take_profit": False}   # méthode testée sans stop serré
     raw = dict(target)
     sf = float(ctx["stress"].iloc[-1])
     if sf < 0.99:
@@ -229,7 +250,7 @@ def decide(prices, p, per_asset=None, nw=None, macro="", state=None, now=None):
     after_corr = dict(target)
     if state is not None:
         target, ev2, stops = apply_risk(state, target, prices.iloc[-1].to_dict(),
-                                        ctx["atr"].iloc[-1].to_dict(), signals, now, config.RISK,
+                                        ctx["atr"].iloc[-1].to_dict(), signals, now, risk_cfg,
                                         rets=prices[syms].pct_change())
         events = ev2 + events
     for sym, s in signals.items():               # trace complète pour le cockpit
@@ -329,6 +350,7 @@ def cmd_run(args):
     payload["knowledge"] = knowledge.payload()
     import optimizer
     payload["tuning"] = optimizer.load()
+    payload["allocation"] = __import__("allocation").load()
     try:
         import scalper_server as _ss
         _S = _ss.load()
@@ -418,6 +440,7 @@ def cmd_replay(args):
     payload["knowledge"] = knowledge.payload()
     import optimizer
     payload["tuning"] = optimizer.load()
+    payload["allocation"] = __import__("allocation").load()
     try:
         import scalper_server as _ss
         _S = _ss.load()
@@ -443,6 +466,21 @@ def cmd_status(args):
         print(f"  {config.UNIVERSE.get(s, s):16} {q:>12.4f}  ≈ {q * prices.get(s, 0):>10,.0f} €")
 
 
+def cmd_allocate(args):
+    """Compare les méthodes d'allocation sur les vrais cours (une fois par semaine, ou --force)."""
+    import allocation
+    if not args.force and not allocation.due():
+        print("📐 comparaison des méthodes déjà faite cette semaine")
+        return
+    full = load_prices(args.demo, "10y" if not args.demo else "5y")
+    activate_profile()
+    res = allocation.choose(full, config.TRADABLE, dict(config.STRATEGY), config.PAPER["fee_rate"])
+    allocation.save(res)
+    print("📐 " + res["summary"])
+    for r in res["ranking"][:6]:
+        print(f"   {r['robust']:+.2f}  {r['name']}{' + thermo' if r['thermo'] else ''} : {r['return']:+.0%}, Sharpe {r['sharpe']}, pire baisse {r['max_dd']:.0%}, périodes {r['folds']}")
+
+
 def cmd_tune(args):
     """Réglage automatique sur les vrais cours (une fois par semaine, ou --force)."""
     import optimizer
@@ -462,7 +500,7 @@ def cmd_tune(args):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(description="Bot d'analyse et de paper trading")
-    ap.add_argument("command", choices=["backtest", "run", "status", "replay", "tune"])
+    ap.add_argument("command", choices=["backtest", "run", "status", "replay", "tune", "allocate"])
     ap.add_argument("--demo", action="store_true", help="données simulées, sans internet")
     ap.add_argument("--mock-ai", action="store_true", help="simule la réponse de l'IA (test)")
     ap.add_argument("--days", type=int, default=120, help="jours à rejouer (replay)")
@@ -470,4 +508,4 @@ if __name__ == "__main__":
     ap.add_argument("--full", action="store_true", help="affiche aussi le rapport complet des signaux")
     a = ap.parse_args()
     activate_profile()
-    {"backtest": cmd_backtest, "run": cmd_run, "status": cmd_status, "replay": cmd_replay, "tune": cmd_tune}[a.command](a)
+    {"backtest": cmd_backtest, "run": cmd_run, "status": cmd_status, "replay": cmd_replay, "tune": cmd_tune, "allocate": cmd_allocate}[a.command](a)

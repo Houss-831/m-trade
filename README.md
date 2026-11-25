@@ -321,6 +321,10 @@ Une session GitHub Actions d'environ 5 h 45 tourne en continu, et la suivante d�
 - toutes les 10 minutes, tout est sauvegardé et l'appli en ligne se met à jour.
 Le bot principal peut maintenant aussi **parier à la baisse** (vente à découvert fictive), avec un stop dédié (plus bas + 3 ATR).
 
+## 📐 Choix de la méthode d'investissement (`allocation.py`)
+
+Chaque semaine, le bot compare 7 façons d'investir, avec et sans thermomètre de crise, sur 10 ans de vrais cours (frais inclus) : son conseil des 8 stratégies (hausse et baisse, ou hausse seulement), tout acheter et garder, parité de risque, parité de risque avec filtre de tendance 200 jours (Faber 2007), la même avec paris à la baisse sur les marchés baissiers confirmés, et un mélange cœur + satellite. Il applique la plus régulière sur 3 périodes successives et publie un contrôle hors échantillon.
+
 ## 🧪 10 000 scénarios avant chaque investissement (`montecarlo.py`)
 
 Avant d'ouvrir une position, à la hausse comme à la baisse, le bot et le scalper serveur cherchent toutes les situations comparables passées (même sens, même conviction). Elles sont prises sur tous les actifs et exprimées en ATR. À partir de ce qui a suivi, ils recomposent 10 000 trajectoires (bootstrap par blocs), appliquent stop, objectif, durée et frais, puis n'investissent que si l'espérance après frais est positive et la probabilité de gain suffisante. Sur des cours purement aléatoires, le filtre refuse tous les trades, ce qui est le comportement voulu.

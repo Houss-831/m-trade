@@ -73,6 +73,7 @@ def push(msg):
 
 
 def main_run():
+    sh(sys.executable, "main.py", "allocate", check=True)
     sh(sys.executable, "main.py", "tune", check=True)
     if not os.path.exists("data/portfolio.json"):
         sh(sys.executable, "main.py", "replay", "--days", "120", check=True)
@@ -94,7 +95,7 @@ def main():
             print(datetime.now(timezone.utc).strftime("%H:%M"), "scalper", ss.summary(S))
         except Exception as e:                       # une erreur réseau ne doit jamais arrêter le service
             print("scalper :", e)
-        if time.time() - last_run() >= RUN_EVERY:
+        if time.time() - last_run() >= RUN_EVERY or not os.path.exists("data/allocation.json"):
             try:
                 main_run()
             except Exception as e:
