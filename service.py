@@ -86,7 +86,7 @@ def main_run():
         if r:
             ss.CFG["tf"] = r["tf"]
             print("⏱", r["summary"])
-    sh(sys.executable, "main.py", "allocate", check=True)
+    sh(sys.executable, "main.py", "allocate", *(["--force"] if allocation_stale() else []), check=True)
     sh(sys.executable, "main.py", "tune", check=True)
     if not os.path.exists("data/portfolio.json"):
         sh(sys.executable, "main.py", "replay", "--days", "120", check=True)
