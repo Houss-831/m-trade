@@ -99,6 +99,17 @@ def main():
     t_end = time.time() + MINUTES * 60
     last_save = 0
     sh(sys.executable, "main.py", "render", check=True)      # l'appli prend tout de suite le nouveau modèle
+    if os.getenv("TELEGRAM_TOKEN") and not os.path.exists("data/telegram_chat.txt"):
+        try:                                                    # connexion Telegram : message de bienvenue tout de suite
+            from report import send_telegram
+            with open("data/portfolio.json") as f:
+                st = json.load(f)
+            pos = len(st.get("positions", {}))
+            ok = send_telegram(f"📊 Portefeuille fictif : {len(st.get('history', [])) and st['history'][-1]['value'] or st['cash']:,.0f} € · "
+                               f"{pos} position(s) ouverte(s). Prochain passage du bot dans moins de 2 heures.".replace(",", " "))
+            print("Telegram :", "connecté" if ok else "aucune conversation trouvée (écris « bonjour » à ton bot)")
+        except Exception as e:
+            print("Telegram :", e)
     S = ss.load()
     while time.time() < t_end:
         t0 = time.time()
