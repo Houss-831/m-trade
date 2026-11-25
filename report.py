@@ -121,8 +121,14 @@ def build_summary(state, value, prices, names, extra=None):
 def clean_token(raw):
     """Le jeton collé peut contenir des espaces, un retour à la ligne ou le texte de BotFather autour : on extrait le jeton."""
     import re
-    m = re.search(r"\d{5,}:[A-Za-z0-9_-]{20,}", raw or "")
-    return m.group(0) if m else (raw or "").strip()
+    raw = raw or ""
+    m = re.search(r"\d{5,}:[A-Za-z0-9_-]{20,}", raw)
+    if m:
+        return m.group(0)
+    # espaces, retours à la ligne, caractères invisibles ou guillemets glissés dans le jeton : on les retire
+    squeezed = re.sub(r"[\s\u00a0\u200b-\u200f\u2060\ufeff\"'“”«»‘’`]", "", raw)
+    m = re.search(r"\d{5,}:[A-Za-z0-9_-]{20,}", squeezed)
+    return m.group(0) if m else raw.strip()
 
 
 def telegram_chat(token):
