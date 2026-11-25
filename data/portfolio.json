@@ -533,6 +533,18 @@
     {
       "date": "2026-11-25T09:35:28",
       "value": 9676.05
+    },
+    {
+      "date": "2026-11-25T09:40:28",
+      "value": 9675.87
+    },
+    {
+      "date": "2026-11-25T09:45:28",
+      "value": 9675.52
+    },
+    {
+      "date": "2026-11-25T09:50:28",
+      "value": 9675.52
     }
   ],
   "peaks": {
@@ -545,7 +557,7 @@
     }
   },
   "breaker": {
-    "drawdown": -0.0806946388168236,
+    "drawdown": -0.08074493192840648,
     "factor": 1.0
   },
   "day": {
@@ -554,10 +566,10 @@
     "halted": false
   },
   "risk_budget": {
-    "day_pnl": -66.6990703722222,
+    "day_pnl": -67.22842498594582,
     "max_loss_day": null,
     "budget_left": null,
-    "var95": 30.42932527935233,
+    "var95": 30.434075642080945,
     "max_loss_total": null,
     "invest_max": null,
     "halted_day": false,
@@ -565,229 +577,133 @@
   },
   "last_leader": "donchian",
   "last_stress": 1.0,
-  "thermo_last": 55.6,
+  "thermo_last": 55.9,
   "last_signals": {
     "^FCHI": {
       "action": "NEUTRE",
-      "score": -0.0924313063123754,
-      "rsi": 52.04606572751217,
-      "adx": 25.432284698707708
+      "score": -0.16154068384875153,
+      "rsi": 50.107381143848635,
+      "adx": 25.155329758184344
     },
     "^GDAXI": {
       "action": "\u00c9VITER / SORTIR",
-      "score": -0.49149109696811527,
-      "rsi": 38.941002454600444,
-      "adx": 23.843156923882837
+      "score": -0.5671720577663116,
+      "rsi": 37.582675465142,
+      "adx": 24.037203636662614
     },
     "^GSPC": {
       "action": "NEUTRE",
-      "score": -0.028108711888643896,
-      "rsi": 46.39127061578068,
-      "adx": 18.94159464252166
+      "score": -0.04317082979584934,
+      "rsi": 46.285091941353805,
+      "adx": 18.956763024582642
     },
     "^IXIC": {
       "action": "\u00c9VITER / SORTIR",
-      "score": -0.2709069201976732,
-      "rsi": 44.45044305492304,
-      "adx": 20.760955943162788
+      "score": -0.28169517247860437,
+      "rsi": 44.378197818023345,
+      "adx": 20.771276691291316
     },
     "^N225": {
       "action": "\u00c9VITER / SORTIR",
-      "score": -0.8237682833494449,
-      "rsi": 40.56064799734677,
-      "adx": 24.586517518363777
+      "score": -0.8313477655185784,
+      "rsi": 40.46544110045881,
+      "adx": 24.600118503633485
     },
     "BTC-USD": {
       "action": "\u00c9VITER / SORTIR",
-      "score": -0.7191210113600958,
-      "rsi": 25.848132339621017,
-      "adx": 37.15927831022269
+      "score": -0.7316242404101538,
+      "rsi": 25.791057296340682,
+      "adx": 37.16743188783416
     },
     "ETH-USD": {
       "action": "\u00c9VITER / SORTIR",
-      "score": -0.7324117298242558,
-      "rsi": 28.19271686393813,
-      "adx": 37.30309986779196
+      "score": -0.7394739505994595,
+      "rsi": 28.08707345055906,
+      "adx": 37.31819178398897
     },
     "SOL-USD": {
       "action": "\u00c9VITER / SORTIR",
-      "score": -0.72007185445907,
-      "rsi": 28.614418901255675,
-      "adx": 40.17981502631053
+      "score": -0.7229332399923817,
+      "rsi": 28.524405136116897,
+      "adx": 40.19267413561607
     },
     "GC=F": {
       "action": "\u00c9VITER / SORTIR",
-      "score": -0.8230331856843739,
-      "rsi": 32.99160478427849,
-      "adx": 28.08162770588484
+      "score": -0.833688068144242,
+      "rsi": 32.827081773527226,
+      "adx": 28.105130993135024
     },
     "CL=F": {
       "action": "\u00c9VITER / SORTIR",
-      "score": -0.5922520927129588,
-      "rsi": 36.02136065817478,
-      "adx": 26.90732997944216
+      "score": -0.5830618079704722,
+      "rsi": 36.2474291720982,
+      "adx": 26.875034477453102
     },
     "XLK": {
       "action": "\u00c9VITER / SORTIR",
-      "score": -0.5859841136557694,
-      "rsi": 41.65491346408873,
-      "adx": 26.107056716414046
+      "score": -0.5912504346998906,
+      "rsi": 41.60850229232626,
+      "adx": 26.11368688229094
     },
     "XLV": {
       "action": "ACHAT",
-      "score": 0.8020721417393498,
-      "rsi": 60.3807197574116,
-      "adx": 28.60065344002828
+      "score": 0.7981342025190861,
+      "rsi": 60.21561138974116,
+      "adx": 28.57706652891831
     },
     "XLE": {
       "action": "\u00c9VITER / SORTIR",
-      "score": -0.5628252913662947,
-      "rsi": 38.87159003246975,
-      "adx": 25.168633725616136
+      "score": -0.566452628131299,
+      "rsi": 38.78036630083909,
+      "adx": 25.181665687670773
     },
     "XLF": {
       "action": "ACHAT",
-      "score": 0.40549682747425503,
-      "rsi": 52.001512398147185,
-      "adx": 19.722789798851736
+      "score": 0.39968582723203616,
+      "rsi": 51.86161437001266,
+      "adx": 19.702804366261102
     },
     "AAPL": {
       "action": "ACHAT",
       "score": 0.85,
-      "rsi": 62.29169815260625,
-      "adx": 18.127104191985545
+      "rsi": 62.12410564206342,
+      "adx": 18.103162597498667
     },
     "MSFT": {
       "action": "NEUTRE",
-      "score": -0.22599211457373455,
-      "rsi": 44.60766057669911,
-      "adx": 14.422592470364236
+      "score": -0.23018853959102212,
+      "rsi": 44.518276309497,
+      "adx": 14.435361651596057
     },
     "NVDA": {
       "action": "\u00c9VITER / SORTIR",
-      "score": -0.45434082422543487,
-      "rsi": 44.14224338276814,
-      "adx": 41.555400625461594
+      "score": -0.46509972144903866,
+      "rsi": 44.117418240077264,
+      "adx": 41.5589470746423
     },
     "TLT": {
       "action": "ACHAT",
-      "score": 0.8451612903225806,
-      "rsi": 69.53528768434904,
-      "adx": 28.7380309374879
+      "score": 0.8388888888888889,
+      "rsi": 69.12107532204038,
+      "adx": 28.678858144810004
     },
     "IEF": {
       "action": "ACHAT",
-      "score": 0.8730769230769231,
-      "rsi": 73.25839560149524,
-      "adx": 36.40117062647122
+      "score": 0.8624999999999999,
+      "rsi": 72.67647061772112,
+      "adx": 36.31804153915576
     },
     "SI=F": {
       "action": "\u00c9VITER / SORTIR",
-      "score": -0.9,
-      "rsi": 27.428349348788984,
-      "adx": 37.52611007177336
+      "score": -0.895,
+      "rsi": 27.20830922452909,
+      "adx": 37.55754437523906
     }
   },
   "stop_alerted": [
     "XLV"
   ],
   "feed": [
-    {
-      "date": "2026-10-23T18:00",
-      "kind": "decision",
-      "level": "important",
-      "title": "Ethereum : conserver \u2192 achat",
-      "text": "score +0.25 \u2192 +0.28. Cassure de canal vote vente (-0.66, poids 23%)",
-      "symbol": "ETH-USD"
-    },
-    {
-      "date": "2026-10-23T18:00",
-      "kind": "risk:stop",
-      "level": "important",
-      "title": "Bouclier : stop d\u00e9clench\u00e9",
-      "text": "stop suiveur touch\u00e9 : prix 6,793.84 sous le stop 6,813.09 (plus haut 6,909.54 moins 3 ATR)",
-      "symbol": "^GSPC"
-    },
-    {
-      "date": "2026-10-23T18:00",
-      "kind": "pattern",
-      "level": "info",
-      "title": "Nikkei 225 : Marteau",
-      "text": "Longue m\u00e8che basse apr\u00e8s une baisse : les acheteurs ont rejet\u00e9 les plus bas. Signal haussier pris en compte par le conseil.",
-      "symbol": "^N225"
-    },
-    {
-      "date": "2026-10-24T18:00",
-      "kind": "risk:stop",
-      "level": "important",
-      "title": "Bouclier : stop d\u00e9clench\u00e9",
-      "text": "stop suiveur touch\u00e9 : prix 71,996.75 sous le stop 72,311.91 (plus haut 74,831.99 moins 3 ATR)",
-      "symbol": "BTC-USD"
-    },
-    {
-      "date": "2026-10-24T18:00",
-      "kind": "pattern",
-      "level": "info",
-      "title": "Nikkei 225 : Marteau",
-      "text": "Longue m\u00e8che basse apr\u00e8s une baisse : les acheteurs ont rejet\u00e9 les plus bas. Signal haussier pris en compte par le conseil.",
-      "symbol": "^N225"
-    },
-    {
-      "date": "2026-10-25T18:00",
-      "kind": "stop",
-      "level": "attention",
-      "title": "Ethereum proche de son stop",
-      "text": "\u00e0 2.1% du niveau de sortie automatique",
-      "symbol": "ETH-USD"
-    },
-    {
-      "date": "2026-10-25T18:00",
-      "kind": "risk:stop",
-      "level": "important",
-      "title": "Bouclier : stop d\u00e9clench\u00e9",
-      "text": "stop suiveur touch\u00e9 : prix 90.21 sous le stop 90.65 (plus haut 95.12 moins 3 ATR)",
-      "symbol": "SOL-USD"
-    },
-    {
-      "date": "2026-10-25T18:00",
-      "kind": "pattern",
-      "level": "info",
-      "title": "Nikkei 225 : Marteau",
-      "text": "Longue m\u00e8che basse apr\u00e8s une baisse : les acheteurs ont rejet\u00e9 les plus bas. Signal haussier pris en compte par le conseil.",
-      "symbol": "^N225"
-    },
-    {
-      "date": "2026-10-26T18:00",
-      "kind": "pattern",
-      "level": "info",
-      "title": "Nasdaq : \u00c9toile du matin",
-      "text": "Rouge, petite ind\u00e9cision, puis forte verte : retournement haussier en trois temps. Signal haussier pris en compte par le conseil.",
-      "symbol": "^IXIC"
-    },
-    {
-      "date": "2026-10-27T18:00",
-      "kind": "decision",
-      "level": "important",
-      "title": "DAX : neutre \u2192 achat",
-      "text": "score +0.18 \u2192 +0.26. Tendance de fond vote achat (+1.00, poids 15%)",
-      "symbol": "^GDAXI"
-    },
-    {
-      "date": "2026-10-27T18:00",
-      "kind": "council",
-      "level": "attention",
-      "title": "Le conseil change de m\u00e9thode dominante",
-      "text": "Cassure de canal \u2192 RSI court (18% des voix) : le march\u00e9 change de r\u00e9gime",
-      "symbol": null
-    },
-    {
-      "date": "2026-10-27T18:00",
-      "kind": "pattern",
-      "level": "info",
-      "title": "Bitcoin : Avalement haussier",
-      "text": "Une bougie verte englobe la rouge pr\u00e9c\u00e9dente apr\u00e8s une baisse. Signal haussier pris en compte par le conseil.",
-      "symbol": "BTC-USD"
-    },
     {
       "date": "2026-10-27T18:00",
       "kind": "pattern",
@@ -2291,6 +2207,102 @@
       "title": "Apple : \u00c9toile du matin",
       "text": "Rouge, petite ind\u00e9cision, puis forte verte : retournement haussier en trois temps. Signal haussier pris en compte par le conseil.",
       "symbol": "AAPL"
+    },
+    {
+      "date": "2026-11-25T09:40",
+      "kind": "pattern",
+      "level": "info",
+      "title": "S&P 500 : \u00c9toile du matin",
+      "text": "Rouge, petite ind\u00e9cision, puis forte verte : retournement haussier en trois temps. Signal haussier pris en compte par le conseil.",
+      "symbol": "^GSPC"
+    },
+    {
+      "date": "2026-11-25T09:40",
+      "kind": "pattern",
+      "level": "info",
+      "title": "P\u00e9trole WTI : Marteau",
+      "text": "Longue m\u00e8che basse apr\u00e8s une baisse : les acheteurs ont rejet\u00e9 les plus bas. Signal haussier pris en compte par le conseil.",
+      "symbol": "CL=F"
+    },
+    {
+      "date": "2026-11-25T09:40",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Secteur finance US : \u00c9toile du matin",
+      "text": "Rouge, petite ind\u00e9cision, puis forte verte : retournement haussier en trois temps. Signal haussier pris en compte par le conseil.",
+      "symbol": "XLF"
+    },
+    {
+      "date": "2026-11-25T09:40",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Apple : \u00c9toile du matin",
+      "text": "Rouge, petite ind\u00e9cision, puis forte verte : retournement haussier en trois temps. Signal haussier pris en compte par le conseil.",
+      "symbol": "AAPL"
+    },
+    {
+      "date": "2026-11-25T09:45",
+      "kind": "pattern",
+      "level": "info",
+      "title": "S&P 500 : \u00c9toile du matin",
+      "text": "Rouge, petite ind\u00e9cision, puis forte verte : retournement haussier en trois temps. Signal haussier pris en compte par le conseil.",
+      "symbol": "^GSPC"
+    },
+    {
+      "date": "2026-11-25T09:45",
+      "kind": "pattern",
+      "level": "info",
+      "title": "P\u00e9trole WTI : Marteau",
+      "text": "Longue m\u00e8che basse apr\u00e8s une baisse : les acheteurs ont rejet\u00e9 les plus bas. Signal haussier pris en compte par le conseil.",
+      "symbol": "CL=F"
+    },
+    {
+      "date": "2026-11-25T09:45",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Secteur finance US : \u00c9toile du matin",
+      "text": "Rouge, petite ind\u00e9cision, puis forte verte : retournement haussier en trois temps. Signal haussier pris en compte par le conseil.",
+      "symbol": "XLF"
+    },
+    {
+      "date": "2026-11-25T09:45",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Apple : \u00c9toile du matin",
+      "text": "Rouge, petite ind\u00e9cision, puis forte verte : retournement haussier en trois temps. Signal haussier pris en compte par le conseil.",
+      "symbol": "AAPL"
+    },
+    {
+      "date": "2026-11-25T09:50",
+      "kind": "pattern",
+      "level": "info",
+      "title": "S&P 500 : \u00c9toile du matin",
+      "text": "Rouge, petite ind\u00e9cision, puis forte verte : retournement haussier en trois temps. Signal haussier pris en compte par le conseil.",
+      "symbol": "^GSPC"
+    },
+    {
+      "date": "2026-11-25T09:50",
+      "kind": "pattern",
+      "level": "info",
+      "title": "P\u00e9trole WTI : Marteau",
+      "text": "Longue m\u00e8che basse apr\u00e8s une baisse : les acheteurs ont rejet\u00e9 les plus bas. Signal haussier pris en compte par le conseil.",
+      "symbol": "CL=F"
+    },
+    {
+      "date": "2026-11-25T09:50",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Secteur finance US : \u00c9toile du matin",
+      "text": "Rouge, petite ind\u00e9cision, puis forte verte : retournement haussier en trois temps. Signal haussier pris en compte par le conseil.",
+      "symbol": "XLF"
+    },
+    {
+      "date": "2026-11-25T09:50",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Apple : \u00c9toile du matin",
+      "text": "Rouge, petite ind\u00e9cision, puis forte verte : retournement haussier en trois temps. Signal haussier pris en compte par le conseil.",
+      "symbol": "AAPL"
     }
   ],
   "cost_basis": {
@@ -2494,7 +2506,7 @@
       "risk": 6
     },
     {
-      "date": "2026-11-25 09:35",
+      "date": "2026-11-25 09:50",
       "oracle": 43,
       "performance": 20,
       "intelligence": 48,
