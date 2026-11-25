@@ -500,7 +500,10 @@ def cmd_allocate(args):
             "élargi": [s for s in config.CORE_TRADABLE + config.EXTRA_TRADABLE if s in full],
             "large": [s for s in config.ALL_TRADABLE if s in full]}
     p = dict(config.STRATEGY, allow_short=False)
-    res = allocation.choose(full, univ, p, config.PAPER["fee_rate"])
+    prev = allocation.load()
+    if prev and "band" not in prev:          # méthode adoptée avant l'ajout du seuil : celle du 25/11 (base 50 % + conseil)
+        prev = dict(prev, band=0.03)
+    res = allocation.choose(full, univ, p, config.PAPER["fee_rate"], previous=prev)
     allocation.save(res)
     print("📐 " + res["summary"])
     for r in res["ranking"][:6]:

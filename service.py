@@ -75,7 +75,7 @@ def push(msg):
 def allocation_stale():
     try:
         with open("data/allocation.json") as f:
-            return "band" not in json.load(f)            # ancienne version : refaire la comparaison tout de suite
+            return "kept" not in json.load(f)            # ancienne version : refaire la comparaison tout de suite
     except (OSError, ValueError):
         return True
 

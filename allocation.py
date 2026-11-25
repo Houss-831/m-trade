@@ -147,30 +147,36 @@ UNIV_TXT = {"initial": "10 marchés d'origine", "élargi": "20 marchés (+ secte
 BANDS = [0.03, 0.06]       # seuil sous lequel on ne rééquilibre pas (moins d'ordres, moins de frais)
 
 
-def choose(prices, universes, p, fee):
-    """universes : {"initial": [...], "élargi": [...]}. Compare toutes les méthodes sur chaque univers."""
+def choose(prices, universes, p, fee, previous=None, margin=0.05):
+    """universes : {"initial": [...], "élargi": [...]}. Compare toutes les méthodes sur chaque univers.
+    Anti-va-et-vient : la méthode en place n'est remplacée que si la nouvelle est nettement plus régulière (+0,05)."""
     res, folds = {}, None
     for tag, syms in universes.items():
         r, f = evaluate(prices, syms, p, fee, tag)
         res.update(r)
         folds = folds or f
     best = max(res, key=lambda k: res[k]["robust"])
+    kept = False
+    if previous:
+        pk = (previous.get("universe"), previous.get("mode"), previous.get("thermo"), previous.get("band") or BANDS[0])
+        if pk in res and res[best]["robust"] - res[pk]["robust"] < margin:
+            best, kept = pk, True
     blind = max(res, key=lambda k: res[k]["robust2"])          # choix sans voir la dernière période
     ranked = sorted(res.values(), key=lambda x: -x["robust"])
     b = res[best]
     ew = res[(b["universe"], "ew", False, BANDS[0])]
     old = res.get(("élargi", "core50", True, BANDS[0])) or res[(b["universe"], "council_long", True, BANDS[0])]
-    out = {"date": date.today().isoformat(), "mode": b["mode"], "thermo": b["thermo"], "universe": b["universe"], "band": b["band"],
+    out = {"date": date.today().isoformat(), "mode": b["mode"], "thermo": b["thermo"], "universe": b["universe"], "band": b["band"], "kept": kept,
            "chosen": b, "ranking": ranked, "folds": [[str(a)[:10], str(z)[:10]] for a, z in folds],
            "blind": {"mode": res[blind]["mode"], "thermo": res[blind]["thermo"], "universe": res[blind]["universe"],
                      "name": res[blind]["name"], "last": res[blind]["last"], "market_last": ew["last"]}}
     yrs = len(prices) / 252 - 1
-    out["summary"] = (f"Méthode retenue : {b['name']}{' + thermomètre de crise' if b['thermo'] else ''}, "
+    out["summary"] = (("Méthode conservée (aucune autre n'est nettement meilleure) : " if kept else "Méthode retenue : ") + f"{b['name']}{' + thermomètre de crise' if b['thermo'] else ''}, "
                       f"sur {UNIV_TXT.get(b['universe'], b['universe'])}, rééquilibrage au-delà de {b['band']:.0%} d'écart "
                       f"({b['turnover']:.0f} fois le portefeuille échangé par an). Sur {yrs:.1f} ans de vrais cours : "
                       f"{b['return']:+.0%} ({b['cagr']:+.1%} par an, Sharpe {b['sharpe']}, pire baisse {b['max_dd']:.0%}), "
                       f"contre {ew['return']:+.0%} ({ew['cagr']:+.1%} par an, pire baisse {ew['max_dd']:.0%}) pour « tout acheter et garder » "
-                      f"et {old['return']:+.0%} ({old['cagr']:+.1%} par an) pour la méthode précédente.")
+                      f"et {old['return']:+.0%} ({old['cagr']:+.1%} par an) pour « base 50 % + conseil ».")
     return out
 
 
