@@ -158,7 +158,13 @@ def telegram_chat(token):
                                                  "conflit : un autre programme lit déjà les messages du bot" if e.code == 409 else "inconnue"))
         return None
     except Exception as e:
-        status(f"erreur : {type(e).__name__}")
+        raw = os.getenv("TELEGRAM_TOKEN") or ""
+        import re
+        shape = ("ressemble à un lien t.me ou à un nom de bot, pas au jeton" if ("t.me" in raw or raw.strip().startswith("@") or raw.strip().lower().endswith("bot"))
+                 else "il manque le « : » entre les chiffres et les lettres" if ":" not in raw
+                 else "format inattendu")
+        status(f"erreur : {type(e).__name__} · le secret TELEGRAM_TOKEN n'a pas la forme d'un jeton Telegram "
+               f"({len(raw.strip())} caractères ; {shape}). Un jeton ressemble à 1234567890:AAH… (environ 46 caractères).")
         return None
     status("jeton valide mais aucune conversation : écris « bonjour » à ton bot dans Telegram")
     return None
