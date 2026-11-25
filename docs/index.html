@@ -269,6 +269,8 @@ section { margin-top: 26px; scroll-margin-top: 140px; }
 .rail .en { position: absolute; top: -3px; bottom: -3px; width: 2px; background: #fff; opacity: 0.7; }
 .rail .pt { position: absolute; top: 50%; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; background: #fff; box-shadow: 0 0 12px #fff; transition: left 0.4s ease-out; }
 .rail-l { display: flex; justify-content: space-between; font: 500 10.5px var(--font-mono); color: var(--muted); }
+.srv-log { max-height: 320px; overflow-y: auto; display: grid; gap: 6px; font-size: 12.5px; line-height: 1.45; background: #08051A; border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; color: var(--text); }
+.srv-log div { white-space: normal; word-break: break-word; }
 .sc-tape { height: 300px; overflow: hidden; display: grid; align-content: start; gap: 2px; font: 12px/1.5 var(--font-mono); background: #08051A; border: 1px solid var(--line); border-radius: 12px; padding: 10px; position: relative; }
 .sc-tape div { animation: tapein 0.35s ease-out; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .sc-tape .t { color: #5C5490; }
@@ -1001,7 +1003,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
   </div>
   <div class="view" data-view="scalp" hidden>
   <section id="srv-sec">
-    <div class="sec-title"><span class="ico"><svg class="i"><use href="#i-zap"/></svg></span><h2>Scalper serveur 24 h/24</h2><small>tourne sur GitHub même quand ton téléphone est éteint · bougies 5 min réelles · argent fictif</small></div>
+    <div class="sec-title"><span class="ico"><svg class="i"><use href="#i-zap"/></svg></span><h2>Scalper serveur 24 h/24</h2><small id="srv-sub">tourne sur GitHub même quand ton téléphone est éteint · vraies bougies · argent fictif · chaque trade validé par 10 000 scénarios</small></div>
     <div class="card">
       <div class="card-h"><svg class="i"><use href="#i-wallet"/></svg>Porte-monnaie du scalper serveur<span class="right chip" id="srv-chip">–</span></div>
       <div class="sc-big num" id="srv-val">–</div>
@@ -1011,7 +1013,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
       <div class="sub-label">Positions ouvertes</div>
       <div id="srv-pos"></div>
       <div class="sub-label">Journal du scalper serveur</div>
-      <div class="sc-tape" id="srv-log" style="max-height:260px;overflow:auto"></div>
+      <div class="srv-log" id="srv-log"></div>
     </div>
   </section>
   <section id="scalp-sec">
