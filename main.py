@@ -131,6 +131,8 @@ def activate_profile():
         print("🎛️  réglage automatique du " + tun["date"] + " : " + tun["summary"])
     config.RISK.update(risk)
     config.PAPER.update(paper)
+    if al and al.get("universe") == "initial" and not prof.get("assets"):   # univers retenu sur les vrais cours
+        tradable = [s for s in tradable if s in config.CORE_TRADABLE]
     config.TRADABLE[:] = tradable
     config.AI["news_weight"] = aiw
     config.PROFILE = prof
@@ -487,11 +489,14 @@ def cmd_allocate(args):
         return
     full = load_prices(args.demo, "10y" if not args.demo else "5y")
     activate_profile()
-    res = allocation.choose(full, config.TRADABLE, dict(config.STRATEGY), config.PAPER["fee_rate"])
+    univ = {"initial": [s for s in config.CORE_TRADABLE if s in full],
+            "élargi": [s for s in config.ALL_TRADABLE if s in full]}
+    p = dict(config.STRATEGY, allow_short=False)
+    res = allocation.choose(full, univ, p, config.PAPER["fee_rate"])
     allocation.save(res)
     print("📐 " + res["summary"])
     for r in res["ranking"][:6]:
-        print(f"   {r['robust']:+.2f}  {r['name']}{' + thermo' if r['thermo'] else ''} : {r['return']:+.0%}, Sharpe {r['sharpe']}, pire baisse {r['max_dd']:.0%}, périodes {r['folds']}")
+        print(f"   {r['robust']:+.2f}  [{r['universe']}] {r['name']}{' + thermo' if r['thermo'] else ''} : {r['return']:+.0%}, Sharpe {r['sharpe']}, pire baisse {r['max_dd']:.0%}, périodes {r['folds']}")
 
 
 def cmd_tune(args):

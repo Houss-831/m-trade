@@ -18,7 +18,9 @@ import pandas as pd
 
 ASSET_CLASS = {"^FCHI": "Actions", "^GDAXI": "Actions", "^GSPC": "Actions", "^IXIC": "Actions",
                "^N225": "Actions", "BTC-USD": "Crypto", "ETH-USD": "Crypto", "SOL-USD": "Crypto",
-               "GC=F": "Matières", "CL=F": "Matières", "EURUSD=X": "Forex", "USDJPY=X": "Forex",
+               "GC=F": "Matières", "CL=F": "Matières", "SI=F": "Matières",
+           "XLK": "Actions", "XLV": "Actions", "XLE": "Actions", "XLF": "Actions", "AAPL": "Actions",
+           "MSFT": "Actions", "NVDA": "Actions", "TLT": "Obligations", "IEF": "Obligations", "EURUSD=X": "Forex", "USDJPY=X": "Forex",
                "^TNX": "Taux"}
 TEMPLATE = os.path.join(os.path.dirname(__file__), "dashboard_template.html")
 

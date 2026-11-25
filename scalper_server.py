@@ -240,15 +240,22 @@ def mc_check(sym, n, st, data, inds, setups):
     return mc.verdict(res, atr_pct, 2 * CFG["fee"] + 0.0003, min_analogs=20, min_pwin=CFG["mc_min_pwin"])
 
 
-def step(S=None):
+def step(S=None, data=None):
     """Traite toutes les bougies clôturées depuis le dernier passage (rattrapage inclus)."""
     S = S or load()
-    data = {}
-    for sym in SYMS:
-        L, src = candles(sym)
-        if L:
-            data[sym] = L
-            S["source"] = src
+    if S.get("tf") and S["tf"] != CFG["tf"]:                      # changement d'unité de temps : on repart proprement
+        for s2 in list(S["pos"]):
+            _close(S, s2, (S.get("prices") or {}).get(s2, S["pos"][s2]["entry"]), time.time() * 1000, "changement d'unité de temps")
+        S["last"] = {}
+        _log(S, time.time() * 1000, f"⏱ le scalper passe en bougies {CFG['tf']} (meilleure unité de temps sur les vraies bougies)")
+    S["tf"] = CFG["tf"]
+    if data is None:
+        data = {}
+        for sym in SYMS:
+            L, src = candles(sym)
+            if L:
+                data[sym] = L
+                S["source"] = src
     if not data:
         _log(S, time.time() * 1000, "⚠️ données indisponibles, nouvel essai au prochain passage")
         return S
@@ -319,6 +326,7 @@ def step(S=None):
 
 
 def summary(S):
+    """Résumé du porte-monnaie."""
     cl = [t for t in S["trades"] if t["kind"] == "close"]
     wins = [t for t in cl if t["pnl"] > 0]
     return {"equity": S.get("equity", S["cash"]), "start": S["start"], "trades": len(cl),
@@ -332,3 +340,64 @@ if __name__ == "__main__":
     S = step()
     save(S)
     print("⚡ scalper serveur :", summary(S))
+
+
+# ---------------------------------------------------------------- choix de l'unité de temps
+TF_PATH = "data/scalp_tf.json"
+TF_TXT = {"5m": "5 minutes", "1h": "1 heure", "4h": "4 heures"}
+
+
+def evaluate_tf(tf, warmup=400):
+    """Rejoue le scalper (avec ses 10 000 scénarios) sur les ~600 dernières bougies réelles de cette durée."""
+    old = CFG["tf"]
+    CFG["tf"] = tf
+    try:
+        data = {}
+        for sym in SYMS:
+            L, _ = candles(sym, 1000)
+            if len(L) > warmup + 50:
+                data[sym] = L
+        if not data:
+            return None
+        S = {"start": CFG["start"], "cash": CFG["start"], "pos": {}, "trades": [], "eq": [], "log": [], "fees": 0.0,
+             "last": {s2: L[warmup][0] for s2, L in data.items()}, "day": {}, "tf": tf}
+        S = step(S, data)
+        sm = summary(S)
+        span = (max(L[-1][0] for L in data.values()) - max(L[warmup][0] for L in data.values())) / 86400000
+        pn = [t["pnl"] for t in S["trades"] if t["kind"] == "close"]
+        import statistics as _st
+        tstat = (_st.mean(pn) / _st.stdev(pn) * len(pn) ** 0.5) if len(pn) >= 5 and _st.stdev(pn) > 0 else 0.0
+        return {"tf": tf, "days": round(span, 1), "tstat": round(tstat, 2),
+                **{k: sm[k] for k in ("pnl", "trades", "win_rate", "fees", "mc_ok", "mc_no")}}
+    finally:
+        CFG["tf"] = old
+
+
+def choose_tf():
+    res = [r for r in (evaluate_tf(tf) for tf in ("5m", "1h", "4h")) if r]
+    if not res:
+        return None
+    best = max(res, key=lambda r: r["tstat"])      # la plus fiable : gain moyen par trade rapporté à sa dispersion
+    out = {"date": datetime.now(timezone.utc).date().isoformat(), "tf": best["tf"], "results": res,
+           "summary": "Unité de temps retenue : bougies de " + TF_TXT[best["tf"]] + ". Rejeu avec filtre des 10 000 scénarios : "
+                      + " ; ".join(f"{TF_TXT[r['tf']]} {r['pnl']:+.0f} € en {r['days']:.0f} j ({r['trades']} trades, fiabilité {r['tstat']:+.1f})" for r in res) + "."}
+    os.makedirs("data", exist_ok=True)
+    with open(TF_PATH, "w") as f:
+        json.dump(out, f, ensure_ascii=False)
+    return out
+
+
+def tf_due(days=7):
+    try:
+        with open(TF_PATH) as f:
+            d = json.load(f)
+        return (datetime.now(timezone.utc).date() - datetime.fromisoformat(d["date"]).date()).days >= days
+    except (OSError, ValueError, KeyError):
+        return True
+
+
+try:                                                            # unité de temps choisie sur les vraies bougies
+    with open(TF_PATH) as _f:
+        CFG["tf"] = json.load(_f).get("tf", CFG["tf"])
+except (OSError, ValueError):
+    pass

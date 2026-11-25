@@ -2231,9 +2231,9 @@ html, body { max-width: 100%; overflow-x: hidden; }
     var A = D.allocation; if (!$("alloc-card")) return;
     if (!A) { $("alloc-sum").textContent = "La comparaison des méthodes sur les vrais cours sera faite au prochain passage du bot."; $("alloc-chip").textContent = "en attente"; return; }
     $("alloc-chip").textContent = dFmt(A.date); $("alloc-sum").textContent = A.summary;
-    $("alloc-rank").innerHTML = A.ranking.filter(function (r, i, arr) { return !r.thermo || i < 4; }).slice(0, 8).map(function (r) {
-      var me = r.mode === A.mode && r.thermo === A.thermo;
-      return '<div class="dr-o"' + (me ? ' style="border-left:3px solid ' + C.good + ';padding-left:8px"' : "") + "><span>" + (me ? "<b>✓ " : "") + esc(r.name) + (r.thermo ? " + thermomètre" : "") + (me ? "</b>" : "") + '<br><small class="muted">' + pct(r.return, 0) + " au total · " + pct(r.cagr, 1) + " par an · pire baisse " + pct(r.max_dd, 0) + '</small></span><span class="num ' + cls(r.robust) + '">' + r.sharpe.toFixed(2) + "</span></div>";
+    $("alloc-rank").innerHTML = A.ranking.slice(0, 10).map(function (r) {
+      var me = r.mode === A.mode && r.thermo === A.thermo && (r.universe || "") === (A.universe || "");
+      return '<div class="dr-o"' + (me ? ' style="border-left:3px solid ' + C.good + ';padding-left:8px"' : "") + "><span>" + (me ? "<b>✓ " : "") + esc(r.name) + (r.thermo ? " + thermomètre" : "") + (me ? "</b>" : "") + (r.universe ? ' <span class="chip" style="font-size:10.5px">' + (r.universe === "élargi" ? "20 marchés" : "10 marchés") + "</span>" : "") + '<br><small class="muted">' + pct(r.return, 0) + " au total · " + pct(r.cagr, 1) + " par an · pire baisse " + pct(r.max_dd, 0) + '</small></span><span class="num ' + cls(r.robust) + '">' + r.sharpe.toFixed(2) + "</span></div>";
     }).join("");
     var B = A.blind;
     $("alloc-blind").textContent = "Contrôle honnête : en choisissant sans voir la dernière période (" + dFmt(A.folds[2][0]) + " → " + dFmt(A.folds[2][1]) + "), la méthode retenue aurait été « " + B.name + " », avec un Sharpe de " + B.last + " sur cette période, contre " + B.market_last + " pour « tout acheter et garder ». Le chiffre à droite est le Sharpe (rendement par unité de risque) sur tout l'historique.";
@@ -3348,7 +3348,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
     var S = X.summary || {}, v = S.equity != null ? S.equity : X.equity, pl = v - X.start;
     el.textContent = eur(v, 2);
     var age = X.updated ? (Date.now() - new Date(X.updated)) / 60000 : 999;
-    $("srv-chip").textContent = age < 15 ? "● en marche · " + ago(X.updated) : "dernier passage " + ago(X.updated);
+    $("srv-chip").textContent = (age < 15 ? "● en marche · " + ago(X.updated) : "dernier passage " + ago(X.updated)) + (X.tf ? " · bougies " + X.tf.replace("m", " min").replace("h", " h") : "");
     $("srv-chip").style.color = age < 15 ? C.good : C.warn;
     $("srv-pnl").innerHTML = '<span class="' + cls(pl) + '">' + (pl >= 0 ? "▲ +" : "▼ ") + eur(pl, 2) + " · " + pct(pl / X.start, 2) + '</span> <span class="muted" style="font-size:13px">depuis le ' + dFmt(X.created) + "</span>";
     var eq = X.eq || [];
@@ -3711,7 +3711,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
   function defaults() {
     var P = clone(D.user_profile || {});
     return Object.assign({ user_name: "", capital: D.portfolio.start, invest_max: null, max_loss_day: null, max_loss_total: null, risk_profile: "equilibre", custom: {},
-      markets: ["Actions", "Crypto", "Matières"], assets: null, strategies: null, ai_weight: (D.settings && D.settings.ai_weight) || 0.3, allow_short: false, notify_orders: true, summary_hour: 21 }, P);
+      markets: ["Actions", "Crypto", "Matières", "Obligations"], assets: null, strategies: null, ai_weight: (D.settings && D.settings.ai_weight) || 0.3, allow_short: false, notify_orders: true, summary_hour: 21 }, P);
   }
   function knobVals() { return S.risk_profile === "perso" ? Object.assign({}, PRESETS.equilibre, S.custom || {}) : PRESETS[S.risk_profile] || PRESETS.equilibre; }
   function initSettings() {
@@ -3731,7 +3731,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
       var v = kv[k[0]], txt = k[5] === "pct" ? pct(v, 0, false) : k[5] === "x" ? "× " + String(v).replace(".", ",") : v.toFixed(2).replace(".", ",");
       return '<label class="knob" for="k-' + k[0] + '">' + k[1] + " : <b>" + txt + '</b><input type="range" id="k-' + k[0] + '" data-knob="' + k[0] + '" min="' + k[2] + '" max="' + k[3] + '" step="' + k[4] + '" value="' + v + '"' + (lock ? " disabled" : "") + "></label>";
     }).join("") + (lock ? '<p class="explain" style="grid-column:1/-1;margin:0">Choisis « Sur mesure » pour régler chaque paramètre.</p>' : "");
-    var classes = ["Actions", "Crypto", "Matières"];
+    var classes = ["Actions", "Crypto", "Matières", "Obligations"];
     $("f-markets").innerHTML = classes.map(function (c) { return '<label class="tg"><input type="checkbox" data-market="' + c + '"' + ((S.markets || classes).indexOf(c) >= 0 ? " checked" : "") + ">" + c + "</label>"; }).join("");
     var U = (D.universe || []).filter(function (u) { return (S.markets || classes).indexOf(u.class) >= 0; });
     $("f-assets").innerHTML = U.map(function (u) { var on = !S.assets || S.assets.indexOf(u.symbol) >= 0; return '<label class="tg"><input type="checkbox" data-asset="' + esc(u.symbol) + '"' + (on ? " checked" : "") + ">" + esc(u.name) + "</label>"; }).join("") || '<span class="empty">Choisis au moins un marché.</span>';

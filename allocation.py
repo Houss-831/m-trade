@@ -29,6 +29,8 @@ MODES = {
     "rp_trend": "Parité de risque + filtre de tendance 200 jours (Faber 2007)",
     "rp_trend_short": "Parité de risque + tendance 200 j + baisse sur marchés baissiers confirmés",
     "core_sat": "Cœur parité de risque + tendance (70 %) et conseil tactique (30 %)",
+    "core50": "Base toujours investie (50 %) + conseil hausse seulement (50 %)",
+    "core30": "Base toujours investie (30 %) + conseil hausse seulement (70 %)",
 }
 
 
@@ -58,9 +60,15 @@ def weights(px, mode, p, council_score=None, thermo=None, target_vol=0.12):
         vol = rets.rolling(p["vol_days"]).std() * np.sqrt(252)
         q = dict(p, allow_short=(mode == "council_ls"))
         w = weights_from_scores(council_score, vol, q, stress=stress_factor(px, p))
-    elif mode == "ew":
+    elif mode in ("ew", "core50", "core30"):
         n = px.notna().sum(axis=1).replace(0, np.nan)
         w = px.notna().astype(float).div(n, axis=0).fillna(0.0) * 0.98
+        if mode != "ew":
+            from strategy import weights_from_scores, stress_factor
+            vol = rets.rolling(p["vol_days"]).std() * np.sqrt(252)
+            tac = weights_from_scores(council_score, vol, dict(p, allow_short=False), stress=stress_factor(px, p))
+            base = 0.5 if mode == "core50" else 0.3
+            w = base * w + (1 - base) * tac
     else:
         base = inv_vol(px)
         sma = px.rolling(200).mean()
@@ -106,7 +114,7 @@ def _stats(r):
             "max_dd": round(float((eq / eq.cummax() - 1).min()), 4)}
 
 
-def evaluate(prices, tradable, p, fee):
+def evaluate(prices, tradable, p, fee, tag=""):
     import crisis
     from strategies import council
     px = prices[[s for s in tradable if s in prices]].ffill()
@@ -122,7 +130,7 @@ def evaluate(prices, tradable, p, fee):
         for use_th in (False, True):
             r = backtest(weights(px, m, p, score, th if use_th else None), px, fee).iloc[start:]
             fs = [_sharpe(r.loc[a:b]) for a, b in folds]
-            res[(m, use_th)] = {"mode": m, "thermo": use_th, "name": MODES[m], **_stats(r),
+            res[(tag, m, use_th)] = {"mode": m, "thermo": use_th, "universe": tag, "name": MODES[m], **_stats(r),
                                 "folds": [round(x, 2) for x in fs],
                                 "robust": round(float(np.mean(fs) - 0.5 * np.std(fs)), 3),
                                 "robust2": round(float(np.mean(fs[:2]) - 0.5 * np.std(fs[:2])), 3),
@@ -130,22 +138,32 @@ def evaluate(prices, tradable, p, fee):
     return res, folds
 
 
-def choose(prices, tradable, p, fee):
-    res, folds = evaluate(prices, tradable, p, fee)
+UNIV_TXT = {"initial": "10 marchés d'origine", "élargi": "20 marchés (+ secteurs, grandes actions, obligations, argent)"}
+
+
+def choose(prices, universes, p, fee):
+    """universes : {"initial": [...], "élargi": [...]}. Compare toutes les méthodes sur chaque univers."""
+    res, folds = {}, None
+    for tag, syms in universes.items():
+        r, f = evaluate(prices, syms, p, fee, tag)
+        res.update(r)
+        folds = folds or f
     best = max(res, key=lambda k: res[k]["robust"])
     blind = max(res, key=lambda k: res[k]["robust2"])          # choix sans voir la dernière période
     ranked = sorted(res.values(), key=lambda x: -x["robust"])
     b = res[best]
-    out = {"date": date.today().isoformat(), "mode": b["mode"], "thermo": b["thermo"], "chosen": b,
-           "ranking": ranked, "folds": [[str(a)[:10], str(z)[:10]] for a, z in folds],
-           "blind": {"mode": res[blind]["mode"], "thermo": res[blind]["thermo"], "name": res[blind]["name"],
-                     "last": res[blind]["last"], "market_last": res[("ew", False)]["last"]}}
-    out["summary"] = (f"Méthode retenue : {b['name']}{' + thermomètre de crise' if b['thermo'] else ''}. "
-                      f"Sur {len(prices) / 252 - 1:.1f} ans de vrais cours : {b['return']:+.0%} "
-                      f"(Sharpe {b['sharpe']}, pire baisse {b['max_dd']:.0%}), contre "
-                      f"{res[('ew', False)]['return']:+.0%} (Sharpe {res[('ew', False)]['sharpe']}, pire baisse "
-                      f"{res[('ew', False)]['max_dd']:.0%}) pour « tout acheter et garder » et "
-                      f"{res[('council_ls', False)]['return']:+.0%} pour l'ancienne méthode.")
+    ew = res[(b["universe"], "ew", False)]
+    old = res.get(("initial", "council_long", True)) or res[(b["universe"], "council_long", True)]
+    out = {"date": date.today().isoformat(), "mode": b["mode"], "thermo": b["thermo"], "universe": b["universe"],
+           "chosen": b, "ranking": ranked, "folds": [[str(a)[:10], str(z)[:10]] for a, z in folds],
+           "blind": {"mode": res[blind]["mode"], "thermo": res[blind]["thermo"], "universe": res[blind]["universe"],
+                     "name": res[blind]["name"], "last": res[blind]["last"], "market_last": ew["last"]}}
+    yrs = len(prices) / 252 - 1
+    out["summary"] = (f"Méthode retenue : {b['name']}{' + thermomètre de crise' if b['thermo'] else ''}, "
+                      f"sur {UNIV_TXT.get(b['universe'], b['universe'])}. Sur {yrs:.1f} ans de vrais cours : "
+                      f"{b['return']:+.0%} ({b['cagr']:+.1%} par an, Sharpe {b['sharpe']}, pire baisse {b['max_dd']:.0%}), "
+                      f"contre {ew['return']:+.0%} ({ew['cagr']:+.1%} par an, pire baisse {ew['max_dd']:.0%}) pour « tout acheter et garder » "
+                      f"et {old['return']:+.0%} ({old['cagr']:+.1%} par an) pour la méthode précédente.")
     return out
 
 

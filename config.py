@@ -20,11 +20,24 @@ UNIVERSE = {
     "CL=F": "Pétrole WTI",
     # Taux (rendement US 10 ans)
     "^TNX": "Taux US 10 ans",
+    # Univers élargi (v16) : secteurs, grandes actions, obligations, argent métal
+    "XLK": "Secteur technologie US",
+    "XLV": "Secteur santé US",
+    "XLE": "Secteur énergie US",
+    "XLF": "Secteur finance US",
+    "AAPL": "Apple",
+    "MSFT": "Microsoft",
+    "NVDA": "Nvidia",
+    "TLT": "Obligations US 20 ans",
+    "IEF": "Obligations US 7-10 ans",
+    "SI=F": "Argent métal",
 }
 
 # Actifs sur lesquels le bot peut prendre des positions fictives
-TRADABLE = ["^FCHI", "^GDAXI", "^GSPC", "^IXIC", "^N225",
-            "BTC-USD", "ETH-USD", "SOL-USD", "GC=F", "CL=F"]
+CORE_TRADABLE = ["^FCHI", "^GDAXI", "^GSPC", "^IXIC", "^N225",
+                 "BTC-USD", "ETH-USD", "SOL-USD", "GC=F", "CL=F"]
+EXTRA_TRADABLE = ["XLK", "XLV", "XLE", "XLF", "AAPL", "MSFT", "NVDA", "TLT", "IEF", "SI=F"]
+TRADABLE = CORE_TRADABLE + EXTRA_TRADABLE
 
 ALL_TRADABLE = list(TRADABLE)   # tout ce que le bot sait trader (TRADABLE = la sélection du profil)
 
@@ -44,6 +57,16 @@ KEYWORDS = {
     "GC=F": ["gold", "or ", "safe haven", "valeur refuge"],
     "CL=F": ["oil", "pétrole", "opec", "opep", "brent", "crude"],
     "EURUSD=X": ["euro", "dollar", "ecb", "bce", "fed"],
+    "XLK": ["tech", "software", "semiconductor", "ai "],
+    "XLV": ["health", "pharma", "biotech", "santé"],
+    "XLE": ["energy", "oil", "exxon", "chevron", "pétrole"],
+    "XLF": ["bank", "banque", "jpmorgan", "financials", "fed"],
+    "AAPL": ["apple", "iphone", "tim cook"],
+    "MSFT": ["microsoft", "azure", "openai"],
+    "NVDA": ["nvidia", "gpu", "jensen huang", "ai chip"],
+    "TLT": ["treasury", "bond", "yields", "obligations", "fed"],
+    "IEF": ["treasury", "bond", "yields", "obligations"],
+    "SI=F": ["silver", "argent métal"],
 }
 
 # Flux RSS d'actualité (gratuits)

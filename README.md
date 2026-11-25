@@ -323,6 +323,9 @@ Le bot principal peut maintenant aussi **parier à la baisse** (vente à découv
 
 ## 📐 Choix de la méthode d'investissement (`allocation.py`)
 
+v16 : la comparaison porte aussi sur deux univers (les 10 marchés d'origine, ou 20 marchés avec secteurs US, Apple, Microsoft, Nvidia, obligations US et argent métal) et sur deux méthodes « base toujours investie + conseil » (50/50 et 30/70). Le scalper serveur rejoue aussi ses règles sur des bougies de 5 min, 1 h et 4 h, et garde l'unité de temps la plus fiable.
+
+
 Chaque semaine, le bot compare 7 façons d'investir, avec et sans thermomètre de crise, sur 10 ans de vrais cours (frais inclus) : son conseil des 8 stratégies (hausse et baisse, ou hausse seulement), tout acheter et garder, parité de risque, parité de risque avec filtre de tendance 200 jours (Faber 2007), la même avec paris à la baisse sur les marchés baissiers confirmés, et un mélange cœur + satellite. Il applique la plus régulière sur 3 périodes successives et publie un contrôle hors échantillon.
 
 ## 🧪 10 000 scénarios avant chaque investissement (`montecarlo.py`)

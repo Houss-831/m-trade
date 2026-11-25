@@ -44,7 +44,7 @@ def mark_run():
 def export_scalp(S):
     """Fichier léger lu par l'appli toutes les minutes."""
     os.makedirs("docs", exist_ok=True)
-    out = {k: S.get(k) for k in ("start", "cash", "pos", "equity", "updated", "source", "fees", "prices", "signals", "created")}
+    out = {k: S.get(k) for k in ("start", "cash", "pos", "equity", "updated", "source", "fees", "prices", "signals", "created", "tf")}
     out["trades"] = S["trades"][-60:]
     out["log"] = S["log"][-60:]
     out["eq"] = S["eq"][-600:]
@@ -72,7 +72,20 @@ def push(msg):
     return code_head() != before          # True : du nouveau code est arrivé
 
 
+def allocation_stale():
+    try:
+        with open("data/allocation.json") as f:
+            return "universe" not in json.load(f)        # ancienne version : refaire la comparaison tout de suite
+    except (OSError, ValueError):
+        return True
+
+
 def main_run():
+    if ss.tf_due():
+        r = ss.choose_tf()
+        if r:
+            ss.CFG["tf"] = r["tf"]
+            print("⏱", r["summary"])
     sh(sys.executable, "main.py", "allocate", check=True)
     sh(sys.executable, "main.py", "tune", check=True)
     if not os.path.exists("data/portfolio.json"):
@@ -96,7 +109,7 @@ def main():
             print(datetime.now(timezone.utc).strftime("%H:%M"), "scalper", ss.summary(S))
         except Exception as e:                       # une erreur réseau ne doit jamais arrêter le service
             print("scalper :", e)
-        if time.time() - last_run() >= RUN_EVERY or not os.path.exists("data/allocation.json") or not os.path.exists("data/tuning.json"):
+        if time.time() - last_run() >= RUN_EVERY or ss.tf_due() or allocation_stale():
             try:
                 main_run()
             except Exception as e:

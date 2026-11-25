@@ -9,7 +9,7 @@ Exemple minimal :
   "max_loss_day": 100,        // perte maximale tolérée par jour (€)
   "max_loss_total": 750,      // perte totale à partir de laquelle le bot s'arrête (€)
   "risk_profile": "equilibre",// prudent | equilibre | offensif | perso
-  "markets": ["Actions", "Crypto", "Matières"],
+  "markets": ["Actions", "Crypto", "Matières", "Obligations"],
   "assets": null,             // null = tous les actifs des marchés choisis
   "strategies": null,         // null = les 8 stratégies
   "ai_weight": 0.3,
@@ -34,12 +34,14 @@ PROFILES = {
 }
 CLASSES = {"^FCHI": "Actions", "^GDAXI": "Actions", "^GSPC": "Actions", "^IXIC": "Actions",
            "^N225": "Actions", "BTC-USD": "Crypto", "ETH-USD": "Crypto", "SOL-USD": "Crypto",
-           "GC=F": "Matières", "CL=F": "Matières"}
+           "GC=F": "Matières", "CL=F": "Matières", "SI=F": "Matières",
+           "XLK": "Actions", "XLV": "Actions", "XLE": "Actions", "XLF": "Actions", "AAPL": "Actions",
+           "MSFT": "Actions", "NVDA": "Actions", "TLT": "Obligations", "IEF": "Obligations"}
 
 DEFAULT = {
     "user_name": "", "capital": config.PAPER["starting_cash"], "invest_max": None,
     "max_loss_day": None, "max_loss_total": None, "risk_profile": "equilibre", "custom": {},
-    "markets": ["Actions", "Crypto", "Matières"], "assets": None, "strategies": None,
+    "markets": ["Actions", "Crypto", "Matières", "Obligations"], "assets": None, "strategies": None,
     "ai_weight": config.AI["news_weight"], "allow_short": True, "take_profit": True,
     "notify_orders": True, "summary_hour": config.PAPER.get("daily_summary_hour", 21),
 }
