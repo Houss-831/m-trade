@@ -1,14 +1,6 @@
 {
-  "cash": 19281.090229718317,
-  "positions": {
-    "CL=F": -19.26198038410197,
-    "SOL-USD": -18.858270026549548,
-    "^N225": -4.313595196519444,
-    "ETH-USD": -0.881873665895536,
-    "GC=F": -0.43822193674716414,
-    "^GDAXI": -0.056430175654493514,
-    "BTC-USD": -0.026283027330325275
-  },
+  "cash": 9676.600864163693,
+  "positions": {},
   "start_value": 10000.0,
   "created": "2026-11-24T14:06:10",
   "history": [
@@ -515,13 +507,17 @@
     {
       "date": "2026-11-25T08:08:55",
       "value": 9733.2
+    },
+    {
+      "date": "2026-11-25T08:50:58",
+      "value": 9676.6
     }
   ],
   "peaks": {},
   "cooldown": {},
   "tp": {},
   "breaker": {
-    "drawdown": -0.074357669795037,
+    "drawdown": -0.07973046522411253,
     "factor": 1.0
   },
   "day": {
@@ -530,10 +526,10 @@
     "halted": false
   },
   "risk_budget": {
-    "day_pnl": 0.0,
+    "day_pnl": -56.5507672812364,
     "max_loss_day": null,
     "budget_left": null,
-    "var95": 185.28983989781358,
+    "var95": null,
     "max_loss_total": null,
     "invest_max": null,
     "halted_day": false,
@@ -541,95 +537,73 @@
   },
   "last_leader": "donchian",
   "last_stress": 1.0,
-  "thermo_last": 56.4,
+  "thermo_last": 55.5,
   "last_signals": {
     "^FCHI": {
       "action": "NEUTRE",
-      "score": -0.24081105549034776,
-      "rsi": 45.32785195201144,
-      "adx": 25.807439315918618
+      "score": -0.021883997415035557,
+      "rsi": 53.32072901266354,
+      "adx": 25.61437945372933
     },
     "^GDAXI": {
       "action": "VENTE \u00c0 D\u00c9COUVERT",
-      "score": -0.5286398129831325,
-      "rsi": 38.121190325837304,
-      "adx": 23.960272942277573
+      "score": -0.45680426879151403,
+      "rsi": 40.675129021711655,
+      "adx": 23.59542455715266
     },
     "^GSPC": {
       "action": "NEUTRE",
-      "score": 0.0032625388118010037,
-      "rsi": 46.35581588755951,
-      "adx": 18.946659603696112
+      "score": -0.010692392169612458,
+      "rsi": 46.10918242771944,
+      "adx": 18.981892955101838
     },
     "^IXIC": {
-      "action": "NEUTRE",
-      "score": -0.21362280692047653,
-      "rsi": 44.4263299154515,
-      "adx": 20.76440067737301
+      "action": "VENTE \u00c0 D\u00c9COUVERT",
+      "score": -0.25035047096653273,
+      "rsi": 44.25829519577667,
+      "adx": 20.788405637326555
     },
     "^N225": {
       "action": "VENTE \u00c0 D\u00c9COUVERT",
-      "score": -0.7177853135540154,
-      "rsi": 40.661464153967394,
-      "adx": 24.57211521027512
+      "score": -0.7581176595662429,
+      "rsi": 40.34643349159097,
+      "adx": 24.617119590614607
     },
     "BTC-USD": {
       "action": "VENTE \u00c0 D\u00c9COUVERT",
-      "score": -0.6467435421702289,
-      "rsi": 25.744615265175085,
-      "adx": 37.174066463714965
+      "score": -0.618725028904806,
+      "rsi": 26.406997588514216,
+      "adx": 37.07944041752366
     },
     "ETH-USD": {
       "action": "VENTE \u00c0 D\u00c9COUVERT",
-      "score": -0.6560127966473147,
-      "rsi": 28.233511545945078,
-      "adx": 37.29727205607668
+      "score": -0.6490483202580308,
+      "rsi": 28.592664066914267,
+      "adx": 37.24596455308108
     },
     "SOL-USD": {
       "action": "VENTE \u00c0 D\u00c9COUVERT",
-      "score": -0.6177853819424534,
-      "rsi": 28.874156435445627,
-      "adx": 40.142709664283394
+      "score": -0.6209046275003507,
+      "rsi": 29.073059708431458,
+      "adx": 40.1142949109997
     },
     "GC=F": {
       "action": "VENTE \u00c0 D\u00c9COUVERT",
-      "score": -0.8514118094453631,
-      "rsi": 31.47400473730744,
-      "adx": 28.298427712594993
+      "score": -0.7728074815395901,
+      "rsi": 33.084379910098534,
+      "adx": 28.06837411648198
     },
     "CL=F": {
       "action": "VENTE \u00c0 D\u00c9COUVERT",
-      "score": -0.639072164981836,
-      "rsi": 33.52767690697175,
-      "adx": 27.263570515328308
+      "score": -0.5964421331623007,
+      "rsi": 34.20181449857813,
+      "adx": 27.167265145098824
     }
   },
-  "stop_alerted": [],
+  "stop_alerted": [
+    "^GDAXI"
+  ],
   "feed": [
-    {
-      "date": "2026-10-14T18:00",
-      "kind": "decision",
-      "level": "attention",
-      "title": "Solana : achat \u2192 conserver",
-      "text": "score +0.35 \u2192 +0.20. Tendance de fond vote achat (+1.00, poids 7%)",
-      "symbol": "SOL-USD"
-    },
-    {
-      "date": "2026-10-14T18:00",
-      "kind": "stop",
-      "level": "attention",
-      "title": "Bitcoin proche de son stop",
-      "text": "\u00e0 1.8% du niveau de sortie automatique",
-      "symbol": "BTC-USD"
-    },
-    {
-      "date": "2026-10-14T18:00",
-      "kind": "risk:stop",
-      "level": "important",
-      "title": "Bouclier : stop d\u00e9clench\u00e9",
-      "text": "stop suiveur touch\u00e9 : prix 23,823.38 sous le stop 24,171.13 (plus haut 24,605.21 moins 3 ATR)",
-      "symbol": "^IXIC"
-    },
     {
       "date": "2026-10-14T18:00",
       "kind": "risk:stop",
@@ -2205,17 +2179,33 @@
       "title": "S&P 500 : \u00c9toile du matin",
       "text": "Rouge, petite ind\u00e9cision, puis forte verte : retournement haussier en trois temps. Signal haussier pris en compte par le conseil.",
       "symbol": "^GSPC"
+    },
+    {
+      "date": "2026-11-25T08:50",
+      "kind": "decision",
+      "level": "important",
+      "title": "Nasdaq : neutre \u2192 vente \u00e0 d\u00e9couvert",
+      "text": "score -0.21 \u2192 -0.25. Cassure de canal vote vente (-0.47, poids 45%)",
+      "symbol": "^IXIC"
+    },
+    {
+      "date": "2026-11-25T08:50",
+      "kind": "stop",
+      "level": "attention",
+      "title": "DAX proche de son stop",
+      "text": "\u00e0 2.6% du niveau de sortie automatique",
+      "symbol": "^GDAXI"
+    },
+    {
+      "date": "2026-11-25T08:50",
+      "kind": "pattern",
+      "level": "info",
+      "title": "S&P 500 : \u00c9toile du matin",
+      "text": "Rouge, petite ind\u00e9cision, puis forte verte : retournement haussier en trois temps. Signal haussier pris en compte par le conseil.",
+      "symbol": "^GSPC"
     }
   ],
-  "cost_basis": {
-    "CL=F": -1410.3476842073458,
-    "SOL-USD": -1166.557710522442,
-    "^N225": -1410.3476842073458,
-    "ETH-USD": -1320.0475722431286,
-    "GC=F": -1410.3476842073458,
-    "^GDAXI": -1410.3476842073458,
-    "BTC-USD": -1410.3476842073458
-  },
+  "cost_basis": {},
   "score_history": [
     {
       "date": "2026-07-28 18:00",
@@ -2407,14 +2397,22 @@
       "risk": 6
     },
     {
-      "date": "2026-11-25 08:08",
-      "oracle": 42,
-      "performance": 30,
-      "intelligence": 50,
-      "risk": 48
+      "date": "2026-11-25 08:50",
+      "oracle": 48,
+      "performance": 25,
+      "intelligence": 48,
+      "risk": 6
     }
   ],
-  "realized_pnl": -257.25347408399097,
+  "realized_pnl": -323.3991358363141,
   "replayed": true,
-  "troughs": {}
+  "troughs": {
+    "CL=F": 73.67484685489458,
+    "SOL-USD": 62.10206363567172,
+    "^N225": 326.72912980533823,
+    "ETH-USD": 1506.0687006019314,
+    "GC=F": 3252.891442961771,
+    "^GDAXI": 25143.33984375,
+    "BTC-USD": 54132.36877038682
+  }
 }
