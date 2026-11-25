@@ -541,19 +541,39 @@
     {
       "date": "2026-11-25T09:51:18",
       "value": 9672.28
+    },
+    {
+      "date": "2026-11-25T10:06:11",
+      "value": 9671.42
     }
   ],
   "peaks": {
-    "XLV": 168.88950893830295
+    "XLV": 168.88950893830295,
+    "AAPL": 323.4783743628515,
+    "IEF": 83.72230749844859,
+    "TLT": 74.44926565515775,
+    "XLF": 51.26209904109443
   },
   "cooldown": {},
   "tp": {
     "XLV": {
       "level": 0
+    },
+    "AAPL": {
+      "level": 0
+    },
+    "IEF": {
+      "level": 0
+    },
+    "TLT": {
+      "level": 0
+    },
+    "XLF": {
+      "level": 0
     }
   },
   "breaker": {
-    "drawdown": -0.08074493192840648,
+    "drawdown": -0.0811340619526918,
     "factor": 1.0
   },
   "day": {
@@ -562,10 +582,10 @@
     "halted": false
   },
   "risk_budget": {
-    "day_pnl": -67.22842498594582,
+    "day_pnl": -71.32417025225732,
     "max_loss_day": null,
     "budget_left": null,
-    "var95": 50.38787793945351,
+    "var95": 55.04492818802169,
     "max_loss_total": null,
     "invest_max": null,
     "halted_day": false,
@@ -573,157 +593,133 @@
   },
   "last_leader": "donchian",
   "last_stress": 1.0,
-  "thermo_last": 55.9,
+  "thermo_last": 55.7,
   "last_signals": {
     "^FCHI": {
       "action": "ACHAT",
-      "score": -0.16321919127181717,
-      "rsi": 50.035747514769156,
-      "adx": 25.14509638260156
+      "score": -0.13544705376200517,
+      "rsi": 50.90558981953303,
+      "adx": 25.2693595689964
     },
     "^GDAXI": {
       "action": "ACHAT",
-      "score": -0.560945969501869,
-      "rsi": 37.52355276773481,
-      "adx": 24.045649736292216
+      "score": -0.5347380326731704,
+      "rsi": 37.673380439567424,
+      "adx": 24.024245783173267
     },
     "^GSPC": {
       "action": "ACHAT",
-      "score": -0.034078398683390215,
-      "rsi": 46.285091941353805,
-      "adx": 18.956763024582642
+      "score": -0.03854554159117896,
+      "rsi": 46.179397424645416,
+      "adx": 18.97186224125527
     },
     "^IXIC": {
       "action": "ACHAT",
-      "score": -0.2791893472983697,
-      "rsi": 44.378197818023345,
-      "adx": 20.771276691291316
+      "score": -0.28670739609792545,
+      "rsi": 44.30618651641853,
+      "adx": 20.781564020092006
     },
     "^N225": {
       "action": "ACHAT",
-      "score": -0.813847772021475,
-      "rsi": 40.46544110045881,
-      "adx": 24.600118503633485
+      "score": -0.8345095465116569,
+      "rsi": 40.377664604889816,
+      "adx": 24.612658003000487
     },
     "BTC-USD": {
       "action": "ACHAT",
-      "score": -0.7218967459264223,
-      "rsi": 25.81456693215347,
-      "adx": 37.16407336843234
+      "score": -0.7193859249109242,
+      "rsi": 26.10921768847973,
+      "adx": 37.12198040324287
     },
     "ETH-USD": {
       "action": "ACHAT",
-      "score": -0.7345126449150459,
-      "rsi": 28.135040094692314,
-      "adx": 37.31133940625565
+      "score": -0.7291604465763345,
+      "rsi": 28.37439392320732,
+      "adx": 37.27714600218207
     },
     "SOL-USD": {
       "action": "ACHAT",
-      "score": -0.7201342958444531,
-      "rsi": 28.573172854615436,
-      "adx": 40.185707318687705
+      "score": -0.7226404824961884,
+      "rsi": 28.757857570301297,
+      "adx": 40.15932378787544
     },
     "GC=F": {
       "action": "ACHAT",
-      "score": -0.835337631888448,
-      "rsi": 32.744633996330606,
-      "adx": 28.116909247020256
+      "score": -0.8298520545004808,
+      "rsi": 32.8432718936015,
+      "adx": 28.1028181188387
     },
     "CL=F": {
       "action": "ACHAT",
-      "score": -0.582637317195275,
-      "rsi": 36.284389451482696,
-      "adx": 26.86975443754103
+      "score": -0.6878359348658751,
+      "rsi": 36.01477834667747,
+      "adx": 26.90827030965606
     },
     "XLK": {
       "action": "ACHAT",
-      "score": -0.5943456906460393,
-      "rsi": 41.608502292282026,
-      "adx": 26.113686883820378
+      "score": -0.5968743242184223,
+      "rsi": 41.56219408939485,
+      "adx": 26.120302341370316
     },
     "XLV": {
       "action": "ACHAT",
-      "score": 0.798134221089344,
-      "rsi": 60.21561138976731,
-      "adx": 28.57706653035904
+      "score": 0.794196611003173,
+      "rsi": 60.0514023295072,
+      "adx": 28.553608093189435
     },
     "XLE": {
       "action": "ACHAT",
-      "score": -0.5675787828230248,
-      "rsi": 38.78036630083902,
-      "adx": 25.181665687674858
+      "score": -0.62954021534178,
+      "rsi": 38.689569073964236,
+      "adx": 25.194636720085573
     },
     "XLF": {
       "action": "ACHAT",
-      "score": 0.40083524504142143,
-      "rsi": 51.86161437001266,
-      "adx": 19.70280436626109
+      "score": 0.41169128416742856,
+      "rsi": 51.72246603777002,
+      "adx": 19.682926024773543
     },
     "AAPL": {
       "action": "ACHAT",
       "score": 0.85,
-      "rsi": 62.124105642060904,
-      "adx": 18.103162597412204
+      "rsi": 61.95741128842278,
+      "adx": 18.079349118406252
     },
     "MSFT": {
       "action": "ACHAT",
-      "score": -0.2301885691896715,
-      "rsi": 44.51827630695031,
-      "adx": 14.435361749609582
+      "score": -0.23438486774395448,
+      "rsi": 44.429248890187466,
+      "adx": 14.448079951874975
     },
     "NVDA": {
       "action": "ACHAT",
-      "score": -0.4584330558727066,
-      "rsi": 44.11741824007728,
-      "adx": 41.55894707464311
+      "score": -0.4658586617956181,
+      "rsi": 44.09262082394336,
+      "adx": 41.56248956266567
     },
     "TLT": {
       "action": "ACHAT",
-      "score": 0.8451612903225806,
-      "rsi": 69.12107531286583,
-      "adx": 28.678857760578367
+      "score": 0.8411764705882353,
+      "rsi": 68.71176552785288,
+      "adx": 28.62038463046305
     },
     "IEF": {
       "action": "ACHAT",
-      "score": 0.8730769230769231,
-      "rsi": 72.67647019615741,
-      "adx": 36.31803841008619
+      "score": 0.85,
+      "rsi": 72.10371335966602,
+      "adx": 36.236220473251336
     },
     "SI=F": {
       "action": "ACHAT",
-      "score": -0.9045454545454545,
-      "rsi": 27.12553821406877,
-      "adx": 37.56936880530482
+      "score": -1.0,
+      "rsi": 27.313312867664564,
+      "adx": 37.542543854791134
     }
   },
   "stop_alerted": [
     "XLV"
   ],
   "feed": [
-    {
-      "date": "2026-10-29T18:00",
-      "kind": "risk:stop",
-      "level": "important",
-      "title": "Bouclier : stop d\u00e9clench\u00e9",
-      "text": "stop suiveur touch\u00e9 : prix 2,016.45 sous le stop 2,022.15 (plus haut 2,124.57 moins 3 ATR)",
-      "symbol": "ETH-USD"
-    },
-    {
-      "date": "2026-10-30T18:00",
-      "kind": "risk:stop",
-      "level": "important",
-      "title": "Bouclier : stop d\u00e9clench\u00e9",
-      "text": "stop suiveur touch\u00e9 : prix 22,746.53 sous le stop 23,196.17 (plus haut 23,855.04 moins 3 ATR)",
-      "symbol": "^IXIC"
-    },
-    {
-      "date": "2026-10-30T18:00",
-      "kind": "risk:stop",
-      "level": "important",
-      "title": "Bouclier : stop d\u00e9clench\u00e9",
-      "text": "stop suiveur touch\u00e9 : prix 6,778.33 sous le stop 6,797.06 (plus haut 6,920.56 moins 3 ATR)",
-      "symbol": "^GSPC"
-    },
     {
       "date": "2026-10-30T18:00",
       "kind": "pattern",
@@ -2299,6 +2295,30 @@
       "title": "Apple : \u00c9toile du matin",
       "text": "Rouge, petite ind\u00e9cision, puis forte verte : retournement haussier en trois temps. Signal haussier pris en compte par le conseil.",
       "symbol": "AAPL"
+    },
+    {
+      "date": "2026-11-25T10:06",
+      "kind": "pattern",
+      "level": "info",
+      "title": "S&P 500 : \u00c9toile du matin",
+      "text": "Rouge, petite ind\u00e9cision, puis forte verte : retournement haussier en trois temps. Signal haussier pris en compte par le conseil.",
+      "symbol": "^GSPC"
+    },
+    {
+      "date": "2026-11-25T10:06",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Secteur finance US : \u00c9toile du matin",
+      "text": "Rouge, petite ind\u00e9cision, puis forte verte : retournement haussier en trois temps. Signal haussier pris en compte par le conseil.",
+      "symbol": "XLF"
+    },
+    {
+      "date": "2026-11-25T10:06",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Apple : \u00c9toile du matin",
+      "text": "Rouge, petite ind\u00e9cision, puis forte verte : retournement haussier en trois temps. Signal haussier pris en compte par le conseil.",
+      "symbol": "AAPL"
     }
   ],
   "cost_basis": {
@@ -2507,6 +2527,13 @@
     },
     {
       "date": "2026-11-25 09:51",
+      "oracle": 44,
+      "performance": 20,
+      "intelligence": 48,
+      "risk": 15
+    },
+    {
+      "date": "2026-11-25 10:06",
       "oracle": 44,
       "performance": 20,
       "intelligence": 48,
