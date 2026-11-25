@@ -32,6 +32,7 @@ jobs:
 
       - name: Service (scalper toutes les 5 min, bot toutes les 2 h, appli toutes les 10 min)
         env:
+          PYTHONUNBUFFERED: "1"
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}

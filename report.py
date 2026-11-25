@@ -3,6 +3,7 @@ import json
 import os
 import urllib.parse
 import urllib.request
+import urllib.error
 from datetime import datetime
 
 ICON = {"ACHAT": "🟢", "VENTE À DÉCOUVERT": "🔴", "ÉVITER / SORTIR": "🟠", "NEUTRE": "⚪"}
@@ -129,9 +130,14 @@ def telegram_chat(token):
             return f.read().strip() or None
     except OSError:
         pass
+    def status(txt):
+        os.makedirs("data", exist_ok=True)
+        with open("data/telegram_status.json", "w") as f:
+            json.dump({"at": datetime.now().isoformat(timespec="seconds"), "status": txt}, f, ensure_ascii=False)
     try:
         with urllib.request.urlopen(f"https://api.telegram.org/bot{token}/getUpdates", timeout=15) as r:
             ups = json.loads(r.read().decode()).get("result", [])
+        status(f"jeton valide, {len(ups)} message(s) reçu(s) par le bot")
         for u in reversed(ups):
             m = u.get("message") or u.get("edited_message") or {}
             if m.get("chat", {}).get("id"):
@@ -140,8 +146,14 @@ def telegram_chat(token):
                 with open(path, "w") as f:
                     f.write(chat)
                 return chat
-    except Exception:
+    except urllib.error.HTTPError as e:
+        status(f"erreur Telegram {e.code} : " + ("jeton invalide (vérifie le secret TELEGRAM_TOKEN)" if e.code in (401, 404) else
+                                                 "conflit : un autre programme lit déjà les messages du bot" if e.code == 409 else "inconnue"))
         return None
+    except Exception as e:
+        status(f"erreur : {type(e).__name__}")
+        return None
+    status("jeton valide mais aucune conversation : écris « bonjour » à ton bot dans Telegram")
     return None
 
 
