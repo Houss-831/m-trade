@@ -41,6 +41,64 @@ def mark_run():
         json.dump({"last_run": time.time(), "at": datetime.now(timezone.utc).isoformat(timespec="seconds")}, f)
 
 
+def live_portfolio():
+    """Valeur du portefeuille principal au prix du moment (toutes les 5 min), pour voir l'argent bouger dans l'appli.
+    Actions et indices : Yahoo Finance (quelques minutes de décalage, seulement pendant les heures de bourse) ;
+    crypto et or : Binance."""
+    try:
+        with open("data/portfolio.json") as f:
+            st = json.load(f)
+    except (OSError, ValueError):
+        return
+    pos = st.get("positions", {})
+    import config
+    out = {"at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "cash": st.get("cash", 0),
+           "start": st.get("start_value", 10000), "positions": []}
+    prices, fx = {}, {"USD": None, "JPY": None}
+    try:
+        import yfinance as yf
+        tick = [s for s in pos if s not in ss.SYMS] + ["EURUSD=X", "USDJPY=X"]
+        df = yf.download(tick, period="1d", interval="1m", progress=False, auto_adjust=False, threads=False)
+        cl = df["Close"] if "Close" in df else df
+        for s in tick:
+            if s in cl and cl[s].dropna().size:
+                prices[s] = float(cl[s].dropna().iloc[-1])
+    except Exception as e:
+        print("prix en direct :", e)
+    for s in pos:
+        if s in ss.SYMS:
+            try:
+                prices[s] = float(ss._get(f"{ss.HOSTS[0]}/api/v3/ticker/price?symbol={ss.SYMS[s]}")["price"])
+            except Exception:
+                pass
+    eurusd = prices.get("EURUSD=X")
+    usdjpy = prices.get("USDJPY=X")
+    hist = st.get("history") or []
+    last_pos = {}
+    try:
+        with open("docs/data.json") as f:
+            last_pos = {p_["symbol"]: p_ for p_ in json.load(f)["portfolio"]["positions"]}
+    except (OSError, ValueError, KeyError):
+        pass
+    value = st.get("cash", 0)
+    basis = st.get("cost_basis", {})
+    for s, q in pos.items():
+        p = prices.get(s)
+        cur = config.CURRENCY.get(s, "USD")
+        if p and eurusd and (cur != "JPY" or usdjpy):
+            v = q * (p / eurusd if cur == "USD" else (p / (usdjpy * eurusd) if cur == "JPY" else p))
+        else:
+            v = float((last_pos.get(s) or {}).get("value") or basis.get(s, 0))
+        value += v
+        out["positions"].append({"symbol": s, "name": config.UNIVERSE.get(s, s), "price": p, "value": round(v, 2),
+                                 "pnl": round(v - basis.get(s, v), 2)})
+    out["value"] = round(value, 2)
+    out["live"] = bool(prices)
+    os.makedirs("docs", exist_ok=True)
+    with open("docs/live.json", "w") as f:
+        json.dump(out, f, ensure_ascii=False)
+
+
 def export_scalp(S):
     """Fichier léger lu par l'appli toutes les minutes."""
     os.makedirs("docs", exist_ok=True)
@@ -72,6 +130,14 @@ def push(msg):
     return code_head() != before          # True : du nouveau code est arrivé
 
 
+def scalp_tf_stale():
+    try:
+        with open(ss.TF_PATH) as f:
+            return "brain" not in json.load(f)            # test fait avant le nouveau cerveau : on le refait
+    except (OSError, ValueError):
+        return True
+
+
 def allocation_stale():
     try:
         with open("data/allocation.json") as f:
@@ -81,10 +147,10 @@ def allocation_stale():
 
 
 def main_run():
-    if ss.tf_due():
+    if ss.tf_due() or scalp_tf_stale():
         r = ss.choose_tf()
         if r:
-            ss.CFG["tf"] = r["tf"]
+            ss.CFG["tf"], ss.CFG["brain"], ss.CFG["active"] = r["tf"], r.get("brain", "rules"), r.get("active", True)
             print("⏱", r["summary"])
     sh(sys.executable, "main.py", "allocate", *(["--force"] if allocation_stale() else []), check=True)
     sh(sys.executable, "main.py", "tune", check=True)
@@ -139,6 +205,7 @@ def main():
         try:
             n_log = len(S.get("log", []))
             S = ss.step(S)
+            ss.manual_closes(S)
             if os.getenv("TELEGRAM_TOKEN"):
                 from report import send_telegram
                 for t, txt in S["log"][n_log:]:
@@ -149,10 +216,11 @@ def main():
                             pass
             ss.save(S)
             export_scalp(S)
+            live_portfolio()
             print(datetime.now(timezone.utc).strftime("%H:%M"), "scalper", ss.summary(S))
         except Exception as e:                       # une erreur réseau ne doit jamais arrêter le service
             print("scalper :", e)
-        if time.time() - last_run() >= RUN_EVERY or ss.tf_due() or allocation_stale():
+        if time.time() - last_run() >= RUN_EVERY or ss.tf_due() or scalp_tf_stale() or allocation_stale():
             try:
                 main_run()
             except Exception as e:

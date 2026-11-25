@@ -2449,6 +2449,27 @@ html, body { max-width: 100%; overflow-x: hidden; }
     $("apercu").appendChild(srvTile);
     homeLive(); if (typeof renderSrvHome === "function") renderSrvHome();
   }
+  // ---------- Portefeuille au prix du moment (fichier live.json écrit par le serveur toutes les 5 min) ----------
+  var LJ = { last: null, timer: null };
+  function liveJson() {
+    var paintLJ = function (j) {
+      var b = $("kq-v0"), s0 = $("kq-s0"); if (!b || !j || j.value == null) return;
+      var age = (Date.now() - new Date(j.at)) / 60000, P = D.portfolio;
+      var old = LJ.last; LJ.last = j.value;
+      b.textContent = eur(j.value);
+      if (old != null && Math.abs(j.value - old) > 0.004) { b.classList.remove("flash-up", "flash-down"); void b.offsetWidth; b.classList.add(j.value > old ? "flash-up" : "flash-down"); setTimeout(function () { b.classList.remove("flash-up", "flash-down"); }, 700); }
+      var r = j.value / (j.start || P.start) - 1;
+      s0.innerHTML = '<span class="' + cls(r) + '">' + pct(r, 2) + "</span> depuis le départ · " + (age < 20 && j.live ? '<span style="color:' + C.good + '">● en direct</span> (mise à jour toutes les 5 min)' : "prix de la dernière clôture (bourse fermée)");
+      var day = j.value - P.value + ((D.risk_budget || {}).day_pnl || 0), dv = $("kq-v1");
+      if (dv) dv.innerHTML = '<span class="' + cls(day) + '">' + (day > 0 ? "+" : "") + eur(day) + "</span>";
+    };
+    var get = function () {
+      if (location.protocol === "file:" || !window.fetch) return;
+      fetch("live.json?t=" + Date.now(), { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) { if (j && current === "accueil") paintLJ(j); }).catch(function () {});
+    };
+    get();
+    if (!LJ.timer) LJ.timer = setInterval(get, 60000);
+  }
   // ---------- Portefeuille en direct sur l'accueil ----------
   var HL = { ws: null, px: {}, sim: null };
   function homeLive() {
@@ -2474,7 +2495,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
       var day = v - P.value + ((D.risk_budget || {}).day_pnl || 0), dv = $("kq-v1");
       if (dv && moved) dv.innerHTML = '<span class="' + cls(day) + '">' + (day > 0 ? "+" : "") + eur(day) + "</span>";
     };
-    if (!liveSyms.length) { if (s0) s0.innerHTML += " · actifs cotés à la clôture, mis à jour toutes les 2 h"; return; }
+    if (!liveSyms.length) { liveJson(); return; }
     if (HL.ws || HL.sim) { paint(); return; }
     checkNet().then(function (net) {
       if (net && window.WebSocket) {
@@ -3355,10 +3376,12 @@ html, body { max-width: 100%; overflow-x: hidden; }
     $("srv-mini").innerHTML = [["Opérations", S.trades || 0], ["Gagnantes", S.win_rate != null ? Math.round(S.win_rate * 100) + " %" : "–"], ["Frais payés", eur(S.fees || 0, 2)], ["Trades validés (10 000 scénarios)", (S.mc_ok || 0) + " / " + ((S.mc_ok || 0) + (S.mc_no || 0))]]
       .map(function (x) { return '<div class="kpi"><span>' + x[0] + "</span><b>" + x[1] + "</b></div>"; }).join("");
     var P = X.pos || {}, ks = Object.keys(P);
+    var gh = location.hostname.match(/^([^.]+)\.github\.io$/), repo = gh ? gh[1] + "/" + (location.pathname.split("/")[1] || "") : "Houss-831/m-trade";
     $("srv-pos").innerHTML = ks.length ? ks.map(function (k) {
       var p = P[k], cur = (X.prices || {})[k] || p.entry, u = p.dir * p.qty * (cur - p.entry);
-      return '<div class="dr-o"><span><b>' + (p.dir > 0 ? "🟢 Achat " : "🔴 Vente à découvert ") + esc((asset(k) || {}).name || k) + "</b> à " + p.entry.toLocaleString("fr-FR", { maximumFractionDigits: 2 }) + " $ · stop " + p.sl.toLocaleString("fr-FR", { maximumFractionDigits: 2 }) + " · objectif " + p.tp.toLocaleString("fr-FR", { maximumFractionDigits: 2 }) + '</span><span class="num ' + cls(u) + '">' + (u >= 0 ? "+" : "") + eur(u, 2) + "</span></div>";
-    }).join("") : '<div class="empty">Aucune position : il attend un signal assez fort (score ≥ 0,70) qui couvre les frais.</div>';
+      var closeUrl = "https://github.com/" + repo + "/issues/new?title=" + encodeURIComponent("FERMER " + k) + "&body=" + encodeURIComponent("Demande de clôture manuelle du trade " + ((asset(k) || {}).name || k) + " du scalper serveur. Appuie sur « Submit new issue » : le bot le ferme dans les 5 minutes.");
+      return '<div class="dr-o"><span><b>' + (p.dir > 0 ? "🟢 Achat " : "🔴 Vente à découvert ") + esc((asset(k) || {}).name || k) + "</b> à " + p.entry.toLocaleString("fr-FR", { maximumFractionDigits: 2 }) + " $ · stop " + p.sl.toLocaleString("fr-FR", { maximumFractionDigits: 2 }) + " · objectif " + p.tp.toLocaleString("fr-FR", { maximumFractionDigits: 2 }) + '</span><span class="num ' + cls(u) + '">' + (u >= 0 ? "+" : "") + eur(u, 2) + '</span></div><a class="btn" style="display:block;text-align:center;margin:4px 0 10px" target="_blank" rel="noopener" href="' + closeUrl + '">Fermer ce trade</a>';
+    }).join("") + '<p class="explain">« Fermer ce trade » ouvre une demande sur ton GitHub : valide-la, et le scalper serveur ferme ce trade, et seulement celui-là, au prix du moment, dans les 5 minutes.</p>' : '<div class="empty">Aucune position : il attend un signal assez fort (score ≥ 0,70) qui couvre les frais.</div>';
     $("srv-log").innerHTML = (X.log || []).slice().reverse().map(function (l) { return "<div><span class=\"muted\">" + new Date(l[0]).toLocaleString("fr-FR", { day: "2-digit", hour: "2-digit", minute: "2-digit" }) + "</span> " + esc(l[1]) + "</div>"; }).join("");
   }
   setInterval(function () { if (!D) return; srvFetch().then(function () { if (current === "scalp") renderSrv(); if (current === "accueil") renderSrvHome(); }); }, 60000);
@@ -3423,7 +3446,8 @@ html, body { max-width: 100%; overflow-x: hidden; }
       if (p2.dir < 0) { f = 1 - f; fe = 1 - fe; }
       return '<div class="sc-p" data-lvgo="' + esc(k) + '"><div class="l1"><span><b style="color:' + (p2.dir > 0 ? C.good : C.bot) + '">' + (p2.dir > 0 ? "ACHAT" : "VENTE") + "</b> " + esc(a.name) + ' <span class="muted">' + eur(p2.notional) + " · " + Math.round((Date.now() - p2.t0) / 1000) + ' s</span></span><b class="num ' + cls(up_) + '">' + (up_ > 0 ? "+" : "") + eur(up_, 2) + "</b></div>" +
         '<div class="rail"><span class="en" style="left:' + Math.max(0, Math.min(100, fe * 100)) + '%"></span><span class="pt" style="left:' + Math.max(0, Math.min(100, f * 100)) + '%"></span></div>' +
-        '<div class="rail-l"><span>stop ' + px(p2.stop, a.currency) + (p2.be ? " 🛡" : "") + "</span><span>entrée " + px(p2.entry, a.currency) + "</span><span>objectif " + px(p2.tp, a.currency) + "</span></div></div>";
+        '<div class="rail-l"><span>stop ' + px(p2.stop, a.currency) + (p2.be ? " 🛡" : "") + "</span><span>entrée " + px(p2.entry, a.currency) + "</span><span>objectif " + px(p2.tp, a.currency) + "</span></div>" +
+        '<button type="button" class="btn sc-close1" data-scclose="' + esc(k) + '" style="margin-top:8px;width:100%">Fermer ce trade maintenant (' + (up_ > 0 ? "+" : "") + eur(up_, 2) + ")</button></div>";
     }).join("") : '<div class="empty">' + (SC.on ? "Aucune position : le scalper attend une configuration assez forte (score ≥ 0,70)." : "Scalper en pause. Touche « Démarrer » pour le lancer.") + "</div>";
     // mini-graphes
     var M = $("sc-minis");
@@ -3481,6 +3505,8 @@ html, body { max-width: 100%; overflow-x: hidden; }
   document.addEventListener("click", function (e) {
     if (e.target.closest("#sc-toggle")) { SC.on = !SC.on; if (SC.on && SC.cfg.auto && !SC.cal) scCalibrate(); scLog(SC.on ? "▶ <b>scalper démarré</b> · risque " + pct(SC.cfg.risk, 1, false) + " par opération" : "⏸ scalper en pause (les positions ouvertes restent gérées)", ""); if (SC.on && scEquity() - SC.W.start <= -SC.cfg.max_loss * SC.W.start) { SC.W.start = scEquity(); SC.W.sess = new Date().toISOString(); } scSave(); scPaint(); scPill(); return; }
     if (e.target.closest("#sc-legacy-ok")) { SC.legacy = null; scView(); return; }
+    var c1 = e.target.closest("[data-scclose]");
+    if (c1) { e.stopPropagation(); var k1 = c1.dataset.scclose; if (SC.W.pos[k1]) { scClose(k1, "clôture manuelle"); scSave && scSave(); scPaint(true); toast("Trade fermé : " + ((asset(k1) || {}).name || k1), ""); } return; }
     if (e.target.closest("#sc-closeall")) { Object.keys(SC.W.pos).forEach(function (s2) { scClose(s2, "clôture manuelle"); }); scPaint(); return; }
     var rb = e.target.closest("#sc-reset");
     if (rb) { if (rb.dataset.c) { SC.on = false; SC.W = scNewWallet(); SC.disp = null; scSave(); $("sc-tape").innerHTML = ""; delete rb.dataset.c; rb.textContent = "Réinitialiser"; scPaint(true); scPill(); toast("Porte-monnaie scalping remis à 10 000 €.", ""); }

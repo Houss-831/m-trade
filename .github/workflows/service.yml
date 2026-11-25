@@ -10,6 +10,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
 
 concurrency:
   group: m-trade-service
@@ -33,6 +34,7 @@ jobs:
       - name: Service (scalper toutes les 5 min, bot toutes les 2 h, appli toutes les 10 min)
         env:
           PYTHONUNBUFFERED: "1"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}

@@ -321,6 +321,12 @@ Une session GitHub Actions d'environ 5 h 45 tourne en continu, et la suivante d�
 - toutes les 10 minutes, tout est sauvegardé et l'appli en ligne se met à jour.
 Le bot principal peut maintenant aussi **parier à la baisse** (vente à découvert fictive), avec un stop dédié (plus bas + 3 ATR).
 
+## 🧠 Scalper : mémoire des situations (v18)
+
+Le scalper serveur a un second cerveau, choisi s'il fait mieux sur les vraies bougies. Chaque bougie y est résumée par 9 mesures sans unité : écarts aux moyennes, pente, RSI, MACD, efficacité, volatilité relative, élan et volume. Avant chaque trade, il retrouve les 150 situations passées les plus ressemblantes, sur 3 000 bougies × 4 actifs et seulement parmi celles déjà terminées. Il regarde comment elles ont fini à la hausse et à la baisse, puis lance 10 000 scénarios sur leurs suites. Il ne trade que si l'espérance après frais est positive. Si aucune combinaison (durée de bougie × cerveau) n'est gagnante de façon fiable au rejeu, il reste en observation.
+Les trades se ferment un par un depuis l'appli. Pour le scalper de l'appli, c'est un bouton par position. Pour le scalper serveur, une demande « FERMER <actif> » sur le dépôt est prise en compte en moins de 5 minutes, et seulement si elle vient du propriétaire du dépôt.
+Le portefeuille principal est revalorisé toutes les 5 minutes au prix du moment (`docs/live.json`).
+
 ## 📐 Choix de la méthode d'investissement (`allocation.py`)
 
 v16 : la comparaison porte aussi sur deux univers (les 10 marchés d'origine, ou 20 marchés avec secteurs US, Apple, Microsoft, Nvidia, obligations US et argent métal) et sur deux méthodes « base toujours investie + conseil » (50/50 et 30/70). Le scalper serveur rejoue aussi ses règles sur des bougies de 5 min, 1 h et 4 h, et garde l'unité de temps la plus fiable.
