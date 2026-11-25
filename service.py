@@ -133,7 +133,7 @@ def push(msg):
 def scalp_tf_stale():
     try:
         with open(ss.TF_PATH) as f:
-            return "brain" not in json.load(f)            # test fait avant le nouveau cerveau : on le refait
+            return "partial" not in json.load(f)          # test fait avant les TP en deux temps : on le refait
     except (OSError, ValueError):
         return True
 
@@ -151,6 +151,7 @@ def main_run():
         r = ss.choose_tf()
         if r:
             ss.CFG["tf"], ss.CFG["brain"], ss.CFG["active"] = r["tf"], r.get("brain", "rules"), r.get("active", True)
+            ss.CFG["partial"] = r.get("partial", False)
             print("⏱", r["summary"])
     sh(sys.executable, "main.py", "allocate", *(["--force"] if allocation_stale() else []), check=True)
     sh(sys.executable, "main.py", "tune", check=True)

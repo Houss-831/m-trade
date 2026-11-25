@@ -2985,7 +2985,8 @@ html, body { max-width: 100%; overflow-x: hidden; }
   var SC_SYMS = ["BTC-USD", "ETH-USD", "SOL-USD", "GC=F"];
   var SC = { on: false, feeds: {}, ws: null, timer: null, W: null, cfg: null, booted: false, mode: null, raf: 0, disp: null, ui: 0, last: {}, near: {} };
   var SC_DEF = { v: 2, risk: 0.005, tp_atr: 2.5, sl_atr: 1.2, max_pos: 3, time_stop: 24, max_loss: 0.03, short: true, syms: SC_SYMS.slice(),
-                 tf: "5m", min_score: 0.75, fee_mult: 3, min_er: 0.3, smart: true, auto: true };
+                 tf: "5m", min_score: 0.75, fee_mult: 3, min_er: 0.3, smart: true, auto: true,
+                 partial: true, tp1_atr: 1.0, tp1_frac: 0.5, tp2_atr: 3.5 };
   var SC_OLD = { risk: 0.005, tp_atr: 1.6, sl_atr: 1.0, max_pos: 3, time_stop: 30, short: true, min_score: 0.7, smart: false };   // version précédente, pour comparer
   function scSec() { return tfSec(SC.cfg.tf || "5m"); }
   function feeRate() { return (D.settings && D.settings.fee_rate) || 0.001; }
@@ -3116,6 +3117,13 @@ html, body { max-width: 100%; overflow-x: hidden; }
       if (pos) {
         var exit = null, why = "";
         var hitS = pos.dir > 0 ? k.l <= pos.stop : k.h >= pos.stop, hitT = pos.dir > 0 ? k.h >= pos.tp : k.l <= pos.tp;
+        var hit1 = pos.tp1 && !pos.half && (pos.dir > 0 ? k.h >= pos.tp1 : k.l <= pos.tp1);
+        if (!hitS && hit1) {                                   // TP1 : on encaisse une part, stop au prix d'entrée
+          var fr = cfg.tp1_frac || 0.5, g1 = (pos.tp1 - pos.entry) * pos.qty * fr * pos.dir, f1 = Math.abs(pos.notional * fr + g1) * fee;
+          cash += pos.notional * fr + g1 - f1; feesPaid += f1;
+          trades.push({ i: i, pnl: g1 - f1 - pos.fee * fr, why: "tp1", dir: pos.dir });
+          pos.qty *= 1 - fr; pos.notional *= 1 - fr; pos.fee *= 1 - fr; pos.half = true; pos.stop = pos.entry; pos.be = true;
+        }
         if (hitS) { exit = pos.stop; why = "stop"; } else if (hitT) { exit = pos.tp; why = "objectif"; }
         else {
           var g = (k.c - pos.entry) * pos.dir; pos.bars++;
@@ -3138,7 +3146,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
           var stopD = st.atr * cfg.sl_atr, qty = cash * cfg.risk / stopD, notional = qty * k.c, capN = cash * 0.25;
           if (notional > capN) { qty *= capN / notional; notional = capN; }
           var f0 = notional * fee; cash -= notional + f0; feesPaid += f0;
-          pos = { dir: st.dir, qty: qty, entry: k.c, notional: notional, stop: k.c - st.dir * stopD, tp: k.c + st.dir * st.atr * cfg.tp_atr, atr: st.atr, bars: 0, be: false, fee: f0 };
+          pos = { dir: st.dir, qty: qty, entry: k.c, notional: notional, stop: k.c - st.dir * stopD, tp: k.c + st.dir * st.atr * (cfg.partial ? cfg.tp2_atr : cfg.tp_atr), tp1: cfg.partial ? k.c + st.dir * st.atr * cfg.tp1_atr : null, half: false, atr: st.atr, bars: 0, be: false, fee: f0 };
         }
       }
       eq.push(cash + (pos ? pos.notional + (k.c - pos.entry) * pos.qty * pos.dir : 0));
@@ -3259,12 +3267,23 @@ html, body { max-width: 100%; overflow-x: hidden; }
     var cap = Math.min(E * 0.25, SC.W.cash / (1 + fee)); if (notional > cap) { qty *= cap / notional; notional = cap; }
     if (notional < 20) { scLog("⏸ " + a.name + " : signal ignoré, liquidités insuffisantes", "muted"); return; }
     var f = notional * fee; SC.W.cash -= notional + f; SC.W.fees += f;
-    SC.W.pos[sym] = { dir: st.dir, qty: qty, entry: px_, notional: notional, stop: px_ - st.dir * stopD, tp: px_ + st.dir * st.atr * cf.tp_atr, atr: st.atr, t0: Date.now(), bars: 0, why: st.why.join(", "), fee: f, be: false };
+    SC.W.pos[sym] = { dir: st.dir, qty: qty, entry: px_, notional: notional, stop: px_ - st.dir * stopD, tp: px_ + st.dir * st.atr * (cf.partial ? cf.tp2_atr : cf.tp_atr), tp1: cf.partial ? px_ + st.dir * st.atr * cf.tp1_atr : null, half: false, atr: st.atr, t0: Date.now(), bars: 0, why: st.why.join(", "), fee: f, be: false };
     var side = st.dir > 0 ? "ACHAT" : "VENTE À DÉCOUVERT";
     scLog('<b style="color:' + (st.dir > 0 ? C.good : C.bot) + '">' + side + "</b> " + esc(a.name) + " " + eur(notional) + " à " + px(px_, a.currency) + ' <span class="muted">· ' + esc(st.why.join(", ")) + " (score " + st.score.toFixed(2) + ")</span>");
     toast("⚡ Scalper : " + side.toLowerCase() + " " + a.name + " · " + eur(notional), st.dir > 0 ? "good" : "");
     SC.W.trades.unshift({ t: Date.now(), sym: sym, name: a.name, kind: "open", dir: st.dir, px: px_, notional: notional, why: st.why.join(", ") });
     scTrimTrades(); scSave();
+  }
+  function scHalf(sym) {
+    var p2 = SC.W.pos[sym]; if (!p2 || p2.half) return; var px_ = nowPx(sym), a = asset(sym) || {}, fee = feeRate(), fr = SC.cfg.tp1_frac || 0.5;
+    var gross = scUpnl(sym, p2) * fr, outN = p2.notional * fr + gross, f = Math.abs(outN) * fee, net = gross - f - p2.fee * fr;
+    SC.W.cash += outN - f; SC.W.fees += f;
+    p2.qty *= 1 - fr; p2.notional *= 1 - fr; p2.fee *= 1 - fr; p2.half = true; p2.stop = p2.entry; p2.be = true;
+    SC.W.trades.unshift({ t: Date.now(), sym: sym, name: a.name, kind: "close", dir: p2.dir, px: px_, entry: p2.entry, notional: outN, pnl: net, why: "TP1 : " + Math.round(fr * 100) + " % encaissé", dur: Date.now() - p2.t0, partial: true });
+    scTrimTrades();
+    scLog("✅ <b>TP1</b> " + esc(a.name) + " : " + Math.round(fr * 100) + ' % encaissé <b class="' + cls(net) + '">' + (net > 0 ? "+" : "") + eur(net, 2) + "</b> · le reste vise le TP2 " + px(p2.tp, a.currency) + ", stop au prix d'entrée 🛡", "");
+    toast("✅ TP1 " + a.name + " : " + (net > 0 ? "+" : "") + eur(net, 2) + " encaissé", "good");
+    scSave();
   }
   function scClose(sym, why) {
     var p2 = SC.W.pos[sym]; if (!p2) return; var px_ = nowPx(sym), a = asset(sym) || {}, fee = (D.settings && D.settings.fee_rate) || 0.001;
@@ -3289,7 +3308,8 @@ html, body { max-width: 100%; overflow-x: hidden; }
     if (p2) {
       var px_ = nowPx(sym), d = p2.dir, a = asset(sym) || {};
       if (closed) p2.bars++;
-      if ((px_ - p2.tp) * d >= 0) scClose(sym, "objectif atteint");
+      if (p2.tp1 && !p2.half && (px_ - p2.tp1) * d >= 0) scHalf(sym);
+      if ((px_ - p2.tp) * d >= 0) scClose(sym, p2.half ? "TP2 atteint" : "objectif atteint");
       else if ((px_ - p2.stop) * d <= 0) scClose(sym, p2.be ? "stop suiveur" : "stop touché");
       else {
         var gain = (px_ - p2.entry) * d;
@@ -3446,7 +3466,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
       if (p2.dir < 0) { f = 1 - f; fe = 1 - fe; }
       return '<div class="sc-p" data-lvgo="' + esc(k) + '"><div class="l1"><span><b style="color:' + (p2.dir > 0 ? C.good : C.bot) + '">' + (p2.dir > 0 ? "ACHAT" : "VENTE") + "</b> " + esc(a.name) + ' <span class="muted">' + eur(p2.notional) + " · " + Math.round((Date.now() - p2.t0) / 1000) + ' s</span></span><b class="num ' + cls(up_) + '">' + (up_ > 0 ? "+" : "") + eur(up_, 2) + "</b></div>" +
         '<div class="rail"><span class="en" style="left:' + Math.max(0, Math.min(100, fe * 100)) + '%"></span><span class="pt" style="left:' + Math.max(0, Math.min(100, f * 100)) + '%"></span></div>' +
-        '<div class="rail-l"><span>stop ' + px(p2.stop, a.currency) + (p2.be ? " 🛡" : "") + "</span><span>entrée " + px(p2.entry, a.currency) + "</span><span>objectif " + px(p2.tp, a.currency) + "</span></div>" +
+        '<div class="rail-l"><span>stop ' + px(p2.stop, a.currency) + (p2.be ? " 🛡" : "") + "</span><span>entrée " + px(p2.entry, a.currency) + "</span><span>" + (p2.tp1 && !p2.half ? "TP1 " + px(p2.tp1, a.currency) + " · " : "") + (p2.tp1 ? "TP2 " : "objectif ") + px(p2.tp, a.currency) + "</span></div>" +
         '<button type="button" class="btn sc-close1" data-scclose="' + esc(k) + '" style="margin-top:8px;width:100%">Fermer ce trade maintenant (' + (up_ > 0 ? "+" : "") + eur(up_, 2) + ")</button></div>";
     }).join("") : '<div class="empty">' + (SC.on ? "Aucune position : le scalper attend une configuration assez forte (score ≥ 0,70)." : "Scalper en pause. Touche « Démarrer » pour le lancer.") + "</div>";
     // mini-graphes

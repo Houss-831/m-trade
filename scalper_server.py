@@ -19,6 +19,7 @@ HOSTS = ["https://data-api.binance.vision", "https://api.binance.com"]
 CFG = {"tf": "5m", "risk": 0.005, "tp_atr": 2.5, "sl_atr": 1.2, "max_pos": 3, "time_stop": 24,
        "min_score": 0.7, "fee": 0.001, "fee_mult": 2.0, "min_er": 0.25, "short": True,
        "max_loss_day": 0.03, "start": 10000.0, "mc": True, "mc_min_pwin": 0.35,
+       "partial": True, "tp1_atr": 1.0, "tp1_frac": 0.5, "tp2_atr": 3.5,
        "brain": "knn", "k": 150, "history": 3000, "knn_min_pwin": 0.45, "knn_min_ev": 0.0005}
 
 
@@ -136,7 +137,8 @@ def decide(L, I, n):
               (cl < I["e50"][n] and I["e50"][n] < I["e50"][n - 5])
         if htf:
             sc += 0.1; why.append("tendance de fond alignée")
-        tp_pct, cost = CFG["tp_atr"] * atr / cl, 2 * CFG["fee"] + 0.0003
+        tgt = (CFG["tp1_frac"] * CFG["tp1_atr"] + (1 - CFG["tp1_frac"]) * CFG["tp2_atr"]) if CFG.get("partial") else CFG["tp_atr"]
+        tp_pct, cost = tgt * atr / cl, 2 * CFG["fee"] + 0.0003
         if tp_pct < CFG["fee_mult"] * cost:
             block = f"objectif {tp_pct:.2%} trop petit face aux frais ({cost:.2%})"
         elif I["er"][n] < CFG["min_er"]:
@@ -197,6 +199,26 @@ def _close(S, sym, price, ms, why):
                f"{'+' if pnl > 0 else ''}{pnl:.2f} €")
 
 
+def _take_half(S, sym, price, ms):
+    """TP1 : on encaisse une partie du gain et le reste devient sans risque (stop au prix d'entrée)."""
+    p = S["pos"][sym]
+    f = CFG["tp1_frac"]
+    q = p["qty"] * f
+    gross = p["dir"] * q * (price - p["entry"])
+    fee = abs(q * price) * CFG["fee"]
+    part_notional = p["notional"] * f
+    S["cash"] += part_notional + gross - fee
+    S["fees"] += fee
+    pnl = gross - fee - p["fee_in"] * f
+    p["qty"] -= q; p["notional"] -= part_notional; p["fee_in"] *= (1 - f)
+    p["half"] = True
+    p["sl"] = p["entry"]
+    S["trades"].append({"t": _iso(ms), "sym": sym, "name": NAMES[sym], "kind": "close", "dir": p["dir"], "entry": p["entry"],
+                        "exit": price, "pnl": round(pnl, 2), "why": f"TP1 : {f:.0%} encaissé", "bars": p["bars"], "partial": True})
+    _log(S, ms, f"✅ {NAMES[sym]} : TP1 touché, {f:.0%} encaissé ({'+' if pnl > 0 else ''}{pnl:.2f} €), le reste vise le TP2 "
+               f"{p['tp']:,.2f} avec le stop remonté au prix d'entrée")
+
+
 def _open(S, sym, st, price, ms, px):
     E = equity(S, px)
     stop_d = CFG["sl_atr"] * st["atr"]
@@ -210,12 +232,15 @@ def _open(S, sym, st, price, ms, px):
     S["fees"] += fee
     d = st["dir"]
     S["pos"][sym] = {"dir": d, "qty": qty, "entry": price, "notional": notional, "fee_in": fee, "bars": 0,
-                     "sl": price - d * stop_d, "tp": price + d * CFG["tp_atr"] * st["atr"], "t": _iso(ms),
+                     "sl": price - d * stop_d,
+                     "tp": price + d * (CFG["tp2_atr"] if CFG.get("partial") else CFG["tp_atr"]) * st["atr"],
+                     "tp1": price + d * CFG["tp1_atr"] * st["atr"] if CFG.get("partial") else None, "half": False, "t": _iso(ms),
                      "why": st["why"], "score": st["score"]}
     S["trades"].append({"t": _iso(ms), "sym": sym, "name": NAMES[sym], "kind": "open", "dir": d, "entry": price,
                         "score": st["score"], "why": ", ".join(st["why"])})
     _log(S, ms, f"{'🟢 achat' if d > 0 else '🔴 vente à découvert'} {NAMES[sym]} à {price:,.2f} $ (score {st['score']:.2f} : "
-               f"{', '.join(st['why'])}) · stop {S['pos'][sym]['sl']:,.2f} · objectif {S['pos'][sym]['tp']:,.2f}"
+               f"{', '.join(st['why'])}) · stop {S['pos'][sym]['sl']:,.2f}"
+               + (f" · TP1 {S['pos'][sym]['tp1']:,.2f} (moitié) · TP2 {S['pos'][sym]['tp']:,.2f}" if S['pos'][sym].get('tp1') else f" · objectif {S['pos'][sym]['tp']:,.2f}")
                + (f" · {st['mc']}" if st.get("mc") else ""))
 
 
@@ -268,8 +293,12 @@ def build_library(data, inds):
     out["Z"] = (out["F"] - out["mu"]) / out["sd"]
     # résultat réel de chaque situation passée, à la hausse et à la baisse (stop, objectif, durée)
     tp, sl = CFG["tp_atr"], CFG["sl_atr"]
+    import montecarlo as _mc
     for d, key in ((1, "R_long"), (-1, "R_short")):
         hi, lo, C = out["Hh"], out["Ll"], out["C"]
+        if CFG.get("partial"):
+            out[key] = _mc.partial_R(C, hi, lo, d, CFG["tp1_atr"], CFG["tp2_atr"], sl, CFG["tp1_frac"])
+            continue
         hit_tp = (hi >= tp) if d > 0 else (lo <= -tp)
         hit_sl = (lo <= -sl) if d > 0 else (hi >= sl)
         big = C.shape[1] + 1
@@ -305,8 +334,10 @@ def knn_decide(lib, f, t_now, atr_pct):
     best["k"] = k
     best["sim"] = float(np.median(dist[nn]))
     if best["ev_pct"] > CFG["knn_min_ev"] and best["p_win"] >= CFG["knn_min_pwin"] - 0.05:
-        res = mc.simulate((lib["C"][sel], lib["Hh"][sel], lib["Ll"][sel]), best["dir"], CFG["tp_atr"], CFG["sl_atr"],
-                          seed=int(t_now // 1000) % 2**31)
+        kw = {"tp1": CFG["tp1_atr"], "frac": CFG["tp1_frac"]} if CFG.get("partial") else {}
+        res = mc.simulate((lib["C"][sel], lib["Hh"][sel], lib["Ll"][sel]), best["dir"],
+                          CFG["tp2_atr"] if CFG.get("partial") else CFG["tp_atr"], CFG["sl_atr"],
+                          seed=int(t_now // 1000) % 2**31, **kw)
         okv, txt, res = mc.verdict(res, atr_pct, cost, min_analogs=50, min_pwin=CFG["knn_min_pwin"])
         best.update({"ok": okv and res["ev_pct"] > CFG["knn_min_ev"], "txt": txt, "mc": res})
     else:
@@ -342,7 +373,11 @@ def mc_check(sym, n, st, data, inds, setups):
     if not pools:
         return mc.verdict(None, 0, 0)
     paths = tuple(np.concatenate([p[k] for p in pools]) for k in range(3))
-    res = mc.simulate(paths, st["dir"], CFG["tp_atr"], CFG["sl_atr"], seed=int(t_now // 1000) % 2**31)
+    if CFG.get("partial"):
+        res = mc.simulate(paths, st["dir"], CFG["tp2_atr"], CFG["sl_atr"], seed=int(t_now // 1000) % 2**31,
+                          tp1=CFG["tp1_atr"], frac=CFG["tp1_frac"])
+    else:
+        res = mc.simulate(paths, st["dir"], CFG["tp_atr"], CFG["sl_atr"], seed=int(t_now // 1000) % 2**31)
     atr_pct = st["atr"] / data[sym][n][4]
     return mc.verdict(res, atr_pct, 2 * CFG["fee"] + 0.0003, min_analogs=20, min_pwin=CFG["mc_min_pwin"])
 
@@ -396,10 +431,15 @@ def step(S=None, data=None):
             p["bars"] += 1
             hit_sl = bar[3] <= p["sl"] if p["dir"] > 0 else bar[2] >= p["sl"]
             hit_tp = bar[2] >= p["tp"] if p["dir"] > 0 else bar[3] <= p["tp"]
+            hit_tp1 = p.get("tp1") and not p.get("half") and (bar[2] >= p["tp1"] if p["dir"] > 0 else bar[3] <= p["tp1"])
             if hit_sl:
-                _close(S, sym, p["sl"], ms, "stop touché")
+                _close(S, sym, p["sl"], ms, "stop au prix d'entrée (après TP1)" if p.get("half") else "stop touché")
+            elif hit_tp1:
+                _take_half(S, sym, p["tp1"], ms)
+                if (bar[2] >= p["tp"] if p["dir"] > 0 else bar[3] <= p["tp"]):
+                    _close(S, sym, p["tp"], ms, "TP2 atteint")
             elif hit_tp:
-                _close(S, sym, p["tp"], ms, "objectif atteint")
+                _close(S, sym, p["tp"], ms, "TP2 atteint" if p.get("half") else "objectif atteint")
             elif p["bars"] >= CFG["time_stop"]:
                 _close(S, sym, bar[4], ms, f"durée maximale ({CFG['time_stop']} bougies)")
             elif p["bars"] >= 6 and (bar[4] - p["entry"]) * p["dir"] > CFG["sl_atr"] * I["atr"][n]:
@@ -472,10 +512,10 @@ TF_PATH = "data/scalp_tf.json"
 TF_TXT = {"5m": "5 minutes", "1h": "1 heure", "4h": "4 heures"}
 
 
-def evaluate_tf(tf, warmup=400, brain="rules"):
+def evaluate_tf(tf, warmup=400, brain="rules", partial=False):
     """Rejoue le scalper (avec ses 10 000 scénarios) sur les dernières bougies réelles de cette durée."""
-    old, old_b = CFG["tf"], CFG.get("brain")
-    CFG["tf"], CFG["brain"] = tf, brain
+    old, old_b, old_p = CFG["tf"], CFG.get("brain"), CFG.get("partial")
+    CFG["tf"], CFG["brain"], CFG["partial"] = tf, brain, partial
     try:
         data = {}
         for sym in SYMS:
@@ -492,24 +532,27 @@ def evaluate_tf(tf, warmup=400, brain="rules"):
         pn = [t["pnl"] for t in S["trades"] if t["kind"] == "close"]
         import statistics as _st
         tstat = (_st.mean(pn) / _st.stdev(pn) * len(pn) ** 0.5) if len(pn) >= 5 and _st.stdev(pn) > 0 else 0.0
-        return {"tf": tf, "brain": brain, "days": round(span, 1), "tstat": round(tstat, 2),
+        return {"tf": tf, "brain": brain, "partial": partial, "days": round(span, 1), "tstat": round(tstat, 2),
                 **{k: sm[k] for k in ("pnl", "trades", "win_rate", "fees", "mc_ok", "mc_no")}}
     finally:
-        CFG["tf"], CFG["brain"] = old, old_b
+        CFG["tf"], CFG["brain"], CFG["partial"] = old, old_b, old_p
 
 
 def choose_tf():
-    res = [r for r in (evaluate_tf(tf, brain=b) for tf in ("5m", "1h", "4h") for b in ("rules", "knn")) if r]
+    combos = [(tf, b, pt) for tf in ("5m", "1h", "4h") for b, pt in (("rules", False), ("rules", True), ("knn", False), ("knn", True))]
+    res = [r for r in (evaluate_tf(tf, brain=b, partial=pt) for tf, b, pt in combos) if r]
     if not res:
         return None
     best = max(res, key=lambda r: (r["tstat"] if r["trades"] >= 8 else -9))   # la plus fiable, avec assez de trades
     active = best["pnl"] > 0 and best["tstat"] > 0.5
     BR = {"rules": "règles fixes", "knn": "mémoire des situations"}
-    out = {"date": datetime.now(timezone.utc).date().isoformat(), "tf": best["tf"], "brain": best["brain"], "results": res,
+    out = {"date": datetime.now(timezone.utc).date().isoformat(), "tf": best["tf"], "brain": best["brain"],
+           "partial": best["partial"], "results": res,
            "active": active,
-           "summary": f"Retenu : bougies de {TF_TXT[best['tf']]}, cerveau « {BR[best['brain']]} ». Rejeu sur vraies bougies, "
+           "summary": f"Retenu : bougies de {TF_TXT[best['tf']]}, cerveau « {BR[best['brain']]} », "
+                      f"{'TP1 proche (1 ATR, moitié encaissée) + TP2 lointain (3,5 ATR)' if best['partial'] else 'objectif unique (2,5 ATR)'}. Rejeu sur vraies bougies, "
                       "10 000 scénarios avant chaque trade : "
-                      + " ; ".join(f"{TF_TXT[r['tf']]}/{BR[r['brain']]} {r['pnl']:+.0f} € en {r['days']:.0f} j ({r['trades']} trades, "
+                      + " ; ".join(f"{TF_TXT[r['tf']]}/{BR[r['brain']]}{'/TP1+TP2' if r['partial'] else ''} {r['pnl']:+.0f} € en {r['days']:.0f} j ({r['trades']} trades, "
                                    f"{(r['win_rate'] or 0):.0%} gagnants, fiabilité {r['tstat']:+.1f})" for r in res) + "."
                       + ("" if active else " Aucune combinaison n'est gagnante de façon fiable : le scalper reste en observation "
                                            "(il analyse mais n'ouvre pas de trade) jusqu'au prochain test.")}
@@ -534,6 +577,7 @@ try:                                                            # unité de temp
         CFG["tf"] = _d.get("tf", CFG["tf"])
         CFG["brain"] = _d.get("brain", "rules")
         CFG["active"] = _d.get("active", True)
+        CFG["partial"] = _d.get("partial", False)
 except (OSError, ValueError):
     pass
 

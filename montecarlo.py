@@ -34,7 +34,7 @@ def analog_paths(close, high, low, atr, idx, horizon):
     return np.array(C), np.array(Hh), np.array(Ll)
 
 
-def simulate(paths, direction, tp, sl, n=N_SCEN, block=3, seed=None):
+def simulate(paths, direction, tp, sl, n=N_SCEN, block=3, seed=None, tp1=None, frac=0.5):
     """Applique stop/objectif sur n trajectoires recomposées. Résultats en multiples d'ATR (R)."""
     C, Hh, Ll = paths
     A, H = C.shape
@@ -54,6 +54,8 @@ def simulate(paths, direction, tp, sl, n=N_SCEN, block=3, seed=None):
     else:
         hit_tp, hit_sl = (lo <= -tp) if tp else np.zeros_like(lo, bool), hi >= sl
     big = H + 1
+    if tp1:
+        return _partial(path, hi, lo, direction, tp1, tp, sl, frac, n, A)
     t_tp = np.where(hit_tp.any(1), hit_tp.argmax(1), big)
     t_sl = np.where(hit_sl.any(1), hit_sl.argmax(1), big)
     end = direction * path[:, -1]
@@ -61,6 +63,34 @@ def simulate(paths, direction, tp, sl, n=N_SCEN, block=3, seed=None):
     R = np.where((t_sl == big) & (t_tp == big), end, R)
     return {"n": n, "analogs": A, "p_win": float((R > 0).mean()), "ev_R": float(R.mean()),
             "p_tp": float((t_tp < t_sl).mean()), "p_sl": float(((t_sl <= t_tp) & (t_sl < big)).mean()),
+            "q05_R": float(np.quantile(R, 0.05)), "q95_R": float(np.quantile(R, 0.95))}
+
+
+def partial_R(path, hi, lo, direction, tp1, tp2, sl, frac):
+    """Résultat (en ATR) avec prise de profit en deux temps : TP1 proche ferme une part (frac) et met le stop
+    au prix d'entrée ; TP2 plus loin pour le reste. Stop prioritaire si une même bougie touche les deux."""
+    H = path.shape[1]
+    big = H + 1
+    up, dn = (hi, lo) if direction > 0 else (-lo, -hi)          # tout exprimé dans le sens du trade
+    first = lambda m_: np.where(m_.any(1), m_.argmax(1), big)
+    t_sl = first(dn <= -sl)
+    t_1 = first(up >= tp1)
+    end = direction * path[:, -1]
+    R = np.where(t_sl < big, -sl, end)                              # pas de TP1 : stop ou fin de durée
+    hit1 = t_1 < t_sl
+    idx = np.arange(H)[None, :]
+    after = idx > t_1[:, None]                                       # bougies après le TP1
+    t_2 = first((up >= tp2) & (idx >= t_1[:, None]))
+    t_be = first((dn <= 0) & after)
+    rest = np.where(t_2 <= t_be, np.where(t_2 < big, tp2, end), 0.0)
+    rest = np.where((t_2 == big) & (t_be == big), end, rest)
+    return np.where(hit1, frac * tp1 + (1 - frac) * rest, R)
+
+
+def _partial(path, hi, lo, direction, tp1, tp2, sl, frac, n, A):
+    R = partial_R(path, hi, lo, direction, tp1, tp2, sl, frac)
+    return {"n": n, "analogs": A, "p_win": float((R > 0).mean()), "ev_R": float(R.mean()),
+            "p_tp": float((R >= frac * tp1 - 1e-9).mean()), "p_sl": float((R <= -sl + 1e-9).mean()),
             "q05_R": float(np.quantile(R, 0.05)), "q95_R": float(np.quantile(R, 0.95))}
 
 
