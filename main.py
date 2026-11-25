@@ -470,6 +470,15 @@ def cmd_status(args):
         print(f"  {config.UNIVERSE.get(s, s):16} {q:>12.4f}  ≈ {q * prices.get(s, 0):>10,.0f} €")
 
 
+def cmd_render(args):
+    """Reconstruit l'appli avec le dernier modèle, à partir des dernières données (sans trader)."""
+    import json as _j
+    with open(os.path.join("docs", "data.json")) as f:
+        payload = _j.load(f)
+    write_dashboard(payload)
+    print("🖼️  appli reconstruite avec le nouveau modèle")
+
+
 def cmd_allocate(args):
     """Compare les méthodes d'allocation sur les vrais cours (une fois par semaine, ou --force)."""
     import allocation
@@ -505,7 +514,7 @@ def cmd_tune(args):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(description="Bot d'analyse et de paper trading")
-    ap.add_argument("command", choices=["backtest", "run", "status", "replay", "tune", "allocate"])
+    ap.add_argument("command", choices=["backtest", "run", "status", "replay", "tune", "allocate", "render"])
     ap.add_argument("--demo", action="store_true", help="données simulées, sans internet")
     ap.add_argument("--mock-ai", action="store_true", help="simule la réponse de l'IA (test)")
     ap.add_argument("--days", type=int, default=120, help="jours à rejouer (replay)")
@@ -513,4 +522,4 @@ if __name__ == "__main__":
     ap.add_argument("--full", action="store_true", help="affiche aussi le rapport complet des signaux")
     a = ap.parse_args()
     activate_profile()
-    {"backtest": cmd_backtest, "run": cmd_run, "status": cmd_status, "replay": cmd_replay, "tune": cmd_tune, "allocate": cmd_allocate}[a.command](a)
+    {"backtest": cmd_backtest, "run": cmd_run, "status": cmd_status, "replay": cmd_replay, "tune": cmd_tune, "allocate": cmd_allocate, "render": cmd_render}[a.command](a)

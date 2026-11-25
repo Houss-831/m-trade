@@ -781,6 +781,20 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
   .live { grid-template-columns: minmax(0, 1fr); }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before { animation: none !important; transition: none !important; } }
+
+/* ---- Mobile : rien ne doit dépasser la largeur de l'écran (sinon iOS dézoome toute la page) ---- */
+html, body { max-width: 100%; overflow-x: hidden; }
+.top-in { min-width: 0; max-width: 100vw; }
+@media (max-width: 700px) {
+  .top-in { gap: 6px !important; padding-left: 10px !important; padding-right: 10px !important; }
+  .top-in .status #status-text, .top-in .clock, .top-in label.btn[for="file"] { display: none !important; }
+  .top-in .status { padding: 6px !important; }
+  .brand small { display: none; }
+  .brand b { font-size: 17px; }
+  #sc-pill-t { max-width: 92px; overflow: hidden; text-overflow: ellipsis; display: inline-block; vertical-align: bottom; }
+  .news a { grid-template-columns: 22px minmax(0, 1fr); row-gap: 2px; }
+  .news a > :last-child { grid-column: 2; font-size: 12px; color: var(--muted); text-align: left; }
+}
 </style>
 </head>
 <body>
@@ -3297,7 +3311,7 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
     var el = $("sc-pill"); if (!el || !SC.W) return;
     var v = scEquity(), pl = v - SC.W.start, n = Object.keys(SC.W.pos).length;
     el.hidden = !SC.on && !SC.W.trades.length;
-    $("sc-pill-t").textContent = (SC.mode === "sim" ? "Simulation " : "") + (SC.on ? "Scalper " : "Scalper en pause ") + (pl > 0 ? "+" : "") + eur(pl, 2) + (n ? " · " + n + " pos." : "");
+    $("sc-pill-t").textContent = window.innerWidth < 700 ? (pl > 0 ? "+" : "") + eur(pl, 2) : (SC.mode === "sim" ? "Simulation " : "") + (SC.on ? "Scalper " : "Scalper en pause ") + (pl > 0 ? "+" : "") + eur(pl, 2) + (n ? " · " + n + " pos." : "");
     el.className = "sc-pill " + (pl > 0 ? "up" : pl < 0 ? "down" : "");
   }
 

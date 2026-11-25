@@ -85,6 +85,7 @@ def main_run():
 def main():
     t_end = time.time() + MINUTES * 60
     last_save = 0
+    sh(sys.executable, "main.py", "render", check=True)      # l'appli prend tout de suite le nouveau modèle
     S = ss.load()
     while time.time() < t_end:
         t0 = time.time()
