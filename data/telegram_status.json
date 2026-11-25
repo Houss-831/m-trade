@@ -1,1 +1,1 @@
-{"at": "2026-11-25T12:20:46", "status": "erreur : InvalidURL · le secret TELEGRAM_TOKEN n'a pas la forme d'un jeton Telegram (48 caractères ; format inattendu). Un jeton ressemble à 1234567890:AAH… (environ 46 caractères)."}
+{"at": "2026-11-25T12:35:50", "status": "erreur Telegram 401 : jeton invalide (vérifie le secret TELEGRAM_TOKEN)"}
