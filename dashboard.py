@@ -20,7 +20,9 @@ ASSET_CLASS = {"^FCHI": "Actions", "^GDAXI": "Actions", "^GSPC": "Actions", "^IX
                "^N225": "Actions", "BTC-USD": "Crypto", "ETH-USD": "Crypto", "SOL-USD": "Crypto",
                "GC=F": "Matières", "CL=F": "Matières", "SI=F": "Matières",
            "XLK": "Actions", "XLV": "Actions", "XLE": "Actions", "XLF": "Actions", "AAPL": "Actions",
-           "MSFT": "Actions", "NVDA": "Actions", "TLT": "Obligations", "IEF": "Obligations", "EURUSD=X": "Forex", "USDJPY=X": "Forex",
+           "MSFT": "Actions", "NVDA": "Actions", "TLT": "Obligations", "IEF": "Obligations",
+           "EEM": "Actions", "VGK": "Actions", "INDA": "Actions", "FXI": "Actions", "XLI": "Actions", "XLY": "Actions",
+           "VNQ": "Actions", "HG=F": "Matières", "AMZN": "Actions", "GOOGL": "Actions", "META": "Actions", "EURUSD=X": "Forex", "USDJPY=X": "Forex",
                "^TNX": "Taux"}
 TEMPLATE = os.path.join(os.path.dirname(__file__), "dashboard_template.html")
 

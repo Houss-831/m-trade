@@ -31,13 +31,26 @@ UNIVERSE = {
     "TLT": "Obligations US 20 ans",
     "IEF": "Obligations US 7-10 ans",
     "SI=F": "Argent métal",
+    # Univers large (v17) : régions, autres secteurs, immobilier, cuivre, grandes actions
+    "EEM": "Pays émergents",
+    "VGK": "Europe (grandes entreprises)",
+    "INDA": "Inde",
+    "FXI": "Chine",
+    "XLI": "Secteur industrie US",
+    "XLY": "Secteur consommation US",
+    "VNQ": "Immobilier coté US",
+    "HG=F": "Cuivre",
+    "AMZN": "Amazon",
+    "GOOGL": "Alphabet (Google)",
+    "META": "Meta",
 }
 
 # Actifs sur lesquels le bot peut prendre des positions fictives
 CORE_TRADABLE = ["^FCHI", "^GDAXI", "^GSPC", "^IXIC", "^N225",
                  "BTC-USD", "ETH-USD", "SOL-USD", "GC=F", "CL=F"]
 EXTRA_TRADABLE = ["XLK", "XLV", "XLE", "XLF", "AAPL", "MSFT", "NVDA", "TLT", "IEF", "SI=F"]
-TRADABLE = CORE_TRADABLE + EXTRA_TRADABLE
+LARGE_TRADABLE = ["EEM", "VGK", "INDA", "FXI", "XLI", "XLY", "VNQ", "HG=F", "AMZN", "GOOGL", "META"]
+TRADABLE = CORE_TRADABLE + EXTRA_TRADABLE + LARGE_TRADABLE
 
 ALL_TRADABLE = list(TRADABLE)   # tout ce que le bot sait trader (TRADABLE = la sélection du profil)
 
@@ -67,6 +80,11 @@ KEYWORDS = {
     "TLT": ["treasury", "bond", "yields", "obligations", "fed"],
     "IEF": ["treasury", "bond", "yields", "obligations"],
     "SI=F": ["silver", "argent métal"],
+    "EEM": ["emerging markets", "émergents"], "VGK": ["europe", "stoxx", "bce", "ecb"],
+    "INDA": ["india", "inde", "sensex", "nifty"], "FXI": ["china", "chine", "beijing", "yuan"],
+    "XLI": ["industrial", "boeing", "caterpillar"], "XLY": ["consumer", "retail", "tesla"],
+    "VNQ": ["real estate", "reit", "immobilier"], "HG=F": ["copper", "cuivre"],
+    "AMZN": ["amazon", "aws"], "GOOGL": ["google", "alphabet", "gemini"], "META": ["meta", "facebook", "instagram"],
 }
 
 # Flux RSS d'actualité (gratuits)

@@ -117,11 +117,51 @@ def build_summary(state, value, prices, names, extra=None):
     return "\n".join(L)
 
 
+def telegram_chat(token):
+    """Identifiant de la conversation : secret TELEGRAM_CHAT_ID, sinon trouvé tout seul
+    à partir du dernier message que tu as envoyé à ton bot (il suffit de lui écrire « bonjour »)."""
+    chat = os.getenv("TELEGRAM_CHAT_ID")
+    if chat:
+        return chat
+    path = "data/telegram_chat.txt"
+    try:
+        with open(path) as f:
+            return f.read().strip() or None
+    except OSError:
+        pass
+    try:
+        with urllib.request.urlopen(f"https://api.telegram.org/bot{token}/getUpdates", timeout=15) as r:
+            ups = json.loads(r.read().decode()).get("result", [])
+        for u in reversed(ups):
+            m = u.get("message") or u.get("edited_message") or {}
+            if m.get("chat", {}).get("id"):
+                chat = str(m["chat"]["id"])
+                os.makedirs("data", exist_ok=True)
+                with open(path, "w") as f:
+                    f.write(chat)
+                return chat
+    except Exception:
+        return None
+    return None
+
+
+_WELCOMED = False
+
+
 def send_telegram(text):
-    """Envoie le rapport si TELEGRAM_TOKEN et TELEGRAM_CHAT_ID sont définis."""
-    token, chat = os.getenv("TELEGRAM_TOKEN"), os.getenv("TELEGRAM_CHAT_ID")
-    if not token or not chat:
+    """Envoie le message si TELEGRAM_TOKEN est défini (la conversation est trouvée automatiquement)."""
+    global _WELCOMED
+    token = os.getenv("TELEGRAM_TOKEN")
+    if not token:
         return False
+    first = not os.path.exists("data/telegram_chat.txt") and not os.getenv("TELEGRAM_CHAT_ID")
+    chat = telegram_chat(token)
+    if not chat:
+        return False
+    if first and not _WELCOMED:
+        _WELCOMED = True
+        text = ("✅ M-TRADE est connecté à ton Telegram. Tu recevras ici chaque achat et chaque vente du bot "
+                "(avec ses raisons et le verdict des 10 000 scénarios), les alertes importantes et un résumé chaque soir.\n\n") + text
     url = f"https://api.telegram.org/bot{token}/sendMessage"
     for i in range(0, len(text), 4000):            # limite Telegram : 4096 caractères
         data = urllib.parse.urlencode({"chat_id": chat, "text": text[i:i + 4000]}).encode()

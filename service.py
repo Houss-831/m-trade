@@ -75,7 +75,7 @@ def push(msg):
 def allocation_stale():
     try:
         with open("data/allocation.json") as f:
-            return "universe" not in json.load(f)        # ancienne version : refaire la comparaison tout de suite
+            return "band" not in json.load(f)            # ancienne version : refaire la comparaison tout de suite
     except (OSError, ValueError):
         return True
 
@@ -103,7 +103,16 @@ def main():
     while time.time() < t_end:
         t0 = time.time()
         try:
+            n_log = len(S.get("log", []))
             S = ss.step(S)
+            if os.getenv("TELEGRAM_TOKEN"):
+                from report import send_telegram
+                for t, txt in S["log"][n_log:]:
+                    if txt[:1] in ("🟢", "🔴", "✅", "❌", "⛔", "⏱"):
+                        try:
+                            send_telegram("⚡ Scalper M-TRADE\n" + txt)
+                        except Exception:
+                            pass
             ss.save(S)
             export_scalp(S)
             print(datetime.now(timezone.utc).strftime("%H:%M"), "scalper", ss.summary(S))

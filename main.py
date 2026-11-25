@@ -131,8 +131,12 @@ def activate_profile():
         print("🎛️  réglage automatique du " + tun["date"] + " : " + tun["summary"])
     config.RISK.update(risk)
     config.PAPER.update(paper)
-    if al and al.get("universe") == "initial" and not prof.get("assets"):   # univers retenu sur les vrais cours
-        tradable = [s for s in tradable if s in config.CORE_TRADABLE]
+    if al and not prof.get("assets"):                                     # univers retenu sur les vrais cours
+        keep = {"initial": config.CORE_TRADABLE, "élargi": config.CORE_TRADABLE + config.EXTRA_TRADABLE}.get(al.get("universe"))
+        if keep:
+            tradable = [s for s in tradable if s in keep]
+        if al.get("band"):
+            config.PAPER["min_trade_pct"] = al["band"]
     config.TRADABLE[:] = tradable
     config.AI["news_weight"] = aiw
     config.PROFILE = prof
@@ -382,6 +386,9 @@ def cmd_run(args):
             send_telegram(msg)
     if not orders:
         print("Aucun ordre : positions inchangées.")
+        if os.getenv("TELEGRAM_TOKEN") and not os.path.exists("data/telegram_chat.txt"):
+            pos = ", ".join(f"{config.UNIVERSE.get(s, s)}" for s in state["positions"]) or "aucune (liquidités)"
+            send_telegram(f"📊 Portefeuille fictif : {value:,.0f} € · positions : {pos}".replace(",", " "))
 
     # Bilan quotidien optionnel
     hour = pp.get("daily_summary_hour")
@@ -490,7 +497,8 @@ def cmd_allocate(args):
     full = load_prices(args.demo, "10y" if not args.demo else "5y")
     activate_profile()
     univ = {"initial": [s for s in config.CORE_TRADABLE if s in full],
-            "élargi": [s for s in config.ALL_TRADABLE if s in full]}
+            "élargi": [s for s in config.CORE_TRADABLE + config.EXTRA_TRADABLE if s in full],
+            "large": [s for s in config.ALL_TRADABLE if s in full]}
     p = dict(config.STRATEGY, allow_short=False)
     res = allocation.choose(full, univ, p, config.PAPER["fee_rate"])
     allocation.save(res)
