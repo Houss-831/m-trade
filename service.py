@@ -1,4 +1,4 @@
-"""Service M-TRADE 24 h/24 (lancé par GitHub Actions, environ 5 h 45 par session, sessions enchaînées).
+"""Service M-TRADE 24 h/24 (Telegram inclus) (lancé par GitHub Actions, environ 5 h 45 par session, sessions enchaînées).
 
 - toutes les 5 minutes : scalper serveur sur les bougies 5 min qui viennent de clôturer ;
 - toutes les 2 heures : passage complet du bot (actus, conseil, décisions, appli) ;
