@@ -69,6 +69,10 @@
     {
       "date": "2026-11-26T22:05:34",
       "value": 10001.1
+    },
+    {
+      "date": "2026-11-27T00:10:35",
+      "value": 10002.29
     }
   ],
   "reset_from": "data/archive/2026-11-25_1205",
@@ -99,19 +103,19 @@
   },
   "troughs": {},
   "breaker": {
-    "drawdown": -0.0002682294297208232,
+    "drawdown": -0.00014904950932914662,
     "factor": 1.0
   },
   "day": {
-    "date": "2026-11-26",
-    "start": 10000.500369156673,
+    "date": "2026-11-27",
+    "start": 10002.288941499564,
     "halted": false
   },
   "risk_budget": {
-    "day_pnl": 0.5963226388757903,
+    "day_pnl": 0.0,
     "max_loss_day": null,
     "budget_left": null,
-    "var95": 61.23833224447545,
+    "var95": 60.76152661180668,
     "max_loss_total": null,
     "invest_max": null,
     "halted_day": false,
@@ -119,127 +123,127 @@
   },
   "last_leader": "donchian",
   "last_stress": 1.0,
-  "thermo_last": 53.2,
+  "thermo_last": 53.5,
   "last_signals": {
     "^FCHI": {
       "action": "ACHAT",
-      "score": -0.10022744576746156,
-      "rsi": 51.3472486042655,
-      "adx": 24.698776431758485
+      "score": -0.25395713640178574,
+      "rsi": 41.24003409785605,
+      "adx": 25.169321457065895
     },
     "^GDAXI": {
       "action": "ACHAT",
-      "score": -0.17870581811240743,
-      "rsi": 43.9813462735582,
-      "adx": 23.60262075217859
+      "score": -0.5238106615915423,
+      "rsi": 34.39727926460209,
+      "adx": 25.41703520265563
     },
     "^GSPC": {
       "action": "ACHAT",
-      "score": -0.02682026199127068,
-      "rsi": 44.62356574977807,
-      "adx": 18.552577365820397
+      "score": 0.005454131014914516,
+      "rsi": 44.79179478991508,
+      "adx": 17.96346301112855
     },
     "^IXIC": {
       "action": "ACHAT",
-      "score": -0.22201626863158322,
-      "rsi": 42.482555529993036,
-      "adx": 20.587232313990498
+      "score": -0.3953893945686323,
+      "rsi": 42.60168170154987,
+      "adx": 20.16829717622781
     },
     "^N225": {
       "action": "ACHAT",
-      "score": -0.6480747419746377,
-      "rsi": 40.12033520067397,
-      "adx": 24.28348687288145
+      "score": -0.630774705327749,
+      "rsi": 40.04524538409132,
+      "adx": 23.965367772995936
     },
     "BTC-USD": {
       "action": "ACHAT",
-      "score": -0.42239959090246504,
-      "rsi": 29.51069839527699,
-      "adx": 37.030429062377735
+      "score": -0.4168215801430552,
+      "rsi": 29.144740994881644,
+      "adx": 37.459046731929234
     },
     "ETH-USD": {
       "action": "ACHAT",
-      "score": -0.44587285100686364,
-      "rsi": 31.094455072524752,
-      "adx": 37.00568434396811
+      "score": -0.4552198770158184,
+      "rsi": 30.436997080528613,
+      "adx": 37.216684641313904
     },
     "SOL-USD": {
       "action": "ACHAT",
-      "score": -0.3844099134802489,
-      "rsi": 33.999522761627574,
-      "adx": 39.123981503570256
+      "score": -0.3891688304411766,
+      "rsi": 33.63759662644905,
+      "adx": 38.9180455530719
     },
     "GC=F": {
       "action": "ACHAT",
-      "score": -0.6124503273200174,
-      "rsi": 36.92969832785488,
-      "adx": 28.119076077590282
+      "score": -0.6156874295114643,
+      "rsi": 37.26264490578048,
+      "adx": 27.8974996698967
     },
     "CL=F": {
       "action": "ACHAT",
-      "score": -0.2523361853040478,
-      "rsi": 44.384348273359656,
-      "adx": 25.12815633223326
+      "score": -0.20252340012076311,
+      "rsi": 44.62947180757517,
+      "adx": 24.076407010750174
     },
     "XLK": {
       "action": "ACHAT",
-      "score": -0.5736856384011819,
-      "rsi": 40.103410208203506,
-      "adx": 25.84514814334679
+      "score": -0.5596427399146378,
+      "rsi": 40.18618128225069,
+      "adx": 25.397581371144483
     },
     "XLV": {
       "action": "ACHAT",
-      "score": 0.6549690436777421,
-      "rsi": 56.26928389585287,
-      "adx": 26.964213023552137
+      "score": 0.6660642446079289,
+      "rsi": 56.45521162348302,
+      "adx": 25.971959994618995
     },
     "XLE": {
       "action": "ACHAT",
-      "score": -0.26951679430331554,
-      "rsi": 40.45386560623685,
-      "adx": 24.48719577872889
+      "score": -0.2551877372132248,
+      "rsi": 40.636888401631374,
+      "adx": 24.067964058429922
     },
     "XLF": {
       "action": "ACHAT",
-      "score": 0.4779505209277391,
-      "rsi": 53.62505527886877,
-      "adx": 19.10443362335543
+      "score": 0.48910623677244874,
+      "rsi": 53.82528755569775,
+      "adx": 18.29807807040691
     },
     "AAPL": {
       "action": "ACHAT",
       "score": 0.85,
-      "rsi": 62.87033717301637,
-      "adx": 18.815358276977026
+      "rsi": 63.06537614656107,
+      "adx": 19.35182305415205
     },
     "MSFT": {
       "action": "ACHAT",
-      "score": -0.21530395341287326,
-      "rsi": 40.72320974268475,
-      "adx": 15.204011688911969
+      "score": -0.35104515605707476,
+      "rsi": 40.86354513964363,
+      "adx": 15.41724634042755
     },
     "NVDA": {
       "action": "ACHAT",
-      "score": -0.4946218382337071,
-      "rsi": 41.16744791072593,
-      "adx": 40.2354490803025
+      "score": -0.4767250192879221,
+      "rsi": 41.20649442702767,
+      "adx": 38.616022942487135
     },
     "TLT": {
       "action": "ACHAT",
-      "score": 0.7661140328421809,
-      "rsi": 73.99534419320193,
-      "adx": 30.875126684461044
+      "score": 0.7730539501170498,
+      "rsi": 74.39018015172263,
+      "adx": 32.18888384482463
     },
     "IEF": {
       "action": "ACHAT",
-      "score": 0.8327098422764483,
-      "rsi": 75.9205376447631,
-      "adx": 38.110497572217064
+      "score": 0.8261303862785219,
+      "rsi": 76.48388843184959,
+      "adx": 39.22321000821178
     },
     "SI=F": {
       "action": "ACHAT",
-      "score": -0.7636280163313769,
-      "rsi": 34.08439162488202,
-      "adx": 37.26151544049147
+      "score": -0.6628742280713865,
+      "rsi": 34.14315461118541,
+      "adx": 36.86370590640828
     }
   },
   "stop_alerted": [],
@@ -707,6 +711,46 @@
       "title": "Obligations US 20 ans : \u00c9toile filante",
       "text": "Longue m\u00e8che haute apr\u00e8s une hausse : les vendeurs ont rejet\u00e9 les plus hauts. Signal baissier pris en compte par le conseil.",
       "symbol": "TLT"
+    },
+    {
+      "date": "2026-11-27T00:10",
+      "kind": "trend",
+      "level": "info",
+      "title": "CAC 40 entre en tendance",
+      "text": "ADX 25 : les m\u00e9thodes de tendance gagnent en fiabilit\u00e9",
+      "symbol": "^FCHI"
+    },
+    {
+      "date": "2026-11-27T00:10",
+      "kind": "momentum",
+      "level": "info",
+      "title": "DAX : la conviction renforce",
+      "text": "score -0.18 \u2192 -0.52",
+      "symbol": "^GDAXI"
+    },
+    {
+      "date": "2026-11-27T00:10",
+      "kind": "trend",
+      "level": "info",
+      "title": "DAX entre en tendance",
+      "text": "ADX 25 : les m\u00e9thodes de tendance gagnent en fiabilit\u00e9",
+      "symbol": "^GDAXI"
+    },
+    {
+      "date": "2026-11-27T00:10",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Secteur finance US : Trois soldats blancs",
+      "text": "Trois fortes bougies vertes successives : les acheteurs prennent le contr\u00f4le. Signal haussier pris en compte par le conseil.",
+      "symbol": "XLF"
+    },
+    {
+      "date": "2026-11-27T00:10",
+      "kind": "pattern",
+      "level": "info",
+      "title": "Obligations US 20 ans : \u00c9toile filante",
+      "text": "Longue m\u00e8che haute apr\u00e8s une hausse : les vendeurs ont rejet\u00e9 les plus hauts. Signal baissier pris en compte par le conseil.",
+      "symbol": "TLT"
     }
   ],
   "cost_basis": {
@@ -819,6 +863,13 @@
       "date": "2026-11-26 22:05",
       "oracle": 54,
       "performance": 39,
+      "intelligence": 50,
+      "risk": 9
+    },
+    {
+      "date": "2026-11-27 00:10",
+      "oracle": 54,
+      "performance": 40,
       "intelligence": 50,
       "risk": 9
     }
